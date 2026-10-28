@@ -1,0 +1,35 @@
+{
+  "games": [
+    [
+      "Sentieri del bosco",
+      "Giochi Luce del Nord",
+      "Soggiorno, scaffale 2",
+      "L’espansione è nella scatola.\nIdeale per una serata di giochi tranquilla."
+    ],
+    [
+      "Porto stellare",
+      "Atelier Orbita",
+      "Soggiorno, scaffale 1",
+      "Le stazioni spaziali sono ordinate per colore.\nGuida rapida nel coperchio."
+    ],
+    [
+      "Giardino dell’isola",
+      "Studio Fogliame",
+      "Studio, armadio A",
+      "Tutte le pedine di legno sono nel sacchetto di stoffa.\nCarta aggiuntiva nello scomparto."
+    ],
+    [
+      "Posta delle nuvole",
+      "Giochi Luna di Carta",
+      "Soggiorno, scaffale 2",
+      "Riordinare le carte dopo la partita.\nIl regolamento è sotto l’inserto."
+    ],
+    [
+      "Città dei ciottoli",
+      "Fiume e Forma",
+      "Studio, scaffale 3",
+      "Tutti i pezzi dei ponti sono presenti.\nDa ricordare per la prossima serata di giochi."
+    ]
+  ],
+  "search": "stazioni spaziali"
+}

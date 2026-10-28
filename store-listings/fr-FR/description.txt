@@ -1,0 +1,5 @@
+Gardez une vue d’ensemble de votre collection de jeux de société avec BrettspielRegal. Enregistrez le nom du jeu, son éditeur ou fabricant, son emplacement et une note sur plusieurs lignes. Seul le nom du jeu est obligatoire.
+
+Recherchez dans les quatre champs de texte, modifiez vos entrées et lisez la note complète directement dans la collection. L’application demande confirmation avant de supprimer un jeu ou d’abandonner des modifications non enregistrées.
+
+Votre collection reste sur votre appareil et est disponible après le redémarrage. Aucun compte ni connexion Internet n’est nécessaire. L’interface est disponible en allemand, anglais, espagnol, français, italien et portugais du Brésil. Le choix d’une nouvelle langue prend effet au prochain démarrage.

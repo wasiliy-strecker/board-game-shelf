@@ -1,0 +1,5 @@
+Mit BrettspielRegal behältst du deine Brettspielsammlung im Blick. Erfasse den Spielnamen, Verlag oder Hersteller, Aufbewahrungsort und eine mehrzeilige Notiz. Nur der Spielname ist erforderlich.
+
+Durchsuche alle vier Textfelder, bearbeite deine Einträge und lies die vollständige Notiz direkt in der Sammlung. Vor dem Löschen oder Verwerfen ungespeicherter Änderungen fragt die App nach.
+
+Deine Sammlung bleibt lokal auf deinem Gerät und ist nach dem Neustart wieder verfügbar. Kein Konto und keine Internetverbindung erforderlich. Die Oberfläche ist auf Deutsch, Englisch, Spanisch, Französisch, Italienisch und brasilianischem Portugiesisch verfügbar. Eine neue Sprachwahl gilt beim nächsten Start.

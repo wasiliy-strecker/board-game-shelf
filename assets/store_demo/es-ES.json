@@ -1,0 +1,35 @@
+{
+  "games": [
+    [
+      "Senderos del bosque",
+      "Juegos Luz del Norte",
+      "Salón, estantería 2",
+      "La expansión está dentro de la caja.\nIdeal para una noche tranquila de juegos."
+    ],
+    [
+      "Puerto estelar",
+      "Taller Órbita",
+      "Salón, estantería 1",
+      "Las estaciones espaciales están ordenadas por colores.\nGuía rápida en la tapa."
+    ],
+    [
+      "Jardín de la isla",
+      "Estudio Hojarasca",
+      "Despacho, armario A",
+      "Todas las figuras de madera están en la bolsa de tela.\nPapel adicional en el compartimento."
+    ],
+    [
+      "Correo de las nubes",
+      "Juegos Luna de Papel",
+      "Salón, estantería 2",
+      "Ordenar las cartas después de jugar.\nEl reglamento está debajo del inserto."
+    ],
+    [
+      "Ciudad de guijarros",
+      "Río y Forma",
+      "Despacho, estantería 3",
+      "Están todas las piezas de los puentes.\nRecordar para la próxima noche de juegos."
+    ]
+  ],
+  "search": "estaciones espaciales"
+}

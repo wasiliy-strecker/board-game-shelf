@@ -1,0 +1,5 @@
+Spielname, Verlag oder Hersteller, Aufbewahrungsort und Notiz erfassen
+Alle vier Textfelder durchsuchen
+Einträge bearbeiten und nach Bestätigung löschen
+Sammlung lokal ohne Konto verwenden
+Sechs Sprachen mit gespeicherter Sprachwahl

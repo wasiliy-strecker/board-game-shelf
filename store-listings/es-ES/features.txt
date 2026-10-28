@@ -1,0 +1,5 @@
+Guardar nombres de juegos, editoriales o fabricantes, ubicaciones y notas
+Buscar en los cuatro campos de texto
+Editar entradas y confirmar antes de eliminar
+Usar una colección local sin cuenta
+Elegir entre seis idiomas y guardar la preferencia

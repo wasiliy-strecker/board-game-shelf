@@ -1,5 +1,7 @@
 #include "ui/main_window.h"
+#include "ui/language_dialog.h"
 #include "ui/ui_support.h"
+#include <QCoreApplication>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -22,14 +24,18 @@
 
 namespace shelf {
 
-MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWidget* parent)
+MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
+                       QString languagePreference, QWidget* parent)
     : QMainWindow(parent), controller_(controller), dataDirectory_(std::move(dataDirectory)),
-      search_(new QLineEdit(this)), table_(new QTableWidget(this)), note_(new QPlainTextEdit(this)),
+      languagePreference_(std::move(languagePreference)), search_(new QLineEdit(this)),
+      table_(new QTableWidget(this)), note_(new QPlainTextEdit(this)),
       detailTitle_(new QLabel(this)), state_(new QLabel(this)), feedback_(new QLabel(this)),
-      count_(new QLabel(this)), add_(new QPushButton(QStringLiteral("Spiel hinzufügen"), this)),
-      edit_(new QPushButton(QStringLiteral("Bearbeiten"), this)),
-      remove_(new QPushButton(QStringLiteral("Löschen"), this)),
-      reload_(new QPushButton(QStringLiteral("Neu laden"), this)) {
+      count_(new QLabel(this)),
+      add_(new QPushButton(QCoreApplication::translate("App", "Spiel hinzufügen"), this)),
+      edit_(new QPushButton(QCoreApplication::translate("App", "Bearbeiten"), this)),
+      remove_(new QPushButton(QCoreApplication::translate("App", "Löschen"), this)),
+      reload_(new QPushButton(QCoreApplication::translate("App", "Neu laden"), this)),
+      language_(new QPushButton(QCoreApplication::translate("App", "Sprache"), this)) {
   setWindowTitle(QStringLiteral("BrettspielRegal"));
   setObjectName(QStringLiteral("mainWindow"));
   resize(1000, 740);
@@ -45,19 +51,26 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
   titleFont.setBold(true);
   title->setFont(titleFont);
   header->addWidget(title, 1);
-  auto* about = new QPushButton(QStringLiteral("Über die App"), central);
-  header->addWidget(about);
+  auto* about = new QPushButton(QCoreApplication::translate("App", "Über die App"), central);
   root->addLayout(header);
-  auto* subtitle =
-      new QLabel(QStringLiteral("Deine Spiele. Dein Platz für alles, was dazugehört."), central);
+  auto* settings = new QHBoxLayout;
+  settings->addStretch();
+  language_->setObjectName(QStringLiteral("changeLanguage"));
+  settings->addWidget(language_);
+  settings->addWidget(about);
+  root->addLayout(settings);
+  auto* subtitle = new QLabel(
+      QCoreApplication::translate("App", "Deine Spiele. Dein Platz für alles, was dazugehört."),
+      central);
   subtitle->setWordWrap(true);
   root->addWidget(subtitle);
   search_->setObjectName(QStringLiteral("searchGames"));
-  search_->setAccessibleName(QStringLiteral("Sammlung durchsuchen"));
-  search_->setPlaceholderText(QStringLiteral("Name, Verlag, Aufbewahrungsort oder Notiz suchen …"));
+  search_->setAccessibleName(QCoreApplication::translate("App", "Sammlung durchsuchen"));
+  search_->setPlaceholderText(
+      QCoreApplication::translate("App", "Name, Verlag, Aufbewahrungsort oder Notiz suchen …"));
   search_->setClearButtonEnabled(true);
   root->addWidget(search_);
-  auto* clear = new QPushButton(QStringLiteral("Suche leeren"), central);
+  auto* clear = new QPushButton(QCoreApplication::translate("App", "Suche leeren"), central);
   clear->setObjectName(QStringLiteral("clearSearch"));
   auto* searchInfo = new QHBoxLayout;
   searchInfo->addWidget(count_, 1);
@@ -73,11 +86,11 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
   state_->setTextFormat(Qt::PlainText);
   collectionLayout->addWidget(state_);
   table_->setObjectName(QStringLiteral("gamesTable"));
-  table_->setAccessibleName(QStringLiteral("Brettspielsammlung"));
+  table_->setAccessibleName(QCoreApplication::translate("App", "Brettspielsammlung"));
   table_->setColumnCount(3);
-  table_->setHorizontalHeaderLabels({QStringLiteral("Spielname"),
-                                     QStringLiteral("Verlag / Hersteller"),
-                                     QStringLiteral("Aufbewahrungsort")});
+  table_->setHorizontalHeaderLabels({QCoreApplication::translate("App", "Spielname"),
+                                     QCoreApplication::translate("App", "Verlag / Hersteller"),
+                                     QCoreApplication::translate("App", "Aufbewahrungsort")});
   table_->setSelectionBehavior(QAbstractItemView::SelectRows);
   table_->setSelectionMode(QAbstractItemView::SingleSelection);
   table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -99,7 +112,7 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
   detailTitle_->setFont(detailFont);
   detailLayout->addWidget(detailTitle_);
   note_->setObjectName(QStringLiteral("selectedNote"));
-  note_->setAccessibleName(QStringLiteral("Vollständige Notiz"));
+  note_->setAccessibleName(QCoreApplication::translate("App", "Vollständige Notiz"));
   note_->setReadOnly(true);
   note_->setTabChangesFocus(true);
   detailLayout->addWidget(note_);
@@ -130,6 +143,14 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
   setCentralWidget(central);
 
   connect(about, &QPushButton::clicked, this, &MainWindow::showAbout);
+  connect(language_, &QPushButton::clicked, this, &MainWindow::showLanguage);
+  auto* languageShortcut = new QShortcut(QKeySequence(QStringLiteral("Ctrl+,")), this);
+  connect(languageShortcut, &QShortcut::activated, this, &MainWindow::showLanguage);
+  connect(&controller_, &StorageController::languageSaved, this, [this](const QString& preference) {
+    languagePreference_ = preference;
+    feedback_->setText(
+        QCoreApplication::translate("App", "Sprache gespeichert. Sie gilt beim nächsten Start."));
+  });
   connect(clear, &QPushButton::clicked, search_, &QLineEdit::clear);
   connect(search_, &QLineEdit::textChanged, this, [this, clear] {
     clear->setEnabled(!search_->text().isEmpty());
@@ -155,7 +176,7 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
   connect(&controller_, &StorageController::busyChanged, this, [this](bool busy) {
     updateActions();
     if (busy) {
-      feedback_->setText(QStringLiteral("Daten werden verarbeitet …"));
+      feedback_->setText(QCoreApplication::translate("App", "Daten werden verarbeitet …"));
     }
   });
   connect(&controller_, &StorageController::loaded, this, [this](const GameList& games) {
@@ -178,10 +199,12 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
     const bool visible = std::any_of(visibleGames_.cbegin(), visibleGames_.cend(),
                                      [&game](const BoardGame& row) { return row.id == game.id; });
     feedback_->setText(
-        visible ? QStringLiteral("„%1“ wurde gespeichert.").arg(game.fields.name)
-                : QStringLiteral("„%1“ wurde gespeichert, passt aber nicht zur aktuellen Suche. "
-                                 "Mit „Suche leeren“ findest du es wieder.")
-                      .arg(game.fields.name));
+        visible
+            ? QCoreApplication::translate("App", "„%1“ wurde gespeichert.").arg(game.fields.name)
+            : QCoreApplication::translate(
+                  "App", "„%1“ wurde gespeichert, passt aber nicht zur aktuellen Suche. "
+                         "Mit „Suche leeren“ findest du es wieder.")
+                  .arg(game.fields.name));
     reload_->hide();
   });
   connect(&controller_, &StorageController::removed, this, [this](qint64 id) {
@@ -190,17 +213,18 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory, QWi
                                 [id](const BoardGame& game) { return game.id == id; }),
                  games_.end());
     refresh(0, row);
-    feedback_->setText(QStringLiteral("Das Spiel wurde gelöscht."));
+    feedback_->setText(QCoreApplication::translate("App", "Das Spiel wurde gelöscht."));
     reload_->hide();
   });
   connect(&controller_, &StorageController::failed, this,
           [this](Operation operation, const QString& message) {
             feedback_->setText(message);
-            if (operation != Operation::Save) {
+            if (operation != Operation::Save && operation != Operation::Language) {
               reload_->show();
             }
             if (!ready_) {
-              state_->setText(QStringLiteral("Die Sammlung konnte nicht geöffnet werden."));
+              state_->setText(
+                  QCoreApplication::translate("App", "Die Sammlung konnte nicht geöffnet werden."));
               count_->clear();
             }
             updateActions();
@@ -244,33 +268,38 @@ void MainWindow::refresh(std::optional<qint64> preferredId, int fallbackRow) {
   } else {
     table_->setCurrentCell(-1, -1);
   }
-  state_->setText(
-      !ready_ ? QStringLiteral("Sammlung wird geladen …")
-      : games_.isEmpty()
-          ? QStringLiteral("Dein Regal ist noch leer. Füge dein erstes Brettspiel hinzu.")
-      : visibleGames_.isEmpty()
-          ? QStringLiteral("Keine Spiele gefunden. Ändere oder leere die Suche.")
-          : QString());
+  state_->setText(!ready_ ? QCoreApplication::translate("App", "Sammlung wird geladen …")
+                  : games_.isEmpty()
+                      ? QCoreApplication::translate(
+                            "App", "Dein Regal ist noch leer. Füge dein erstes Brettspiel hinzu.")
+                  : visibleGames_.isEmpty()
+                      ? QCoreApplication::translate(
+                            "App", "Keine Spiele gefunden. Ändere oder leere die Suche.")
+                      : QString());
   count_->setText(
-      ready_ ? QStringLiteral("%1 von %2 Spielen").arg(visibleGames_.size()).arg(games_.size())
+      ready_ ? QCoreApplication::translate("App", "Spiele: %1 / %2")
+                   .arg(QLocale().toString(visibleGames_.size()), QLocale().toString(games_.size()))
              : QString());
   updateSelection();
 }
 
 void MainWindow::updateSelection() {
   const auto selected = selectedGame();
-  detailTitle_->setText(selected ? QStringLiteral("Notiz zu „%1“").arg(selected->fields.name)
-                                 : QStringLiteral("Notiz"));
+  detailTitle_->setText(
+      selected ? QCoreApplication::translate("App", "Notiz zu „%1“").arg(selected->fields.name)
+               : QCoreApplication::translate("App", "Notiz"));
   note_->setPlainText(selected ? selected->fields.note : QString());
-  note_->setPlaceholderText(selected
-                                ? QStringLiteral("Zu diesem Spiel gibt es noch keine Notiz.")
-                                : QStringLiteral("Wähle ein Spiel aus, um seine Notiz zu lesen."));
+  note_->setPlaceholderText(
+      selected
+          ? QCoreApplication::translate("App", "Zu diesem Spiel gibt es noch keine Notiz.")
+          : QCoreApplication::translate("App", "Wähle ein Spiel aus, um seine Notiz zu lesen."));
   updateActions();
 }
 
 void MainWindow::updateActions() {
   const bool available = ready_ && !controller_.isBusy() && (!editor_ || !editor_->isVisible());
   add_->setEnabled(available);
+  language_->setEnabled(available);
   edit_->setEnabled(available && selectedGame().has_value());
   remove_->setEnabled(available && selectedGame().has_value());
   reload_->setEnabled(!controller_.isBusy() && (!editor_ || !editor_->isVisible()));
@@ -322,8 +351,9 @@ bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
 
 void MainWindow::closeEvent(QCloseEvent* event) {
   if (controller_.isBusy()) {
-    feedback_->setText(QStringLiteral(
-        "Bitte warte, bis der laufende Datenbankzugriff beendet ist, und schließe dann erneut."));
+    feedback_->setText(QCoreApplication::translate(
+        "App",
+        "Bitte warte, bis der laufende Speichervorgang beendet ist, und schließe dann erneut."));
     event->ignore();
     return;
   }
@@ -336,7 +366,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::showAbout() {
   QDialog dialog(this);
-  dialog.setWindowTitle(QStringLiteral("Über BrettspielRegal"));
+  dialog.setWindowTitle(QCoreApplication::translate("App", "Über BrettspielRegal"));
   dialog.resize(640, 500);
   auto* layout = new QVBoxLayout(&dialog);
   auto* text = new QTextBrowser(&dialog);
@@ -346,14 +376,23 @@ void MainWindow::showAbout() {
     licenseText = QString::fromUtf8(notices.readAll());
   }
   text->setPlainText(
-      QStringLiteral(
-          "BrettspielRegal %1\n\nDeine Sammlung bleibt lokal.\nDatenverzeichnis: %2\n\n%3")
+      QCoreApplication::translate(
+          "App", "BrettspielRegal %1\n\nDeine Sammlung bleibt lokal.\nDatenverzeichnis: %2\n\n%3")
           .arg(QCoreApplication::applicationVersion(), dataDirectory_, licenseText));
   layout->addWidget(text);
   auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
-  buttons->button(QDialogButtonBox::Close)->setText(QStringLiteral("Schließen"));
+  buttons->button(QDialogButtonBox::Close)
+      ->setText(QCoreApplication::translate("App", "Schließen"));
   connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
   layout->addWidget(buttons);
+  dialog.exec();
+}
+
+void MainWindow::showLanguage() {
+  if (!language_->isEnabled()) {
+    return;
+  }
+  LanguageDialog dialog(controller_, dataDirectory_, languagePreference_, this);
   dialog.exec();
 }
 

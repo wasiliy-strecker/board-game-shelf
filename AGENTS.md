@@ -45,3 +45,16 @@ Keine pauschale Store-Freigabe aus EXE, MSIX, DMG oder Lizenzwahl ableiten.
 
 Änderungen im Workspace-Changelog festhalten. Nach erfolgreichen Prüfungen lokal
 committen. Kein Push und keine Veröffentlichung ohne ausdrücklichen Auftrag.
+
+## Internationalisierung
+
+Sechs Sprachen beibehalten: de-DE, en-US, es-ES, fr-FR, it-IT und pt-BR.
+Neue sichtbare Texte mit `QCoreApplication::translate("App", ...)` auszeichnen
+und alle TS-Kataloge ergänzen. `scripts/check_translations.py` gehört zu CTest.
+Qt-Basisübersetzungen bleiben eingebettet. Sprache erst beim nächsten Start
+wechseln. Nutzertexte und Schema bleiben sprachunabhängig.
+
+Store-Vorschauen mit `scripts/store_assets/capture.py` auf einem eigenen
+Xvfb-Bildschirm aufnehmen. Nur synthetische Daten verwenden. Die Ausgabe von
+`assemble.py` bleibt ein Ordner ohne ZIP. Linux-Vorschauen sind keine finale
+Windows-Abnahme. Details stehen in `docs/internationalization.md`.

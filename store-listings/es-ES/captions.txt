@@ -1,0 +1,4 @@
+Consulta tu colección de juegos de mesa y sus ubicaciones.
+Edita todos los detalles de un juego en un solo diálogo.
+Encuentra juegos por nombre, editorial, ubicación o nota.
+Elige entre seis idiomas o utiliza el idioma del sistema.

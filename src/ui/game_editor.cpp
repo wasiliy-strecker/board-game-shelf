@@ -1,5 +1,6 @@
 #include "ui/game_editor.h"
 #include "ui/ui_support.h"
+#include <QCoreApplication>
 
 #include <QCloseEvent>
 #include <QDialogButtonBox>
@@ -19,11 +20,11 @@ GameEditor::GameEditor(StorageController& controller, std::optional<BoardGame> e
     : QDialog(parent), controller_(controller), name_(new QLineEdit(this)),
       publisher_(new QLineEdit(this)), location_(new QLineEdit(this)),
       note_(new QPlainTextEdit(this)), error_(new QLabel(this)),
-      save_(new QPushButton(QStringLiteral("Speichern"), this)),
-      cancel_(new QPushButton(QStringLiteral("Abbrechen"), this)) {
+      save_(new QPushButton(QCoreApplication::translate("App", "Speichern"), this)),
+      cancel_(new QPushButton(QCoreApplication::translate("App", "Abbrechen"), this)) {
   setObjectName(QStringLiteral("gameEditor"));
-  setWindowTitle(existing ? QStringLiteral("Spiel bearbeiten")
-                          : QStringLiteral("Spiel hinzufügen"));
+  setWindowTitle(existing ? QCoreApplication::translate("App", "Spiel bearbeiten")
+                          : QCoreApplication::translate("App", "Spiel hinzufügen"));
   setWindowModality(Qt::WindowModal);
   resize(560, 610);
   setMinimumSize(320, 280);
@@ -38,15 +39,17 @@ GameEditor::GameEditor(StorageController& controller, std::optional<BoardGame> e
     field->setMaxLength(1000000);
     field->setClearButtonEnabled(true);
   }
-  name_->setPlaceholderText(QStringLiteral("Wie heißt das Brettspiel?"));
-  publisher_->setPlaceholderText(QStringLiteral("Optional"));
-  location_->setPlaceholderText(QStringLiteral("Zum Beispiel Wohnzimmer, Regal 2"));
-  note_->setPlaceholderText(QStringLiteral("Was möchtest du dir zu diesem Spiel merken?"));
+  name_->setPlaceholderText(QCoreApplication::translate("App", "Wie heißt das Brettspiel?"));
+  publisher_->setPlaceholderText(QCoreApplication::translate("App", "Optional"));
+  location_->setPlaceholderText(
+      QCoreApplication::translate("App", "Zum Beispiel Wohnzimmer, Regal 2"));
+  note_->setPlaceholderText(
+      QCoreApplication::translate("App", "Was möchtest du dir zu diesem Spiel merken?"));
   note_->setMinimumHeight(120);
   note_->setTabChangesFocus(true);
   error_->setTextFormat(Qt::PlainText);
   error_->setWordWrap(true);
-  error_->setAccessibleName(QStringLiteral("Hinweis zum Speichern"));
+  error_->setAccessibleName(QCoreApplication::translate("App", "Hinweis zum Speichern"));
   error_->hide();
   connect(name_, &QLineEdit::textChanged, this, [this] {
     if (validationError_ && !name_->text().trimmed().isEmpty()) {
@@ -74,13 +77,14 @@ GameEditor::GameEditor(StorageController& controller, std::optional<BoardGame> e
   form->setRowWrapPolicy(QFormLayout::WrapAllRows);
   form->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   form->setSpacing(10);
-  auto* hint = new QLabel(QStringLiteral("Nur der Spielname ist erforderlich."), formWidget);
+  auto* hint = new QLabel(QCoreApplication::translate("App", "Nur der Spielname ist erforderlich."),
+                          formWidget);
   hint->setWordWrap(true);
   form->addRow(hint);
-  form->addRow(QStringLiteral("&Spielname *"), name_);
-  form->addRow(QStringLiteral("&Verlag oder Hersteller"), publisher_);
-  form->addRow(QStringLiteral("&Aufbewahrungsort"), location_);
-  form->addRow(QStringLiteral("&Notiz"), note_);
+  form->addRow(QCoreApplication::translate("App", "&Spielname *"), name_);
+  form->addRow(QCoreApplication::translate("App", "&Verlag oder Hersteller"), publisher_);
+  form->addRow(QCoreApplication::translate("App", "&Aufbewahrungsort"), location_);
+  form->addRow(QCoreApplication::translate("App", "&Notiz"), note_);
   form->addRow(error_);
   scroll->setWidget(formWidget);
   root->addWidget(scroll, 1);
@@ -123,7 +127,8 @@ void GameEditor::setSaving(bool saving) {
   note_->setEnabled(!saving);
   save_->setEnabled(!saving);
   cancel_->setEnabled(!saving);
-  save_->setText(saving ? QStringLiteral("Wird gespeichert …") : QStringLiteral("Speichern"));
+  save_->setText(saving ? QCoreApplication::translate("App", "Wird gespeichert …")
+                        : QCoreApplication::translate("App", "Speichern"));
 }
 
 void GameEditor::save() {

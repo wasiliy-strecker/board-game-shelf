@@ -1,0 +1,4 @@
+Veja sua coleção de jogos de tabuleiro e onde cada jogo está guardado.
+Edite todos os detalhes de um jogo em uma única janela.
+Encontre jogos por nome, editora, local ou observação.
+Escolha entre seis idiomas ou use o idioma do sistema.

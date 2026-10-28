@@ -11,10 +11,18 @@ Version 0.1.0 ist die erste C++-Stufe des Hobby-Portfolios und ein kleines,
 nachvollziehbares Bewerbungsprojekt. Die späteren Veröffentlichungsziele sind
 **zuerst Microsoft Store und danach Mac App Store**. Noch keine Veröffentlichung.
 
+Die Oberfläche unterstützt Deutsch, Englisch, Spanisch, Französisch, Italienisch
+und brasilianisches Portugiesisch. „Sprache“ speichert eine Auswahl für den nächsten
+Start. Standardmäßig wird die Systemsprache verwendet, mit Englisch als Fallback.
+Die [Internationalisierungsanleitung](docs/internationalization.md) beschreibt
+Übersetzungen, Store-Texte und echte Screenshots. Die Vorschau wird als Ordner
+ohne ZIP ausgeliefert. Die native Windows-Store-Abnahme steht noch aus.
+
 ## Entwickeln und starten
 
 Voraussetzungen sind ein C++20-Compiler, CMake ab 3.25, Ninja und Qt 6.8.3 mit
-Core, Gui, Widgets, Sql, Test sowie QSQLITE. Die lokal geprüfte Kombination ist
+Core, Gui, Widgets, Sql, Test, LinguistTools, Qt-Basisübersetzungen sowie QSQLITE.
+Für den Katalogtest wird Python 3 benötigt. Die lokal geprüfte Kombination ist
 Ubuntu 24.04 x64, GCC 13.3.0, CMake 4.4.4 und Ninja 1.11.1.
 clang-format 23.1.3 und clang-tidy 22.1.8 dienen der Prüfung.
 
@@ -61,6 +69,7 @@ Bestätigung. Die Notiz des ausgewählten Spiels ist vollständig scrollbar.
 | Strg+N / Cmd+N | Spiel hinzufügen |
 | Strg+F / Cmd+F | Suche fokussieren und Text auswählen |
 | Strg+S / Cmd+S | Dialog speichern |
+| Strg+Komma | Sprachwahl öffnen |
 | Escape | Dialog abbrechen, bei Änderungen mit Rückfrage |
 | Enter im Notizfeld | Neue Zeile |
 | Entf in der Tabelle | Löschbestätigung öffnen |
@@ -87,6 +96,7 @@ Store-Sandbox und Windows-Paketvirtualisierung können die tatsächlichen Pfade
 ändern. Die native Abnahme muss diese ermitteln. Es gibt keinen selbst gebauten
 Ersatzpfad ins Programmverzeichnis. Zum manuellen Sichern die App schließen und
 die SQLite-Datei kopieren. Die zusätzliche `collection.lock` ist keine Nutzerdatenbank.
+`language.txt` enthält ausschließlich die gewählte Oberflächensprache.
 
 ```bash
 ./build/dev/brettspielregal --data-dir /tmp/brettspielregal-test

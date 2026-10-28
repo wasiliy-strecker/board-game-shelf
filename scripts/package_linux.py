@@ -16,6 +16,9 @@ def main():
     parser.add_argument("--cursor-library", type=Path)
     parser.add_argument("--cursor-license", type=Path)
     parser.add_argument(
+        "--output-dir", type=Path, help="Separate destination for a new delivery"
+    )
+    parser.add_argument(
         "--stage-only", action="store_true", help="Prüfverzeichnis ohne Lieferarchiv"
     )
     args = parser.parse_args()
@@ -26,7 +29,11 @@ def main():
         (root / "CMakeLists.txt").read_text(),
     )[1]
     name = f"brettspielregal-{version}-linux-x64"
-    output = root / ("build/staging" if args.stage_only else "build/releases")
+    output = (
+        args.output_dir.resolve()
+        if args.output_dir
+        else root / ("build/staging" if args.stage_only else "build/releases")
+    )
     stage = output / name
     archive = output / f"{name}.tar.gz"
     if stage.exists() or archive.exists():
@@ -49,7 +56,6 @@ def main():
         "plugins/platforms",
         "plugins/sqldrivers",
         "plugins/platforminputcontexts",
-        "translations",
     ):
         (stage / folder).mkdir(parents=True, exist_ok=True)
     shutil.copy2(root / "build/release/brettspielregal", stage / "bin")
@@ -67,7 +73,6 @@ def main():
     ):
         shutil.copy2(qt / "plugins" / relative, stage / "plugins" / relative)
     shutil.copy2(args.cursor_library.resolve(), stage / "lib/libxcb-cursor.so.0")
-    shutil.copy2(qt / "translations/qtbase_de.qm", stage / "translations")
     shutil.copytree(root / "licenses", stage / "licenses")
     shutil.copytree(root / "docs", stage / "docs")
     shutil.copy2(args.cursor_license, stage / "licenses/xcb-cursor.txt")
@@ -75,7 +80,7 @@ def main():
     for filename in ("README.md", "THIRD_PARTY_NOTICES.md"):
         shutil.copy2(root / filename, stage / filename)
     (stage / "bin/qt.conf").write_text(
-        "[Paths]\nPrefix=..\nPlugins=plugins\nLibraries=lib\nTranslations=translations\n"
+        "[Paths]\nPrefix=..\nPlugins=plugins\nLibraries=lib\n"
     )
     launcher = stage / "BrettspielRegal.sh"
     launcher.write_text(

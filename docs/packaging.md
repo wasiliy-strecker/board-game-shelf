@@ -144,3 +144,13 @@ Stand der Prüfung: 27. Oktober 2026. Vor Veröffentlichung erneut prüfen.
 - [Microsoft: MSIX-Komponenten](https://learn.microsoft.com/en-us/windows/msix/desktop/desktop-to-uwp-manual-conversion)
 - [Microsoft: Store und Signierung](https://learn.microsoft.com/en-us/windows/apps/publish/get-started)
 - [Apple: Vorbereitung der Auslieferung](https://developer.apple.com/documentation/xcode/preparing-your-app-for-distribution)
+
+## Internationalisierte Vorschau
+
+App- und Qt-Basiskataloge sind seit dem 29. Oktober 2026 eingebettet.
+Die Linux-Paketierung benötigt keine externe deutsche QM-Datei mehr.
+`--stage-only --output-dir <neuer-pfad>` erstellt einen frischen Prüfordner ohne Archiv. Bestehende Lieferungen bleiben erhalten.
+Die [Internationalisierungsanleitung](internationalization.md) beschreibt
+die vollständige Prüfung und die Ausgabe von sechs Store-Textpaketen und
+24 Linux-Vorschauen als Ordner. Das bisherige Windows-Manifest muss vor
+der nativen Store-Abnahme noch für die endgültige Veröffentlichung angepasst werden.

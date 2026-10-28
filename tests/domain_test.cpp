@@ -12,6 +12,7 @@ class DomainTest final : public QObject {
   Q_OBJECT
 private slots:
   void initTestCase() {
+    QLocale::setDefault(QLocale(QStringLiteral("de-DE")));
     QStandardPaths::setTestModeEnabled(true);
     QCoreApplication::setApplicationName(QStringLiteral("brettspielregal-tests"));
   }

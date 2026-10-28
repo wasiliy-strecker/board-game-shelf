@@ -3,7 +3,12 @@
 BrettspielRegal verwendet Qt 6.8.3 unter der GNU Lesser General Public License,
 Version 3 (LGPL-3.0). Qt Core, Gui, Widgets und Sql werden dynamisch eingebunden.
 Der QSQLITE-Treiber wird als dynamisches Plugin ausgeliefert. Qt Test wird nur
-für Entwicklungsprüfungen verwendet.
+für Entwicklungsprüfungen verwendet. Die unveränderten Qt-Basisübersetzungen
+für Deutsch, Spanisch, Französisch, Italienisch und brasilianisches Portugiesisch
+aus Qt Translations 6.8.3 sind als Ressourcen eingebettet. Die zugehörigen
+Lizenztexte liegen unter `licenses/qttranslations-6.8.3-*`.
+Quellcode dieser Übersetzungen:
+https://download.qt.io/archive/qt/6.8/6.8.3/submodules/qttranslations-everywhere-src-6.8.3.tar.xz
 
 Qt ist Copyright The Qt Company Ltd. und weiterer Beitragender.
 Lizenzinformationen: https://www.qt.io/development/open-source-lgpl-obligations

@@ -1,0 +1,5 @@
+Registrar nomes de jogos, editoras ou fabricantes, locais e observações
+Pesquisar nos quatro campos de texto
+Editar registros e confirmar antes de excluir
+Usar uma coleção local sem conta
+Escolher entre seis idiomas e salvar a preferência

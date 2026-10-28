@@ -1,0 +1,4 @@
+Visualizza la tua raccolta di giochi da tavolo e le loro posizioni.
+Modifica tutti i dettagli di un gioco in un’unica finestra.
+Trova i giochi per nome, editore, posizione o nota.
+Scegli tra sei lingue o usa la lingua del sistema.

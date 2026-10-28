@@ -1,0 +1,35 @@
+{
+  "games": [
+    [
+      "Sentiers de la forêt",
+      "Jeux Aurore du Nord",
+      "Salon, étagère 2",
+      "L’extension se trouve dans la boîte.\nIdéal pour une soirée jeux tranquille."
+    ],
+    [
+      "Port des étoiles",
+      "Atelier Orbite",
+      "Salon, étagère 1",
+      "Les stations spatiales sont triées par couleur.\nGuide rapide dans le couvercle."
+    ],
+    [
+      "Jardin de l’île",
+      "Studio Feuillage",
+      "Bureau, armoire A",
+      "Toutes les figurines en bois sont dans le sac en tissu.\nPapier supplémentaire dans le compartiment."
+    ],
+    [
+      "Courrier des nuages",
+      "Jeux Lune de Papier",
+      "Salon, étagère 2",
+      "Trier les cartes après la partie.\nLa règle se trouve sous le rangement."
+    ],
+    [
+      "Cité des galets",
+      "Rivière et Forme",
+      "Bureau, étagère 3",
+      "Toutes les pièces des ponts sont présentes.\nÀ prévoir pour la prochaine soirée jeux."
+    ]
+  ],
+  "search": "stations spatiales"
+}

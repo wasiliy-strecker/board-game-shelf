@@ -58,6 +58,7 @@ def main():
 
     with tempfile.TemporaryDirectory(prefix="brettspielregal-gui-") as temporary:
         directory = Path(temporary)
+        (directory / "language.txt").write_text("de-DE\n", encoding="utf-8")
         database = directory / "brettspielregal.sqlite3"
         log = (output / "app.log").open("w")
         process = None

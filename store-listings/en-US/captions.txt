@@ -1,0 +1,4 @@
+See your board game collection and storage locations at a glance.
+Edit all details for a game in one clear dialog.
+Find games by name, publisher, storage location or note.
+Choose from six languages or use the system language.

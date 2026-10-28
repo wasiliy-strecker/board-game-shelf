@@ -1,0 +1,35 @@
+{
+  "games": [
+    [
+      "Trilhas da floresta",
+      "Jogos Luz do Norte",
+      "Sala, estante 2",
+      "A expansão está dentro da caixa.\nIdeal para uma noite tranquila de jogos."
+    ],
+    [
+      "Porto estelar",
+      "Ateliê Órbita",
+      "Sala, estante 1",
+      "As estações espaciais estão organizadas por cor.\nGuia rápido na tampa."
+    ],
+    [
+      "Jardim da ilha",
+      "Estúdio Folhagem",
+      "Escritório, armário A",
+      "Todas as peças de madeira estão no saco de tecido.\nPapel extra no compartimento."
+    ],
+    [
+      "Correio das nuvens",
+      "Jogos Lua de Papel",
+      "Sala, estante 2",
+      "Organizar as cartas depois de jogar.\nAs regras estão debaixo do organizador."
+    ],
+    [
+      "Cidade dos seixos",
+      "Rio e Forma",
+      "Escritório, estante 3",
+      "Todas as peças das pontes estão presentes.\nLembrar para a próxima noite de jogos."
+    ]
+  ],
+  "search": "estações espaciais"
+}

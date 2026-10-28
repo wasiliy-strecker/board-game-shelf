@@ -1,4 +1,5 @@
 #include "domain/game.h"
+#include <QCoreApplication>
 
 #include <QCollator>
 #include <QLocale>
@@ -11,7 +12,7 @@ GameDraft validateDraft(GameDraft draft) {
   draft.publisher = draft.publisher.trimmed();
   draft.location = draft.location.trimmed();
   if (draft.name.isEmpty()) {
-    throw ValidationError(QStringLiteral("Bitte gib einen Spielnamen ein."));
+    throw ValidationError(QCoreApplication::translate("App", "Bitte gib einen Spielnamen ein."));
   }
   return draft;
 }
@@ -32,7 +33,7 @@ GameList searchGames(const GameList& games, const QString& query) {
       matches.append(game);
     }
   }
-  QCollator collator{QLocale(QLocale::German, QLocale::Germany)};
+  QCollator collator{QLocale()};
   collator.setCaseSensitivity(Qt::CaseInsensitive);
   collator.setNumericMode(true);
   std::sort(matches.begin(), matches.end(),

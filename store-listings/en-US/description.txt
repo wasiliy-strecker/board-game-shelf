@@ -1,0 +1,5 @@
+Keep track of your board game collection with BrettspielRegal. Record each game name, publisher or manufacturer, storage location and a multiline note. Only the game name is required.
+
+Search all four text fields, edit your entries and read the full note directly in your collection. The app asks for confirmation before deleting a game or discarding unsaved changes.
+
+Your collection stays on your device and is available again after restarting. No account or internet connection required. The interface is available in German, English, Spanish, French, Italian and Brazilian Portuguese. A new language choice takes effect on the next start.

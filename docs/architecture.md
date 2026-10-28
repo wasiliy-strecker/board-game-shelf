@@ -1,6 +1,6 @@
 # Architektur und C++-Entscheidungen
 
-Ein CMake-Projekt enthält drei kleine interne Bibliotheken und den Launcher.
+Ein CMake-Projekt enthält vier kleine interne Bibliotheken und den Launcher.
 Die Targets erzwingen die Grenze zwischen Modell, Speicher und Oberfläche.
 Es gibt kein Plugin-System und keinen gemeinsamen Portfolio-Kern.
 
@@ -30,8 +30,7 @@ werden vom Qt-Texteditor in seiner üblichen LF-Darstellung verarbeitet.
 
 Die Suche läuft für die bewusst kleine Sammlung im Speicher. NFC-Normalisierung,
 Unicode-Case-Folding und erneute NFC-Normalisierung behandeln zusammengesetzte
-und zerlegte Umlaute gleich. Jedes Feld wird separat geprüft. Ein deutscher
-QCollator sortiert Namen mit natürlicher Zahlenreihenfolge. Bei gleicher
+und zerlegte Umlaute gleich. Jedes Feld wird separat geprüft. Ein QCollator mit der gewählten Sprache sortiert Namen mit natürlicher Zahlenreihenfolge. Bei gleicher
 Sortierposition entscheidet die ID. Eine größere Datenmenge würde eine andere
 Suchstrategie rechtfertigen, ist aber nicht Gegenstand dieser App.
 
@@ -103,3 +102,16 @@ gezielt verzögern oder fehlschlagen lassen, während SQLite weiterhin den
 Normalbetrieb ausführt. Dadurch sind Fehler, Doppelaktionen, Thread-Zuordnung
 und zerstörte Empfänger reproduzierbar prüfbar. Rendernde X11-Prüfungen und
 Paketstarts ergänzen diese automatisierten Tests.
+
+## Sprachen
+
+`game_i18n` enthält die sechs Sprachen und die eingebetteten App- und
+Qt-Übersetzungen. Die Abhängigkeit verwendet nur Qt Core. Meldungen aus
+Validierung und Persistenz werden über denselben Katalog übersetzt.
+Widgets und SQL bleiben in ihren bisherigen Schichten.
+
+`LanguageDialog` sendet die Auswahl über den bestehenden Controller an den
+Worker. `QSaveFile` ersetzt ausschließlich `language.txt` atomar. Fehler
+lassen den Dialog offen. Der Erfolg wird erst nach erfolgreichem Datei-Commit
+gemeldet. Übersetzer und `QLocale` werden beim nächsten Start installiert,
+bevor Datenbank-Worker und Fenster entstehen.

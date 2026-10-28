@@ -1,0 +1,5 @@
+Registrare nome, editore o produttore, posizione e nota di ogni gioco
+Cercare in tutti e quattro i campi di testo
+Modificare le voci e confermarne l’eliminazione
+Usare una raccolta locale senza account
+Scegliere tra sei lingue e salvare la preferenza

@@ -1,0 +1,5 @@
+Enregistrer le nom, l’éditeur ou fabricant, l’emplacement et une note
+Rechercher dans les quatre champs de texte
+Modifier les entrées et confirmer leur suppression
+Utiliser une collection locale sans compte
+Choisir parmi six langues et conserver son choix

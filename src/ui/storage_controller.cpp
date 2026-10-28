@@ -1,4 +1,6 @@
 #include "ui/storage_controller.h"
+#include "persistence/language_preferences.h"
+#include <QCoreApplication>
 
 #include <utility>
 
@@ -21,7 +23,8 @@ void StorageWorker::load() {
 void StorageWorker::save(qint64 id, const GameDraft& draft) {
   try {
     if (!repository_) {
-      throw StorageError(QStringLiteral("Die Sammlung ist noch nicht geladen."));
+      throw StorageError(
+          QCoreApplication::translate("App", "Die Sammlung ist noch nicht geladen."));
     }
     GameService service(*repository_);
     emit saved(service.save(id, draft));
@@ -33,13 +36,23 @@ void StorageWorker::save(qint64 id, const GameDraft& draft) {
 void StorageWorker::remove(qint64 id) {
   try {
     if (!repository_) {
-      throw StorageError(QStringLiteral("Die Sammlung ist noch nicht geladen."));
+      throw StorageError(
+          QCoreApplication::translate("App", "Die Sammlung ist noch nicht geladen."));
     }
     GameService service(*repository_);
     service.remove(id);
     emit removed(id);
   } catch (const std::exception& error) {
     emit failed(Operation::Remove, QString::fromUtf8(error.what()));
+  }
+}
+
+void StorageWorker::saveLanguage(const QString& directory, const QString& preference) {
+  try {
+    saveLanguagePreference(directory, preference);
+    emit languageSaved(preference);
+  } catch (const std::exception& error) {
+    emit failed(Operation::Language, QString::fromUtf8(error.what()));
   }
 }
 
@@ -54,6 +67,11 @@ StorageController::StorageController(RepositoryFactory factory, QObject* parent)
   connect(this, &StorageController::loadRequested, worker, &StorageWorker::load);
   connect(this, &StorageController::saveRequested, worker, &StorageWorker::save);
   connect(this, &StorageController::removeRequested, worker, &StorageWorker::remove);
+  connect(this, &StorageController::languageRequested, worker, &StorageWorker::saveLanguage);
+  connect(worker, &StorageWorker::languageSaved, this, [this](const QString& preference) {
+    finish();
+    emit languageSaved(preference);
+  });
   connect(worker, &StorageWorker::loaded, this, [this](const GameList& games) {
     finish();
     emit loaded(games);
@@ -116,6 +134,14 @@ bool StorageController::remove(qint64 id) {
     return false;
   }
   emit removeRequested(id);
+  return true;
+}
+
+bool StorageController::saveLanguage(const QString& directory, const QString& preference) {
+  if (!begin()) {
+    return false;
+  }
+  emit languageRequested(directory, preference);
   return true;
 }
 

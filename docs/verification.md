@@ -1,5 +1,52 @@
 # Prüfbericht
 
+## Internationalisierter Stand, 29. Oktober 2026
+
+86 fachliche Qt-Testfälle und ein zusätzlicher Katalogtest bestehen in fünf
+CTest-Suiten. Darin enthalten sind die bisherigen 46 Fälle und 40 neue
+Internationalisierungsfälle. Initialisierung und Abschluss der vier Qt-Suiten
+kommen als acht erfolgreiche Aufrufe hinzu.
+
+Der Release-Check umfasst clang-format, strikte Compilerwarnungen, die vollständige
+Testsuite und clang-tidy. ASan, LeakSanitizer und UBSan bestehen zusätzlich.
+Ruff prüft und formatiert alle Python-Helfer. Die vorgebauten Qt-Bibliotheken
+sind weiterhin nicht selbst mit Sanitizern instrumentiert.
+
+Die neuen Fälle prüfen sechs Systemsprachen samt regionalen Varianten,
+englischen Fallback, ausdrückliche Sprachwahl, echte Qt-Kontextmenüs,
+übersetzte Validierungs- und Datenbankfehler, Unicode-Daten, atomare
+Einstellungen, Fehler mit Wiederholung, Sortierung, Zahlenformate und
+kleine Dialoge mit Schriftgröße 18. Alle 81 Meldungen sind vollständig übersetzt.
+
+Die aktuelle Aufnahmeprüfung startet die gebündelte Produktionsapp in zwölf
+Prozessen auf einem isolierten Xvfb-Bildschirm mit Openbox. Jede Sprache wird
+mit Übersicht, Editor, Suche und Sprachwahl aufgenommen. Zusätzlich werden
+Pflichtfelder, eine echte exklusive SQLite-Sperre, erneutes Speichern,
+Unicode-CRUD, sichere Bestätigungen, kleine Fenster und fehlgeschlagenes
+Speichern der Sprache durchgespielt. Nach einer erfolgreichen Sprachänderung
+wird die App beendet und mit derselben Datenbank neu gestartet. Sprache und
+unveränderte Unicode-Daten werden geprüft.
+
+Die App läuft dabei mit bereinigten Qt-, QML- und SDK-Umgebungsvariablen und
+`PATH=/usr/bin:/bin`. `/proc/<pid>/maps` weist die eigenen Qt-Bibliotheken und
+das eigene QSQLITE-Plugin nach. App- und Qt-Übersetzungen sind eingebettet.
+Die Testdaten liegen ausschließlich in temporären Verzeichnissen.
+
+Zusätzlich besteht der bisherige deutsche GUI-Smoke-Test. Er wählt jetzt
+im isolierten Testverzeichnis ausdrücklich de-DE.
+
+Die 24 unveränderten PNG-Aufnahmen haben jeweils 1920 × 1080 Pixel und wurden
+visuell kontrolliert. `report.json` dokumentiert die Prozesse, Quellen,
+Laufzeitdateien und Bildprüfsummen. Die Ordnerlieferung enthält den geprüften
+Commit und weitere Prüfsummen. Sie enthält kein ZIP-Archiv.
+
+Windows- und macOS-Ausführung, Signierung, finale Paketressourcen und
+Store-Einreichung sind in diesem Schritt nicht geprüft. Die Bilder sind
+Linux-Vorschauen. Befehle und Voraussetzungen stehen in
+[internationalization.md](internationalization.md).
+
+## Ursprünglicher Stand vom 27. Oktober 2026
+
 Stand: 27. Oktober 2026, BrettspielRegal 0.1.0.
 
 ## Umgebung und automatische Prüfungen

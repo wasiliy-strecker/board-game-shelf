@@ -1,0 +1,4 @@
+Deine Brettspielsammlung mit Aufbewahrungsorten im Überblick.
+Alle Angaben zu einem Spiel in einem übersichtlichen Dialog bearbeiten.
+Spiele über Namen, Verlag, Aufbewahrungsort oder Notiz finden.
+Aus sechs Sprachen wählen oder die Systemsprache verwenden.

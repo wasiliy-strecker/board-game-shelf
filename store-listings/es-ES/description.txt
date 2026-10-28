@@ -1,0 +1,5 @@
+Organiza tu colección de juegos de mesa con BrettspielRegal. Guarda el nombre de cada juego, su editorial o fabricante, su ubicación y una nota de varias líneas. Solo el nombre del juego es obligatorio.
+
+Busca en los cuatro campos de texto, edita tus entradas y lee la nota completa directamente en la colección. La aplicación pide confirmación antes de eliminar un juego o descartar cambios sin guardar.
+
+Tu colección se guarda localmente en tu dispositivo y vuelve a estar disponible al reiniciar. No necesitas una cuenta ni conexión a Internet. La interfaz está disponible en alemán, inglés, español, francés, italiano y portugués de Brasil. El cambio de idioma se aplica al volver a abrir la aplicación.
