@@ -342,5 +342,105 @@ Datenverzeichnis: %2
       <source>Lokal auf diesem Computer gespeichert</source>
       <translation>Lokal auf diesem Computer gespeichert</translation>
     </message>
+    <message>
+      <source>Bitte bestätige das Ersetzen der vorhandenen Exportdatei.</source>
+      <translation>Bitte bestätige das Ersetzen der vorhandenen Exportdatei.</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung (*.json *.JSON)</source>
+      <translation>Board Game Shelf-Sammlung (*.json *.JSON)</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung importieren</source>
+      <translation>Board Game Shelf-Sammlung importieren</translation>
+    </message>
+    <message>
+      <source>Der Export konnte nicht sicher gespeichert werden. Prüfe Speicherplatz und Zugriffsrechte oder wähle einen anderen lokalen Ordner. Ein vorhandener Export bleibt erhalten.</source>
+      <translation>Der Export konnte nicht sicher gespeichert werden. Prüfe Speicherplatz und Zugriffsrechte oder wähle einen anderen lokalen Ordner. Ein vorhandener Export bleibt erhalten.</translation>
+    </message>
+    <message>
+      <source>Der Import würde die Grenze von 10.000 Spielen überschreiten. Die Sammlung bleibt unverändert.</source>
+      <translation>Der Import würde die Grenze von 10.000 Spielen überschreiten. Die Sammlung bleibt unverändert.</translation>
+    </message>
+    <message>
+      <source>Die Importdatei konnte nicht gelesen werden. Prüfe die Zugriffsrechte. Die Sammlung bleibt unverändert.</source>
+      <translation>Die Importdatei konnte nicht gelesen werden. Prüfe die Zugriffsrechte. Die Sammlung bleibt unverändert.</translation>
+    </message>
+    <message>
+      <source>Die Zieldatei wurde nach der Auswahl verändert. Wähle sie erneut. Sie wurde nicht ersetzt.</source>
+      <translation>Die Zieldatei wurde nach der Auswahl verändert. Wähle sie erneut. Sie wurde nicht ersetzt.</translation>
+    </message>
+    <message>
+      <source>Dies ist keine gültige Board Game Shelf-Sammlung. Wähle eine mit Exportieren erzeugte JSON-Datei. Die Sammlung bleibt unverändert.</source>
+      <translation>Dies ist keine gültige Board Game Shelf-Sammlung. Wähle eine mit Exportieren erzeugte JSON-Datei. Die Sammlung bleibt unverändert.</translation>
+    </message>
+    <message>
+      <source>Diese Datei verwendet eine nicht unterstützte Exportversion. Die Sammlung bleibt unverändert.</source>
+      <translation>Diese Datei verwendet eine nicht unterstützte Exportversion. Die Sammlung bleibt unverändert.</translation>
+    </message>
+    <message>
+      <source>Ein Import darf höchstens 10.000 Spiele enthalten.</source>
+      <translation>Ein Import darf höchstens 10.000 Spiele enthalten.</translation>
+    </message>
+    <message>
+      <source>Eine Sammlungsdatei darf höchstens 10.000 Spiele und 10 MiB enthalten. Es wurde keine unvollständige Datei oder Sammlung gespeichert.</source>
+      <translation>Eine Sammlungsdatei darf höchstens 10.000 Spiele und 10 MiB enthalten. Es wurde keine unvollständige Datei oder Sammlung gespeichert.</translation>
+    </message>
+    <message>
+      <source>Einträge in der Datei: %1. Vorhandene Spiele bleiben erhalten. Bereits vorhandene identische Exemplare werden übersprungen. Nach dem Import wird die Suche geleert.</source>
+      <translation>Einträge in der Datei: %1. Vorhandene Spiele bleiben erhalten. Bereits vorhandene identische Exemplare werden übersprungen. Nach dem Import wird die Suche geleert.</translation>
+    </message>
+    <message>
+      <source>Ersetzen</source>
+      <translation>Ersetzen</translation>
+    </message>
+    <message>
+      <source>Export abgeschlossen. Spiele: %1.</source>
+      <translation>Export abgeschlossen. Spiele: %1.</translation>
+    </message>
+    <message>
+      <source>Export ersetzen?</source>
+      <translation>Export ersetzen?</translation>
+    </message>
+    <message>
+      <source>Exportieren</source>
+      <translation>Exportieren</translation>
+    </message>
+    <message>
+      <source>Gesamte Sammlung exportieren</source>
+      <translation>Gesamte Sammlung exportieren</translation>
+    </message>
+    <message>
+      <source>Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.</source>
+      <translation>Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.</translation>
+    </message>
+    <message>
+      <source>Importieren</source>
+      <translation>Importieren</translation>
+    </message>
+    <message>
+      <source>Info</source>
+      <translation>Info</translation>
+    </message>
+    <message>
+      <source>Spiele importieren?</source>
+      <translation>Spiele importieren?</translation>
+    </message>
+    <message>
+      <source>Vorgang abgebrochen.</source>
+      <translation>Vorgang abgebrochen.</translation>
+    </message>
+    <message>
+      <source>Wähle eine normale .json-Datei in einem vorhandenen Ordner außerhalb der App-Daten. Dateiverknüpfungen sind als Exportziel nicht erlaubt.</source>
+      <translation>Wähle eine normale .json-Datei in einem vorhandenen Ordner außerhalb der App-Daten. Dateiverknüpfungen sind als Exportziel nicht erlaubt.</translation>
+    </message>
+    <message>
+      <source>Wähle zuerst eine gültige Importdatei.</source>
+      <translation>Wähle zuerst eine gültige Importdatei.</translation>
+    </message>
+    <message>
+      <source>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</source>
+      <translation>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</translation>
+    </message>
   </context>
 </TS>

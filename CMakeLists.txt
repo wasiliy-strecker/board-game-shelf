@@ -39,10 +39,10 @@ endforeach()
 qt_add_resources(game_i18n qt_translations PREFIX "/i18n"
   BASE "${QT6_INSTALL_PREFIX}/${QT6_INSTALL_TRANSLATIONS}" FILES ${qt_qm_files})
 
-add_library(game_domain src/domain/game.cpp src/application/game_service.cpp)
+add_library(game_domain src/domain/game.cpp src/application/game_service.cpp src/application/collection_transfer.cpp)
 target_include_directories(game_domain PUBLIC src)
 target_link_libraries(game_domain PUBLIC game_i18n PRIVATE project_options)
-add_library(game_storage src/persistence/sqlite_game_repository.cpp src/persistence/data_directory.cpp src/persistence/language_preferences.cpp)
+add_library(game_storage src/persistence/sqlite_game_repository.cpp src/persistence/data_directory.cpp src/persistence/language_preferences.cpp src/persistence/json_collection_file.cpp)
 target_link_libraries(game_storage PUBLIC game_domain Qt6::Sql PRIVATE project_options)
 add_library(game_ui src/ui/storage_controller.cpp src/ui/game_editor.cpp src/ui/main_window.cpp src/ui/sort_header.cpp src/ui/ui_support.cpp src/ui/language_dialog.cpp)
 target_link_libraries(game_ui PUBLIC game_storage Qt6::Widgets PRIVATE project_options)
@@ -64,7 +64,7 @@ set_target_properties(brettspielregal PROPERTIES
   MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/Info.plist.in")
 
 if(BUILD_TESTING)
-  foreach(test_name domain repository dialogs i18n)
+  foreach(test_name domain repository dialogs i18n transfer transfer_ui)
     add_executable(${test_name}_tests tests/${test_name}_test.cpp)
     target_link_libraries(${test_name}_tests PRIVATE game_storage game_ui Qt6::Test project_options)
     add_test(NAME ${test_name} COMMAND ${test_name}_tests)

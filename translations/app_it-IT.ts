@@ -342,5 +342,105 @@ Cartella dati: %2
       <source>Lokal auf diesem Computer gespeichert</source>
       <translation>Salvato localmente su questo computer</translation>
     </message>
+    <message>
+      <source>Bitte bestätige das Ersetzen der vorhandenen Exportdatei.</source>
+      <translation>Conferma la sostituzione del file di esportazione esistente.</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung (*.json *.JSON)</source>
+      <translation>Raccolta di Board Game Shelf (*.json *.JSON)</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung importieren</source>
+      <translation>Importa una raccolta di Board Game Shelf</translation>
+    </message>
+    <message>
+      <source>Der Export konnte nicht sicher gespeichert werden. Prüfe Speicherplatz und Zugriffsrechte oder wähle einen anderen lokalen Ordner. Ein vorhandener Export bleibt erhalten.</source>
+      <translation>Non è stato possibile salvare l'esportazione in modo sicuro. Controlla lo spazio e i permessi o scegli un'altra cartella locale. L'esportazione esistente viene conservata.</translation>
+    </message>
+    <message>
+      <source>Der Import würde die Grenze von 10.000 Spielen überschreiten. Die Sammlung bleibt unverändert.</source>
+      <translation>L'importazione supererebbe il limite di 10.000 giochi. La raccolta rimane invariata.</translation>
+    </message>
+    <message>
+      <source>Die Importdatei konnte nicht gelesen werden. Prüfe die Zugriffsrechte. Die Sammlung bleibt unverändert.</source>
+      <translation>Non è stato possibile leggere il file da importare. Controlla i permessi. La raccolta rimane invariata.</translation>
+    </message>
+    <message>
+      <source>Die Zieldatei wurde nach der Auswahl verändert. Wähle sie erneut. Sie wurde nicht ersetzt.</source>
+      <translation>Il file di destinazione è cambiato dopo la selezione. Selezionalo di nuovo. Non è stato sostituito.</translation>
+    </message>
+    <message>
+      <source>Dies ist keine gültige Board Game Shelf-Sammlung. Wähle eine mit Exportieren erzeugte JSON-Datei. Die Sammlung bleibt unverändert.</source>
+      <translation>Questa non è una raccolta valida di Board Game Shelf. Scegli un file JSON creato con Esporta. La raccolta rimane invariata.</translation>
+    </message>
+    <message>
+      <source>Diese Datei verwendet eine nicht unterstützte Exportversion. Die Sammlung bleibt unverändert.</source>
+      <translation>Questo file usa una versione di esportazione non supportata. La raccolta rimane invariata.</translation>
+    </message>
+    <message>
+      <source>Ein Import darf höchstens 10.000 Spiele enthalten.</source>
+      <translation>Un'importazione può contenere al massimo 10.000 giochi.</translation>
+    </message>
+    <message>
+      <source>Eine Sammlungsdatei darf höchstens 10.000 Spiele und 10 MiB enthalten. Es wurde keine unvollständige Datei oder Sammlung gespeichert.</source>
+      <translation>Un file di raccolta può contenere al massimo 10.000 giochi e 10 MiB. Non sono stati salvati file o raccolte incompleti.</translation>
+    </message>
+    <message>
+      <source>Einträge in der Datei: %1. Vorhandene Spiele bleiben erhalten. Bereits vorhandene identische Exemplare werden übersprungen. Nach dem Import wird die Suche geleert.</source>
+      <translation>Voci nel file: %1. I giochi esistenti vengono conservati. Le copie identiche già presenti vengono ignorate. La ricerca viene svuotata dopo l'importazione.</translation>
+    </message>
+    <message>
+      <source>Ersetzen</source>
+      <translation>Sostituisci</translation>
+    </message>
+    <message>
+      <source>Export abgeschlossen. Spiele: %1.</source>
+      <translation>Esportazione completata. Giochi: %1.</translation>
+    </message>
+    <message>
+      <source>Export ersetzen?</source>
+      <translation>Sostituire l'esportazione?</translation>
+    </message>
+    <message>
+      <source>Exportieren</source>
+      <translation>Esporta</translation>
+    </message>
+    <message>
+      <source>Gesamte Sammlung exportieren</source>
+      <translation>Esporta l'intera raccolta</translation>
+    </message>
+    <message>
+      <source>Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.</source>
+      <translation>Importazione completata. Aggiunti: %1. Già presenti: %2.</translation>
+    </message>
+    <message>
+      <source>Importieren</source>
+      <translation>Importa</translation>
+    </message>
+    <message>
+      <source>Info</source>
+      <translation>Info</translation>
+    </message>
+    <message>
+      <source>Spiele importieren?</source>
+      <translation>Importare i giochi?</translation>
+    </message>
+    <message>
+      <source>Vorgang abgebrochen.</source>
+      <translation>Operazione annullata.</translation>
+    </message>
+    <message>
+      <source>Wähle eine normale .json-Datei in einem vorhandenen Ordner außerhalb der App-Daten. Dateiverknüpfungen sind als Exportziel nicht erlaubt.</source>
+      <translation>Scegli un normale file .json in una cartella esistente al di fuori dei dati dell'app. I collegamenti non sono consentiti come destinazioni di esportazione.</translation>
+    </message>
+    <message>
+      <source>Wähle zuerst eine gültige Importdatei.</source>
+      <translation>Scegli prima un file di importazione valido.</translation>
+    </message>
+    <message>
+      <source>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</source>
+      <translation>«%1» esiste già. Sostituirlo con l'intera raccolta salvata?</translation>
+    </message>
   </context>
 </TS>

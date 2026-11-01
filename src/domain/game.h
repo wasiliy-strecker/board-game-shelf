@@ -22,6 +22,7 @@ struct BoardGame {
 };
 
 using GameList = QVector<BoardGame>;
+using GameDraftList = QVector<GameDraft>;
 
 enum class GameSortField : quint8 { Name, Publisher, Location };
 
@@ -41,3 +42,4 @@ GameList searchGames(const GameList& games, const QString& query,
 Q_DECLARE_METATYPE(shelf::GameDraft)
 Q_DECLARE_METATYPE(shelf::BoardGame)
 Q_DECLARE_METATYPE(shelf::GameList)
+Q_DECLARE_METATYPE(shelf::GameDraftList)

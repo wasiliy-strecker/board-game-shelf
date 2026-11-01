@@ -1,5 +1,45 @@
 # Prüfbericht
 
+## JSON-Sammlungstransfer und roter Schließen-Button, 1. November 2026
+
+Die Hauptansicht enthält Exportieren und Importieren rechts neben Info und Sprache.
+Der Info-Dialog hat einen roten Schließen-Button mit weißer Schrift und sichtbarem
+Tastaturfokus. Die vorhandenen Spalten und die aktive Sortierung bleiben erhalten.
+
+Das app-eigene JSON-Format ist `board-game-shelf.collection`, Version 1. Ein Export
+enthält sämtliche gespeicherten Spiele unabhängig von der Suche. Ein Import wird
+zuerst vollständig validiert und erst nach Bestätigung atomar ergänzt. Der bereits
+geprüfte Inhalt bleibt während der Bestätigung als Snapshot im Worker. Identische
+Exemplare werden nach Anzahl abgeglichen. Bestehende IDs bleiben erhalten.
+
+Vorhandene Exportdateien benötigen eine ausdrückliche Ersatzbestätigung. Die
+Veröffentlichung erfolgt aus einer vollständigen temporären Datei. Dateiidentität,
+Revision und Inhalt werden vor Ersatz erneut geprüft. Neue Ziele werden ohne
+Überschreiben veröffentlicht. App-Daten, Hardlinks auf App-Dateien und symbolische
+Dateiverweise sind als Exportziel ausgeschlossen. Unbekannte Formate, doppelte
+JSON-Schlüssel, ungültiges Unicode und überschrittene Grenzen werden abgewiesen.
+
+`bash scripts/check.sh` besteht mit Formatter, strikten Compilerwarnungen,
+clang-tidy und allen sieben CTest-Suiten. 158 fachliche Qt-Testfälle und zwölf
+Initialisierungs-/Abschlussaufrufe sowie der Katalogtest sind erfolgreich.
+107 Meldungen sind in allen sechs App-Sprachen vollständig vorhanden.
+Neue Tests prüfen unter anderem den Rundlauf mit Unicode und mehrzeiligen Notizen,
+Duplikatanzahlen, unveränderte IDs, geänderte Exportziele, 10.000 Einträge, 10 MiB,
+einen späten SQL-Fehler mit vollständigem Rollback und erneuten Importversuch,
+Abbrüche, Ersatzbestätigung sowie den Such- und Sortierzustand nach Import.
+
+Zusätzliche echte Qt-Fenster prüfen den erweiterten Footer in allen sechs Sprachen
+bei 1000 × 740 und 560 × 520 Pixeln. Eine isolierte Ausführung der Produktionsapp
+mit nativen GTK3-Dateidialogen besteht Export bei aktiver Suche, Importabbruch,
+ergänzenden und wiederholten Import sowie Neustart mit unveränderten Daten.
+Der rote Button wurde visuell geprüft und tatsächlich geklickt. Sämtliche
+Testdaten liegen in temporären, synthetischen Sammlungen.
+
+Protokolle und Bilder liegen lokal unter `build/collection-transfer-check.log`,
+`build/collection-transfer-gui/` und `build/collection-transfer-native/`.
+Native Windows-/macOS-Dateidialoge, Mac-Sandbox und Store-Pakete wurden hier
+nicht geprüft. Keine neue Paketierung und keine Veröffentlichung.
+
 ## Buttonanordnung und Spaltensortierung, 1. November 2026
 
 Die Hauptaktionen folgen der Anordnung von Bookshelf by Appfabrik. Hinzufügen

@@ -267,11 +267,15 @@ private slots:
     auto* remove = child<QPushButton>(window, "removeGame");
     auto* about = child<QPushButton>(window, "aboutApp");
     auto* language = child<QPushButton>(window, "changeLanguage");
+    auto* exportButton = child<QPushButton>(window, "exportGames");
+    auto* importButton = child<QPushButton>(window, "importGames");
+    QCOMPARE(exportButton->text(), text("Exportieren"));
+    QCOMPARE(importButton->text(), text("Importieren"));
     auto* note = child<QPlainTextEdit>(window, "selectedNote");
     for (const auto size : {QSize(1000, 740), QSize(560, 520)}) {
       window.resize(size);
       QCoreApplication::processEvents();
-      for (auto* button : {add, clear, edit, remove, about, language}) {
+      for (auto* button : {add, clear, edit, remove, about, language, exportButton, importButton}) {
         QVERIFY(button->isVisible());
         QVERIFY2(window.rect().contains(bounds(button)), qPrintable(button->objectName()));
       }
@@ -283,6 +287,8 @@ private slots:
       QVERIFY(bounds(edit).bottom() < bounds(note).top());
       QVERIFY(bounds(about).top() > bounds(note).bottom());
       QVERIFY(bounds(language).left() > bounds(about).right());
+      QVERIFY(bounds(exportButton).left() > bounds(language).right());
+      QVERIFY(bounds(importButton).left() > bounds(exportButton).right());
       const auto screenshotDirectory = qEnvironmentVariable("BRETTSPIELREGAL_LAYOUT_SCREENSHOTS");
       if (!screenshotDirectory.isEmpty()) {
         QVERIFY(window.grab().save(

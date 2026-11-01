@@ -32,9 +32,14 @@ private:
   void deleteSelected();
   void showAbout();
   void showLanguage();
+  bool beginTransfer();
+  void finishTransfer(const QString& message);
+  void exportCollection();
+  void importCollection();
   StorageController& controller_;
   QString dataDirectory_;
   QString languagePreference_;
+  QString transferDirectory_;
   GameList games_;
   GameList visibleGames_;
   QPointer<GameEditor> editor_;
@@ -50,7 +55,10 @@ private:
   QPushButton* remove_;
   QPushButton* reload_;
   QPushButton* language_;
+  QPushButton* export_;
+  QPushButton* import_;
   bool ready_ = false;
+  bool transferRunning_ = false;
 };
 
 } // namespace shelf

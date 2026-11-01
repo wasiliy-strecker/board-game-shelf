@@ -68,6 +68,12 @@ public:
     repository_.remove(id);
     ++controls_->writes;
   }
+  ImportResult importGames(const GameDraftList& drafts) override {
+    beforeWrite();
+    const auto result = repository_.importGames(drafts);
+    ++controls_->writes;
+    return result;
+  }
 
 private:
   void checkThread() {
@@ -360,6 +366,7 @@ private slots:
       BoardGame create(const GameDraft&) override { return {}; }
       BoardGame update(qint64, const GameDraft&) override { return {}; }
       void remove(qint64) override {}
+      ImportResult importGames(const GameDraftList&) override { return {}; }
     };
     StorageController failing([] { return std::make_unique<FailingRepository>(); });
     QSignalSpy failed(&failing, &StorageController::failed);

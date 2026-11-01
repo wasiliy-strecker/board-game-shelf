@@ -342,5 +342,105 @@ Dossier de données : %2
       <source>Lokal auf diesem Computer gespeichert</source>
       <translation>Enregistré localement sur cet ordinateur</translation>
     </message>
+    <message>
+      <source>Bitte bestätige das Ersetzen der vorhandenen Exportdatei.</source>
+      <translation>Confirmez le remplacement du fichier d'exportation existant.</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung (*.json *.JSON)</source>
+      <translation>Collection Board Game Shelf (*.json *.JSON)</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung importieren</source>
+      <translation>Importer une collection Board Game Shelf</translation>
+    </message>
+    <message>
+      <source>Der Export konnte nicht sicher gespeichert werden. Prüfe Speicherplatz und Zugriffsrechte oder wähle einen anderen lokalen Ordner. Ein vorhandener Export bleibt erhalten.</source>
+      <translation>L'exportation n'a pas pu être enregistrée en toute sécurité. Vérifiez l'espace disponible et les autorisations ou choisissez un autre dossier local. Toute exportation existante est conservée.</translation>
+    </message>
+    <message>
+      <source>Der Import würde die Grenze von 10.000 Spielen überschreiten. Die Sammlung bleibt unverändert.</source>
+      <translation>L'importation dépasserait la limite de 10 000 jeux. Votre collection reste inchangée.</translation>
+    </message>
+    <message>
+      <source>Die Importdatei konnte nicht gelesen werden. Prüfe die Zugriffsrechte. Die Sammlung bleibt unverändert.</source>
+      <translation>Le fichier à importer n'a pas pu être lu. Vérifiez les autorisations. Votre collection reste inchangée.</translation>
+    </message>
+    <message>
+      <source>Die Zieldatei wurde nach der Auswahl verändert. Wähle sie erneut. Sie wurde nicht ersetzt.</source>
+      <translation>Le fichier de destination a été modifié après sa sélection. Sélectionnez-le à nouveau. Il n'a pas été remplacé.</translation>
+    </message>
+    <message>
+      <source>Dies ist keine gültige Board Game Shelf-Sammlung. Wähle eine mit Exportieren erzeugte JSON-Datei. Die Sammlung bleibt unverändert.</source>
+      <translation>Ce fichier n'est pas une collection Board Game Shelf valide. Choisissez un fichier JSON créé avec Exporter. Votre collection reste inchangée.</translation>
+    </message>
+    <message>
+      <source>Diese Datei verwendet eine nicht unterstützte Exportversion. Die Sammlung bleibt unverändert.</source>
+      <translation>Ce fichier utilise une version d'exportation non prise en charge. Votre collection reste inchangée.</translation>
+    </message>
+    <message>
+      <source>Ein Import darf höchstens 10.000 Spiele enthalten.</source>
+      <translation>Une importation peut contenir au maximum 10 000 jeux.</translation>
+    </message>
+    <message>
+      <source>Eine Sammlungsdatei darf höchstens 10.000 Spiele und 10 MiB enthalten. Es wurde keine unvollständige Datei oder Sammlung gespeichert.</source>
+      <translation>Un fichier de collection peut contenir au maximum 10 000 jeux et 10 Mio. Aucun fichier ni aucune collection incomplets n'ont été enregistrés.</translation>
+    </message>
+    <message>
+      <source>Einträge in der Datei: %1. Vorhandene Spiele bleiben erhalten. Bereits vorhandene identische Exemplare werden übersprungen. Nach dem Import wird die Suche geleert.</source>
+      <translation>Entrées dans le fichier : %1. Les jeux existants sont conservés. Les exemplaires identiques déjà présents sont ignorés. La recherche est effacée après l'importation.</translation>
+    </message>
+    <message>
+      <source>Ersetzen</source>
+      <translation>Remplacer</translation>
+    </message>
+    <message>
+      <source>Export abgeschlossen. Spiele: %1.</source>
+      <translation>Exportation terminée. Jeux : %1.</translation>
+    </message>
+    <message>
+      <source>Export ersetzen?</source>
+      <translation>Remplacer l'exportation ?</translation>
+    </message>
+    <message>
+      <source>Exportieren</source>
+      <translation>Exporter</translation>
+    </message>
+    <message>
+      <source>Gesamte Sammlung exportieren</source>
+      <translation>Exporter toute la collection</translation>
+    </message>
+    <message>
+      <source>Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.</source>
+      <translation>Importation terminée. Ajoutés : %1. Déjà présents : %2.</translation>
+    </message>
+    <message>
+      <source>Importieren</source>
+      <translation>Importer</translation>
+    </message>
+    <message>
+      <source>Info</source>
+      <translation>Info</translation>
+    </message>
+    <message>
+      <source>Spiele importieren?</source>
+      <translation>Importer des jeux ?</translation>
+    </message>
+    <message>
+      <source>Vorgang abgebrochen.</source>
+      <translation>Opération annulée.</translation>
+    </message>
+    <message>
+      <source>Wähle eine normale .json-Datei in einem vorhandenen Ordner außerhalb der App-Daten. Dateiverknüpfungen sind als Exportziel nicht erlaubt.</source>
+      <translation>Choisissez un fichier .json ordinaire dans un dossier existant en dehors des données de l'application. Les liens ne sont pas autorisés comme destinations d'exportation.</translation>
+    </message>
+    <message>
+      <source>Wähle zuerst eine gültige Importdatei.</source>
+      <translation>Choisissez d'abord un fichier d'importation valide.</translation>
+    </message>
+    <message>
+      <source>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</source>
+      <translation>« %1 » existe déjà. Le remplacer par toute la collection enregistrée ?</translation>
+    </message>
   </context>
 </TS>

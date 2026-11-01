@@ -77,6 +77,9 @@ behalten die aktive Sortierung. Die Auswahl folgt der ID des Spiels, auch wenn
 sich seine Zeile verschiebt. Nach einem App-Neustart gilt wieder Spielname
 aufsteigend.
 
+„Exportieren“ und „Importieren“ stehen unten rechts neben der Sprachwahl.
+Der Schließen-Button im Infofenster ist rot.
+
 | Taste | Aktion |
 | --- | --- |
 | Strg+N / Cmd+N | Spiel hinzufügen |
@@ -93,6 +96,35 @@ Ein Speicherfehler lässt alle Eingaben offen. Während eines Zugriffs sind
 Doppelaktionen gesperrt. Nach einem erfolgreichen Speichern außerhalb der
 aktuellen Suche erklärt ein Hinweis, warum der Eintrag gerade nicht sichtbar ist.
 
+## Sammlung exportieren und importieren
+
+„Exportieren“ sichert die gesamte gespeicherte Sammlung als JSON-Datei.
+Eine aktive Suche oder Zeilenauswahl begrenzt den Export nicht. Spielname,
+Verlag / Hersteller, Aufbewahrungsort und die vollständige Notiz sind enthalten.
+Der Dateidialog schlägt einen Namen mit Datum und Uhrzeit vor. Eine bestehende
+Datei wird erst nach Bestätigung ersetzt. Bei einem Fehler bleibt sie erhalten.
+
+„Importieren“ prüft eine zuvor exportierte Board Game Shelf-Datei und fragt vor
+dem Ergänzen nach. Vorhandene Spiele und IDs bleiben erhalten. Identische
+Exemplare werden anhand aller vier Textfelder und ihrer Anzahl abgeglichen.
+Enthält die Datei zwei identische Exemplare und die Sammlung nur eines, wird
+genau eines ergänzt. Ein erneuter Import derselben Datei erzeugt keine weiteren
+Exemplare. Gleiche Spielnamen mit unterschiedlichen Angaben bleiben unabhängig.
+
+Der Import wird vollständig oder gar nicht gespeichert. Nach Erfolg wird die
+Suche geleert und die bisherige Sortierung beibehalten. Ein Abbruch oder Fehler
+ändert die Sammlung und die Suche nicht. Die geprüften Inhalte werden vor der
+Bestätigung eingelesen, eine spätere Änderung der Datei verändert den Import nicht.
+
+Das app-eigene UTF-8-Format heißt `board-game-shelf.collection`, Version 1.
+Es enthält `games` mit den Feldern `name`, `publisher`, `location` und `note`.
+Technische IDs, Spracheinstellungen und App-Datenpfade werden nicht übertragen.
+Dateien anderer Portfolio-Apps sind keine Board Game Shelf-Importdateien.
+Eine Datei darf höchstens 10.000 Spiele und 10 MiB enthalten. Die drei einzeiligen
+Textfelder haben dieselbe Grenze wie der Editor von jeweils 1.000.000 Zeichen.
+Ein ergänzender Import darf die Sammlung nicht über 10.000 Spiele vergrößern.
+Eine bestehende größere Sammlung wird nicht gekürzt.
+
 ## Daten und isolierte Tests
 
 Die Datei `brettspielregal.sqlite3` liegt im von Qt ermittelten persönlichen
@@ -107,8 +139,9 @@ Typische Pfade einer normalen, nicht sandboxierten Installation:
 
 Store-Sandbox und Windows-Paketvirtualisierung können die tatsächlichen Pfade
 ändern. Die native Abnahme muss diese ermitteln. Es gibt keinen selbst gebauten
-Ersatzpfad ins Programmverzeichnis. Zum manuellen Sichern die App schließen und
-die SQLite-Datei kopieren. Die zusätzliche `collection.lock` ist keine Nutzerdatenbank.
+Ersatzpfad ins Programmverzeichnis. Für eine portable Sammlungssicherung dient
+„Exportieren“. Für eine zusätzliche manuelle Datenbanksicherung die App schließen
+und die SQLite-Datei kopieren. Die zusätzliche `collection.lock` ist keine Nutzerdatenbank.
 `language.txt` enthält ausschließlich die gewählte Oberflächensprache.
 
 ```bash

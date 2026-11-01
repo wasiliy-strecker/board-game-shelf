@@ -342,5 +342,105 @@ Pasta de dados: %2
       <source>Lokal auf diesem Computer gespeichert</source>
       <translation>Salvo localmente neste computador</translation>
     </message>
+    <message>
+      <source>Bitte bestätige das Ersetzen der vorhandenen Exportdatei.</source>
+      <translation>Confirme a substituição do arquivo de exportação existente.</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung (*.json *.JSON)</source>
+      <translation>Coleção do Board Game Shelf (*.json *.JSON)</translation>
+    </message>
+    <message>
+      <source>Board Game Shelf-Sammlung importieren</source>
+      <translation>Importar uma coleção do Board Game Shelf</translation>
+    </message>
+    <message>
+      <source>Der Export konnte nicht sicher gespeichert werden. Prüfe Speicherplatz und Zugriffsrechte oder wähle einen anderen lokalen Ordner. Ein vorhandener Export bleibt erhalten.</source>
+      <translation>Não foi possível salvar a exportação com segurança. Verifique o espaço e as permissões ou escolha outra pasta local. Qualquer exportação existente será preservada.</translation>
+    </message>
+    <message>
+      <source>Der Import würde die Grenze von 10.000 Spielen überschreiten. Die Sammlung bleibt unverändert.</source>
+      <translation>A importação ultrapassaria o limite de 10.000 jogos. Sua coleção não foi alterada.</translation>
+    </message>
+    <message>
+      <source>Die Importdatei konnte nicht gelesen werden. Prüfe die Zugriffsrechte. Die Sammlung bleibt unverändert.</source>
+      <translation>Não foi possível ler o arquivo de importação. Verifique as permissões. Sua coleção não foi alterada.</translation>
+    </message>
+    <message>
+      <source>Die Zieldatei wurde nach der Auswahl verändert. Wähle sie erneut. Sie wurde nicht ersetzt.</source>
+      <translation>O arquivo de destino mudou após a seleção. Selecione-o novamente. Ele não foi substituído.</translation>
+    </message>
+    <message>
+      <source>Dies ist keine gültige Board Game Shelf-Sammlung. Wähle eine mit Exportieren erzeugte JSON-Datei. Die Sammlung bleibt unverändert.</source>
+      <translation>Esta não é uma coleção válida do Board Game Shelf. Escolha um arquivo JSON criado com Exportar. Sua coleção não foi alterada.</translation>
+    </message>
+    <message>
+      <source>Diese Datei verwendet eine nicht unterstützte Exportversion. Die Sammlung bleibt unverändert.</source>
+      <translation>Este arquivo usa uma versão de exportação não compatível. Sua coleção não foi alterada.</translation>
+    </message>
+    <message>
+      <source>Ein Import darf höchstens 10.000 Spiele enthalten.</source>
+      <translation>Uma importação pode conter no máximo 10.000 jogos.</translation>
+    </message>
+    <message>
+      <source>Eine Sammlungsdatei darf höchstens 10.000 Spiele und 10 MiB enthalten. Es wurde keine unvollständige Datei oder Sammlung gespeichert.</source>
+      <translation>Um arquivo de coleção pode conter no máximo 10.000 jogos e 10 MiB. Nenhum arquivo ou coleção incompletos foram salvos.</translation>
+    </message>
+    <message>
+      <source>Einträge in der Datei: %1. Vorhandene Spiele bleiben erhalten. Bereits vorhandene identische Exemplare werden übersprungen. Nach dem Import wird die Suche geleert.</source>
+      <translation>Itens no arquivo: %1. Os jogos existentes serão mantidos. Exemplares idênticos já presentes serão ignorados. A busca será limpa após a importação.</translation>
+    </message>
+    <message>
+      <source>Ersetzen</source>
+      <translation>Substituir</translation>
+    </message>
+    <message>
+      <source>Export abgeschlossen. Spiele: %1.</source>
+      <translation>Exportação concluída. Jogos: %1.</translation>
+    </message>
+    <message>
+      <source>Export ersetzen?</source>
+      <translation>Substituir a exportação?</translation>
+    </message>
+    <message>
+      <source>Exportieren</source>
+      <translation>Exportar</translation>
+    </message>
+    <message>
+      <source>Gesamte Sammlung exportieren</source>
+      <translation>Exportar toda a coleção</translation>
+    </message>
+    <message>
+      <source>Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.</source>
+      <translation>Importação concluída. Adicionados: %1. Já presentes: %2.</translation>
+    </message>
+    <message>
+      <source>Importieren</source>
+      <translation>Importar</translation>
+    </message>
+    <message>
+      <source>Info</source>
+      <translation>Info</translation>
+    </message>
+    <message>
+      <source>Spiele importieren?</source>
+      <translation>Importar jogos?</translation>
+    </message>
+    <message>
+      <source>Vorgang abgebrochen.</source>
+      <translation>Operação cancelada.</translation>
+    </message>
+    <message>
+      <source>Wähle eine normale .json-Datei in einem vorhandenen Ordner außerhalb der App-Daten. Dateiverknüpfungen sind als Exportziel nicht erlaubt.</source>
+      <translation>Escolha um arquivo .json comum em uma pasta existente fora dos dados do aplicativo. Links de arquivos não podem ser usados como destino da exportação.</translation>
+    </message>
+    <message>
+      <source>Wähle zuerst eine gültige Importdatei.</source>
+      <translation>Primeiro, escolha um arquivo de importação válido.</translation>
+    </message>
+    <message>
+      <source>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</source>
+      <translation>“%1” já existe. Substituir por toda a coleção salva?</translation>
+    </message>
   </context>
 </TS>

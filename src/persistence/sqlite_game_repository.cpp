@@ -1,4 +1,5 @@
 #include "persistence/sqlite_game_repository.h"
+#include "application/collection_file.h"
 #include <QCoreApplication>
 
 #include <QDir>
@@ -7,6 +8,8 @@
 #include <QSqlQuery>
 #include <QUuid>
 #include <QVariant>
+#include <map>
+#include <tuple>
 #include <utility>
 
 namespace shelf {
@@ -267,6 +270,52 @@ void SqliteGameRepository::remove(qint64 id) {
   requireAffectedRow(query);
   query.finish();
   transaction.commit();
+}
+
+ImportResult SqliteGameRepository::importGames(const GameDraftList& drafts) {
+  if (drafts.size() > maxTransferGames) {
+    throw TransferError(
+        QCoreApplication::translate("App", "Ein Import darf höchstens 10.000 Spiele enthalten."));
+  }
+  GameDraftList validated;
+  validated.reserve(drafts.size());
+  for (const auto& draft : drafts) {
+    validated.append(validateDraft(draft));
+  }
+  Transaction transaction(database_);
+  const auto existing = findAll();
+  const auto key = [](const GameDraft& draft) {
+    return std::make_tuple(draft.name, draft.publisher, draft.location, draft.note);
+  };
+  std::map<std::tuple<QString, QString, QString, QString>, qsizetype> available;
+  for (const auto& game : existing) {
+    ++available[key(game.fields)];
+  }
+  ImportResult result;
+  QSqlQuery query(database_);
+  prepare(query, QStringLiteral("INSERT INTO games(name,publisher,location,note) "
+                                "VALUES(:name,:publisher,:location,:note)"));
+  for (const auto& draft : validated) {
+    auto& copies = available[key(draft)];
+    if (copies > 0) {
+      --copies;
+      ++result.skipped;
+      continue;
+    }
+    if (existing.size() + result.added >= maxTransferGames) {
+      throw TransferError(QCoreApplication::translate(
+          "App", "Der Import würde die Grenze von 10.000 Spielen überschreiten. "
+                 "Die Sammlung bleibt unverändert."));
+    }
+    bindDraft(query, draft);
+    execute(query);
+    query.finish();
+    ++result.added;
+  }
+  // Capture the committed result before commit so a later read cannot turn success into failure.
+  result.games = findAll();
+  transaction.commit();
+  return result;
 }
 
 } // namespace shelf

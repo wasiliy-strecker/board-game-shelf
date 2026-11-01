@@ -6,9 +6,14 @@
 
 #include <QApplication>
 #include <QCloseEvent>
+#include <QDateTime>
 #include <QDialogButtonBox>
+#include <QDir>
 #include <QFile>
+#include <QFileDialog>
+#include <QFileInfo>
 #include <QHeaderView>
+#include <QIcon>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
@@ -16,6 +21,7 @@
 #include <QPushButton>
 #include <QShortcut>
 #include <QSplitter>
+#include <QStandardPaths>
 #include <QTableWidget>
 #include <QTextBrowser>
 #include <QTimer>
@@ -28,15 +34,18 @@ namespace shelf {
 MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
                        QString languagePreference, QWidget* parent)
     : QMainWindow(parent), controller_(controller), dataDirectory_(std::move(dataDirectory)),
-      languagePreference_(std::move(languagePreference)), search_(new QLineEdit(this)),
-      table_(new QTableWidget(this)), note_(new QPlainTextEdit(this)),
+      languagePreference_(std::move(languagePreference)),
+      transferDirectory_(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)),
+      search_(new QLineEdit(this)), table_(new QTableWidget(this)), note_(new QPlainTextEdit(this)),
       detailTitle_(new QLabel(this)), state_(new QLabel(this)), feedback_(new QLabel(this)),
       count_(new QLabel(this)),
       add_(new QPushButton(QCoreApplication::translate("App", "Spiel hinzufügen"), this)),
       edit_(new QPushButton(QCoreApplication::translate("App", "Bearbeiten"), this)),
       remove_(new QPushButton(QCoreApplication::translate("App", "Löschen"), this)),
       reload_(new QPushButton(QCoreApplication::translate("App", "Neu laden"), this)),
-      language_(new QPushButton(QCoreApplication::translate("App", "Sprache"), this)) {
+      language_(new QPushButton(QCoreApplication::translate("App", "Sprache"), this)),
+      export_(new QPushButton(QCoreApplication::translate("App", "Exportieren"), this)),
+      import_(new QPushButton(QCoreApplication::translate("App", "Importieren"), this)) {
   setWindowTitle(QStringLiteral("BrettspielRegal"));
   setObjectName(QStringLiteral("mainWindow"));
   resize(1000, 740);
@@ -54,7 +63,8 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   header->addWidget(title, 1);
   add_->setObjectName(QStringLiteral("addGame"));
   header->addWidget(add_, 0, Qt::AlignVCenter);
-  auto* about = new QPushButton(QCoreApplication::translate("App", "Über die App"), central);
+  auto* about = new QPushButton(QCoreApplication::translate("App", "Info"), central);
+  about->setAccessibleName(QCoreApplication::translate("App", "Über die App"));
   about->setObjectName(QStringLiteral("aboutApp"));
   root->addLayout(header);
   language_->setObjectName(QStringLiteral("changeLanguage"));
@@ -147,8 +157,12 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   footer->addWidget(localStorage, 1);
   footer->addWidget(about);
   footer->addWidget(language_);
+  export_->setObjectName(QStringLiteral("exportGames"));
+  import_->setObjectName(QStringLiteral("importGames"));
+  footer->addWidget(export_);
+  footer->addWidget(import_);
   root->addLayout(footer);
-  for (auto* button : {add_, edit_, remove_, clear, about, language_}) {
+  for (auto* button : {add_, edit_, remove_, clear, about, language_, export_, import_}) {
     button->setMinimumHeight(36);
   }
   reload_->setObjectName(QStringLiteral("reloadGames"));
@@ -163,9 +177,53 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   setTabOrder(remove_, note_);
   setTabOrder(note_, about);
   setTabOrder(about, language_);
+  setTabOrder(language_, export_);
+  setTabOrder(export_, import_);
 
   connect(about, &QPushButton::clicked, this, &MainWindow::showAbout);
   connect(language_, &QPushButton::clicked, this, &MainWindow::showLanguage);
+  connect(export_, &QPushButton::clicked, this, &MainWindow::exportCollection);
+  connect(import_, &QPushButton::clicked, this, &MainWindow::importCollection);
+  connect(
+      &controller_, &StorageController::exportInspected, this, [this](const ExportTarget& target) {
+        if (!transferRunning_) {
+          return;
+        }
+        if (target.exists && !confirmExportReplacement(this, QFileInfo(target.path).fileName())) {
+          finishTransfer(QCoreApplication::translate("App", "Vorgang abgebrochen."));
+          return;
+        }
+        controller_.exportCollection(target, target.exists, dataDirectory_);
+      });
+  connect(&controller_, &StorageController::exported, this, [this](qsizetype count) {
+    finishTransfer(QCoreApplication::translate("App", "Export abgeschlossen. Spiele: %1.")
+                       .arg(QLocale().toString(count)));
+  });
+  connect(&controller_, &StorageController::importReady, this, [this](qsizetype count) {
+    if (!transferRunning_) {
+      controller_.discardImport();
+      return;
+    }
+    if (!confirmImport(this, count)) {
+      controller_.discardImport();
+      finishTransfer(QCoreApplication::translate("App", "Vorgang abgebrochen."));
+      return;
+    }
+    controller_.importCollection();
+  });
+  connect(&controller_, &StorageController::imported, this, [this](const ImportResult& result) {
+    const auto selected = selectedGame();
+    games_ = result.games;
+    if (search_->text().isEmpty()) {
+      refresh(selected ? selected->id : 0);
+    } else {
+      // Update the table and the line edit's own clear icon through the search handler.
+      search_->clear();
+    }
+    finishTransfer(QCoreApplication::translate(
+                       "App", "Import abgeschlossen. Hinzugefügt: %1. Bereits vorhanden: %2.")
+                       .arg(QLocale().toString(result.added), QLocale().toString(result.skipped)));
+  });
   auto* languageShortcut = new QShortcut(QKeySequence(QStringLiteral("Ctrl+,")), this);
   connect(languageShortcut, &QShortcut::activated, this, &MainWindow::showLanguage);
   connect(&controller_, &StorageController::languageSaved, this, [this](const QString& preference) {
@@ -245,7 +303,11 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   connect(&controller_, &StorageController::failed, this,
           [this](Operation operation, const QString& message) {
             feedback_->setText(message);
-            if (operation != Operation::Save && operation != Operation::Language) {
+            if (operation == Operation::InspectExport || operation == Operation::Export ||
+                operation == Operation::ReadImport || operation == Operation::Import) {
+              transferRunning_ = false;
+            }
+            if (operation == Operation::Load || operation == Operation::Remove) {
               reload_->show();
             }
             if (!ready_) {
@@ -327,16 +389,20 @@ void MainWindow::updateSelection() {
 }
 
 void MainWindow::updateActions() {
-  const bool available = ready_ && !controller_.isBusy() && (!editor_ || !editor_->isVisible());
+  const bool available =
+      ready_ && !transferRunning_ && !controller_.isBusy() && (!editor_ || !editor_->isVisible());
   add_->setEnabled(available);
   language_->setEnabled(available);
+  export_->setEnabled(available);
+  import_->setEnabled(available);
   edit_->setEnabled(available && selectedGame().has_value());
   remove_->setEnabled(available && selectedGame().has_value());
-  reload_->setEnabled(!controller_.isBusy() && (!editor_ || !editor_->isVisible()));
+  reload_->setEnabled(!transferRunning_ && !controller_.isBusy() &&
+                      (!editor_ || !editor_->isVisible()));
 }
 
 void MainWindow::openEditor(bool editing) {
-  if (!ready_ || controller_.isBusy() || (editor_ && editor_->isVisible())) {
+  if (!ready_ || transferRunning_ || controller_.isBusy() || (editor_ && editor_->isVisible())) {
     return;
   }
   const auto selected = editing ? selectedGame() : std::nullopt;
@@ -380,7 +446,7 @@ bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
-  if (controller_.isBusy()) {
+  if (transferRunning_ || controller_.isBusy()) {
     feedback_->setText(QCoreApplication::translate(
         "App",
         "Bitte warte, bis der laufende Speichervorgang beendet ist, und schließe dann erneut."));
@@ -396,6 +462,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::showAbout() {
   QDialog dialog(this);
+  dialog.setObjectName(QStringLiteral("aboutDialog"));
   dialog.setWindowTitle(QCoreApplication::translate("App", "Über BrettspielRegal"));
   dialog.resize(640, 500);
   auto* layout = new QVBoxLayout(&dialog);
@@ -411,8 +478,16 @@ void MainWindow::showAbout() {
           .arg(QCoreApplication::applicationVersion(), dataDirectory_, licenseText));
   layout->addWidget(text);
   auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
-  buttons->button(QDialogButtonBox::Close)
-      ->setText(QCoreApplication::translate("App", "Schließen"));
+  auto* close = buttons->button(QDialogButtonBox::Close);
+  close->setObjectName(QStringLiteral("closeAbout"));
+  close->setText(QCoreApplication::translate("App", "Schließen"));
+  close->setIcon(QIcon());
+  close->setStyleSheet(QStringLiteral(
+      "QPushButton { background-color: #b3261e; color: #ffffff; border: 2px solid #b3261e; "
+      "border-radius: 4px; padding: 7px 18px; font-weight: bold; } "
+      "QPushButton:hover { background-color: #9b211a; border-color: #9b211a; } "
+      "QPushButton:pressed { background-color: #7d1b15; border-color: #7d1b15; } "
+      "QPushButton:focus { border-color: #f4b1ac; }"));
   connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
   layout->addWidget(buttons);
   dialog.exec();
@@ -424,6 +499,79 @@ void MainWindow::showLanguage() {
   }
   LanguageDialog dialog(controller_, dataDirectory_, languagePreference_, this);
   dialog.exec();
+}
+
+bool MainWindow::beginTransfer() {
+  if (!ready_ || transferRunning_ || controller_.isBusy() || (editor_ && editor_->isVisible())) {
+    return false;
+  }
+  transferRunning_ = true;
+  updateActions();
+  return true;
+}
+
+void MainWindow::finishTransfer(const QString& message) {
+  transferRunning_ = false;
+  feedback_->setText(message);
+  updateActions();
+}
+
+void MainWindow::exportCollection() {
+  if (!beginTransfer()) {
+    return;
+  }
+  QString path;
+  {
+    QFileDialog dialog(this, QCoreApplication::translate("App", "Gesamte Sammlung exportieren"));
+    dialog.setObjectName(QStringLiteral("exportCollectionDialog"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setOption(QFileDialog::DontConfirmOverwrite);
+    dialog.setNameFilter(
+        QCoreApplication::translate("App", "Board Game Shelf-Sammlung (*.json *.JSON)"));
+    dialog.setDefaultSuffix(QStringLiteral("json"));
+    dialog.setDirectory(transferDirectory_);
+    dialog.selectFile(
+        QStringLiteral("board-game-shelf-%1.json")
+            .arg(QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_HH-mm-ss"))));
+    if (dialog.exec() == QDialog::Accepted && !dialog.selectedFiles().isEmpty()) {
+      path = dialog.selectedFiles().first();
+    }
+  }
+  // Finish native-dialog cleanup before starting work that can open a confirmation.
+  if (path.isEmpty()) {
+    finishTransfer(QCoreApplication::translate("App", "Vorgang abgebrochen."));
+    return;
+  }
+  transferDirectory_ = QFileInfo(path).absolutePath();
+  controller_.inspectExport(path, dataDirectory_);
+}
+
+void MainWindow::importCollection() {
+  if (!beginTransfer()) {
+    return;
+  }
+  QString path;
+  {
+    QFileDialog dialog(this,
+                       QCoreApplication::translate("App", "Board Game Shelf-Sammlung importieren"));
+    dialog.setObjectName(QStringLiteral("importCollectionDialog"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter(
+        QCoreApplication::translate("App", "Board Game Shelf-Sammlung (*.json *.JSON)"));
+    dialog.setDirectory(transferDirectory_);
+    if (dialog.exec() == QDialog::Accepted && !dialog.selectedFiles().isEmpty()) {
+      path = dialog.selectedFiles().first();
+    }
+  }
+  // Finish native-dialog cleanup before starting work that can open a confirmation.
+  if (path.isEmpty()) {
+    finishTransfer(QCoreApplication::translate("App", "Vorgang abgebrochen."));
+    return;
+  }
+  transferDirectory_ = QFileInfo(path).absolutePath();
+  controller_.readImport(path);
 }
 
 } // namespace shelf

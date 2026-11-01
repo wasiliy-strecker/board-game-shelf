@@ -19,6 +19,7 @@ public:
   BoardGame create(const GameDraft& draft) override;
   BoardGame update(qint64 id, const GameDraft& draft) override;
   void remove(qint64 id) override;
+  ImportResult importGames(const GameDraftList& drafts) override;
 
 private:
   void close();
