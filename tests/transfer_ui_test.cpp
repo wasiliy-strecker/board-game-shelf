@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QFileDialog>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -30,6 +31,22 @@ template <typename Widget> Widget* child(QWidget& parent, const char* name) {
 void chooseFile(const QString& name, const QString& path, bool cancel = false) {
   QTimer::singleShot(0, qApp, [name, path, cancel] {
     auto* dialog = qobject_cast<QFileDialog*>(QApplication::activeModalWidget());
+    if (dialog && name == QStringLiteral("exportCollectionDialog") &&
+        dialog->objectName() == QStringLiteral("exportFolderDialog")) {
+      if (cancel) {
+        dialog->reject();
+        return;
+      }
+      dialog->setDirectory(QFileInfo(path).absolutePath());
+      QVERIFY(QMetaObject::invokeMethod(dialog, "accept", Qt::DirectConnection));
+      QTimer::singleShot(0, qApp, [path] {
+        auto* filename = qobject_cast<QInputDialog*>(QApplication::activeModalWidget());
+        QVERIFY(filename);
+        filename->setTextValue(QFileInfo(path).fileName());
+        filename->accept();
+      });
+      return;
+    }
     if (!dialog || dialog->objectName() != name) {
       if (auto* unexpected = qobject_cast<QDialog*>(QApplication::activeModalWidget())) {
         unexpected->reject();

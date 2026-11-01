@@ -512,5 +512,13 @@ Conforme a legislação aplicável, você tem direitos de acesso, retificação,
       <source>Version %1</source>
       <translation>Versão %1</translation>
     </message>
+    <message>
+      <source>Ordner für den Export wählen</source>
+      <translation>Escolher uma pasta de exportação</translation>
+    </message>
+    <message>
+      <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
+      <translation>Nome do arquivo sem caminho de pasta. A extensão .json será adicionada se necessário.</translation>
+    </message>
   </context>
 </TS>

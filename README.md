@@ -101,8 +101,12 @@ aktuellen Suche erklärt ein Hinweis, warum der Eintrag gerade nicht sichtbar is
 „Exportieren“ sichert die gesamte gespeicherte Sammlung als JSON-Datei.
 Eine aktive Suche oder Zeilenauswahl begrenzt den Export nicht. Spielname,
 Verlag / Hersteller, Aufbewahrungsort und die vollständige Notiz sind enthalten.
-Der Dateidialog schlägt einen Namen mit Datum und Uhrzeit vor. Eine bestehende
-Datei wird erst nach Bestätigung ersetzt. Bei einem Fehler bleibt sie erhalten.
+Der Dateidialog schlägt einen Namen mit Datum und Uhrzeit vor. Auf macOS wird
+zuerst der Zielordner im nativen Dialog gewählt, anschließend der Dateiname.
+Damit umfasst die Ordnerfreigabe auch die temporäre Exportdatei in der Sandbox.
+Eine bestehende Datei wird erst nach Bestätigung ersetzt. Bei einem Fehler
+bleibt sie erhalten. Neue Exporte funktionieren auch ohne Hardlink-Unterstützung,
+zum Beispiel auf exFAT. Details zum Fehlerschutz stehen im Prüfbericht.
 
 „Importieren“ prüft eine zuvor exportierte Board Game Shelf-Datei und fragt vor
 dem Ergänzen nach. Vorhandene Spiele und IDs bleiben erhalten. Identische

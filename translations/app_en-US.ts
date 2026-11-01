@@ -512,5 +512,13 @@ Where applicable, you have rights of access, rectification, erasure, restriction
       <source>Version %1</source>
       <translation>Version %1</translation>
     </message>
+    <message>
+      <source>Ordner für den Export wählen</source>
+      <translation>Choose an export folder</translation>
+    </message>
+    <message>
+      <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
+      <translation>File name without a folder path. The .json extension is added if needed.</translation>
+    </message>
   </context>
 </TS>

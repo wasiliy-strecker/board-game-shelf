@@ -15,6 +15,10 @@
 #include <QUuid>
 #include <QtTest>
 #include <filesystem>
+#ifndef Q_OS_WIN
+#include <csignal>
+#include <sys/resource.h>
+#endif
 
 using namespace shelf;
 
@@ -60,6 +64,90 @@ void externalSql(const QString& directory, const QString& sql) {
 class TransferTest final : public QObject {
   Q_OBJECT
 private slots:
+#ifndef Q_OS_WIN
+  void failedFallbackWriteRemovesPartialFileAndAllowsRetry() {
+    QTemporaryDir data;
+    QTemporaryDir output;
+    const auto path = output.filePath(QStringLiteral("backup.json"));
+    struct rlimit originalLimit{};
+    QVERIFY(::getrlimit(RLIMIT_FSIZE, &originalLimit) == 0);
+    const auto previousSignal = std::signal(SIGXFSZ, SIG_IGN);
+    QVERIFY(previousSignal != SIG_ERR);
+    bool failed = false;
+    {
+      const auto restore = qScopeGuard([&] {
+        ::setrlimit(RLIMIT_FSIZE, &originalLimit);
+        std::signal(SIGXFSZ, previousSignal);
+      });
+      JsonCollectionFile files(data.path(), [&originalLimit](const QString&, const QString&) {
+        auto limit = originalLimit;
+        limit.rlim_cur = 0;
+        if (::setrlimit(RLIMIT_FSIZE, &limit) != 0) {
+          throw std::runtime_error("Cannot simulate a failed export write");
+        }
+        return std::make_error_code(std::errc::operation_not_supported);
+      });
+      try {
+        files.write({sample}, files.inspect(path), false);
+      } catch (const TransferError&) {
+        failed = true;
+      }
+    }
+    QVERIFY(failed);
+    QVERIFY(!QFileInfo::exists(path));
+    QVERIFY(QDir(output.path()).entryList(QDir::Files | QDir::Hidden).isEmpty());
+    JsonCollectionFile retry(data.path(), [](const QString&, const QString&) {
+      return std::make_error_code(std::errc::operation_not_supported);
+    });
+    retry.write({sample}, retry.inspect(path), false);
+    QCOMPARE(retry.read(path), GameDraftList{sample});
+  }
+#endif
+
+  void exportWithoutHardLinksPreservesContentAndExistingFiles() {
+    QTemporaryDir data;
+    QTemporaryDir output;
+    JsonCollectionFile files(data.path(), [](const QString&, const QString&) {
+      return std::make_error_code(std::errc::operation_not_supported);
+    });
+    const auto path = output.filePath(QStringLiteral("Sammlung 東京.json"));
+    files.write({sample, sample}, files.inspect(path), false);
+    QCOMPARE(files.read(path), (GameDraftList{sample, sample}));
+    const auto previous = get(path);
+    QVERIFY_EXCEPTION_THROWN(files.write({}, files.inspect(path), false), TransferError);
+    QCOMPARE(get(path), previous);
+    files.write({}, files.inspect(path), true);
+    QVERIFY(files.read(path).isEmpty());
+    QCOMPARE(QDir(output.path()).entryList(QDir::Files | QDir::Hidden).size(), 1);
+  }
+
+  void hardLinkFallbackDoesNotOverwriteLateFilesOrSymbolicLinks() {
+    QTemporaryDir data;
+    QTemporaryDir output;
+    const auto path = output.filePath(QStringLiteral("backup.json"));
+    JsonCollectionFile files(data.path(), [](const QString&, const QString& destination) {
+      put(destination, "other application");
+      return std::make_error_code(std::errc::operation_not_supported);
+    });
+    QVERIFY_EXCEPTION_THROWN(files.write({sample}, files.inspect(path), false), TransferError);
+    QCOMPARE(get(path), QByteArray("other application"));
+    QCOMPARE(QDir(output.path()).entryList(QDir::Files | QDir::Hidden).size(), 1);
+#ifndef Q_OS_WIN
+    const auto original = output.filePath(QStringLiteral("original"));
+    put(original, "keep original");
+    const auto link = output.filePath(QStringLiteral("late-link.json"));
+    JsonCollectionFile linked(data.path(), [&original](const QString&, const QString& destination) {
+      if (!QFile::link(original, destination)) {
+        throw std::runtime_error("Cannot prepare symbolic link");
+      }
+      return std::make_error_code(std::errc::operation_not_supported);
+    });
+    QVERIFY_EXCEPTION_THROWN(linked.write({sample}, linked.inspect(link), false), TransferError);
+    QCOMPARE(get(original), QByteArray("keep original"));
+    QVERIFY(QFileInfo(link).isSymLink());
+#endif
+  }
+
   void roundTripSavedCollectionAndEmptyFile() {
     QTemporaryDir data;
     QTemporaryDir exports;

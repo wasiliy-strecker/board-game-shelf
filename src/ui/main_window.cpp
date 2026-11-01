@@ -1,4 +1,5 @@
 #include "ui/main_window.h"
+#include "ui/export_file_dialog.h"
 #include "ui/information_dialog.h"
 #include "ui/language_dialog.h"
 #include "ui/sort_header.h"
@@ -507,24 +508,16 @@ void MainWindow::exportCollection() {
   if (!beginTransfer()) {
     return;
   }
-  QString path;
-  {
-    QFileDialog dialog(this, QCoreApplication::translate("App", "Gesamte Sammlung exportieren"));
-    dialog.setObjectName(QStringLiteral("exportCollectionDialog"));
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setOption(QFileDialog::DontConfirmOverwrite);
-    dialog.setNameFilter(
-        QCoreApplication::translate("App", "Board Game Shelf-Sammlung (*.json *.JSON)"));
-    dialog.setDefaultSuffix(QStringLiteral("json"));
-    dialog.setDirectory(transferDirectory_);
-    dialog.selectFile(
-        QStringLiteral("board-game-shelf-%1.json")
-            .arg(QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_HH-mm-ss"))));
-    if (dialog.exec() == QDialog::Accepted && !dialog.selectedFiles().isEmpty()) {
-      path = dialog.selectedFiles().first();
-    }
-  }
+#ifdef Q_OS_MACOS
+  constexpr bool selectDirectory = true;
+#else
+  constexpr bool selectDirectory = false;
+#endif
+  const auto path = chooseExportFile(
+      this, QDir(transferDirectory_),
+      QStringLiteral("board-game-shelf-%1.json")
+          .arg(QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_HH-mm-ss"))),
+      selectDirectory);
   // Finish native-dialog cleanup before starting work that can open a confirmation.
   if (path.isEmpty()) {
     finishTransfer(QCoreApplication::translate("App", "Vorgang abgebrochen."));

@@ -512,5 +512,13 @@ Cuando corresponda, tienes derecho de acceso, rectificación, supresión, limita
       <source>Version %1</source>
       <translation>Versión %1</translation>
     </message>
+    <message>
+      <source>Ordner für den Export wählen</source>
+      <translation>Elegir una carpeta de exportación</translation>
+    </message>
+    <message>
+      <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
+      <translation>Nombre del archivo sin ruta de carpeta. Se añade la extensión .json si es necesario.</translation>
+    </message>
   </context>
 </TS>

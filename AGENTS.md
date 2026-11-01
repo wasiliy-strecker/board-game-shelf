@@ -67,3 +67,18 @@ technische Kennungen, Datenpfade und Formate bleiben erhalten. „Info“ enthä
 App-Kataloge. Alle mitgelieferten Lizenzdateien bleiben unverändert und werden
 für das Lizenzfenster als Ressourcen eingebettet. Die roten Schließen-Buttons
 in diesen drei Fenstern beibehalten.
+
+## Mac-Dateizugriff und portable Exporte, 1. November 2026
+
+Auf macOS für den Export zuerst den Zielordner nativ auswählen, dann einen
+validierten Dateinamen eingeben. Die Sandbox-Rechte umfassen ausschließlich
+ausgewählte Dateien und Ordner mit Lese-/Schreibzugriff. Keine pauschalen
+Dateifreigaben ergänzen. Neue Exporte dürfen Hardlinks als schnellen atomaren
+Weg verwenden, müssen aber auch ohne diese Unterstützung funktionieren.
+Der Ausweichweg legt das Ziel exklusiv neu an und überschreibt keine bestehende
+Datei. Bestehende Exporte werden weiterhin nur nach Bestätigung atomar ersetzt.
+
+Der Nutzer hat für Board Game Shelf ausdrücklich die unterstützte Systemsprache
+beim Erststart bestätigt, mit Englisch als Fallback. Das ist eine app-spezifische
+Ausnahme von der allgemeinen Englisch-Vorgabe. Bestehende Sprachwahlen erhalten.
+Die Java-Apps behalten ihre bisherige Englisch-Vorgabe.

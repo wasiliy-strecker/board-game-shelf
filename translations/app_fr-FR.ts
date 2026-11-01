@@ -512,5 +512,13 @@ Selon les dispositions applicables, vous disposez des droits d’accès, de rect
       <source>Version %1</source>
       <translation>Version %1</translation>
     </message>
+    <message>
+      <source>Ordner für den Export wählen</source>
+      <translation>Choisir un dossier d’exportation</translation>
+    </message>
+    <message>
+      <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
+      <translation>Nom de fichier sans chemin de dossier. L’extension .json est ajoutée si nécessaire.</translation>
+    </message>
   </context>
 </TS>

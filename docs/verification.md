@@ -1,5 +1,56 @@
 # Prüfbericht
 
+## Mac-Dateizugriff und portable Exporte, 1. November 2026
+
+Die Mac-Sandbox-Vorlage enthält jetzt `com.apple.security.files.user-selected.read-write`.
+Beim Export auf macOS wird zuerst ein Ordner nativ gewählt, anschließend ein
+Dateiname eingegeben. Die Ordnerfreigabe schließt die temporäre Exportdatei ein.
+Die Dateinameneingabe verhindert Pfadwechsel, Kontrollzeichen und überlange
+Namen. Alle neuen Texte sind in sechs Sprachen vorhanden. Abbrechen in beiden
+Dialogen erstellt keine Datei. Der Import verwendet weiterhin die native
+Dateiauswahl. Benutzerkonten, Paketkennungen und Datenpfade bleiben unverändert.
+
+Die unterstützte Systemsprache beim Erststart ist vom Nutzer ausdrücklich
+bestätigt, mit Englisch als Fallback. Vorhandene Sprachwahlen bleiben erhalten.
+
+Der Export wird vor der Veröffentlichung vollständig in einer temporären Datei
+erzeugt. Unterstützt das Dateisystem Hardlinks, bleibt die bisherige atomare
+Veröffentlichung neuer Dateien erhalten. Andernfalls wird das neue Ziel exklusiv
+angelegt (`CREATE_NEW` beziehungsweise `NewOnly`) und mit dem fertigen Inhalt
+beschrieben. Eine zwischenzeitlich entstandene Datei oder ein symbolischer
+Verweis wird nicht überschrieben. Erfolge werden erst nach geschlossenem
+Ausgabestrom gemeldet. Kontrollierte Schreibfehler entfernen die eigene
+Teildatei, sofern ihre Identität noch nachweisbar ist. Eine inzwischen ersetzte
+Datei wird nicht zur Fehlerbereinigung gelöscht. Bestehende Exporte werden
+weiterhin nur nach Bestätigung atomar ersetzt, ohne unsicheren Überschreibfallback.
+
+Grenze des Ausweichwegs: Das Kopieren einer neuen Datei ist selbst kein atomarer
+Vorgang. Bei hartem Prozessabbruch, abgezogenem Datenträger oder fehlender
+Dateiidentität kann eine unvollständige neue Exportdatei zurückbleiben. Die
+interne Sammlung und zuvor vorhandene Exportdateien werden dadurch nicht
+ersetzt. Die neue Exportdatei dann erneut unter einem neuen Namen erstellen.
+Die Tests simulieren fehlende Hardlink-Unterstützung und Schreibfehler. Ein
+physischer exFAT-Datenträger und native Mac-Sandbox-Ausführung waren hier nicht
+verfügbar. Daraus folgt keine native macOS- oder Store-Freigabe.
+
+Prüfung mit `bash scripts/check.sh`: Formatter, Compilerwarnungen als Fehler,
+clang-tidy, alle neun CTest-Suiten und 118 Texte in sechs Sprachen bestanden.
+Zusätzlich alle neun Suiten mit gezielt verweigerten nativen Hardlink-Aufrufen
+für Exportdateien ausgeführt. Eigene Regressionen prüfen Kollisionen, einen
+spät entstandenen Symlink, eine tatsächliche Schreibgrenze über `RLIMIT_FSIZE`,
+Bereinigung und erneuten Export. Ordner-/Dateiname-Dialoge in allen sechs
+Sprachen und der bestehende Transferablauf bestehen auch mit echten Qt-Fenstern
+auf einem isolierten Xvfb-/Openbox-Bildschirm. Ansichten visuell geprüft.
+
+Nachweise: `build/portable-exports-check.log`, `build/portable-exports-no-links.log`,
+`build/portable-exports-ui/`. Nur temporäre synthetische Sammlungen verwendet.
+Keine Store-Artefakte, Veröffentlichung oder Änderung persönlicher Sammlungen.
+
+Native Mac-Abnahme: Signierte Sandbox-App mit frischem Profil starten und die
+effektiven Entitlements prüfen. JSON aus einem extern gewählten Ordner importieren.
+In einen neuen extern gewählten Ordner exportieren, beide Abbruchwege sowie
+Ersetzen und Neustart prüfen. Einen exFAT-Datenträger zusätzlich ausprobieren.
+
 ## Info-Menü, Datenschutz und englischer Name, 1. November 2026
 
 Die erste C++-App heißt in allen Sprachen Board Game Shelf. Hauptfenster,

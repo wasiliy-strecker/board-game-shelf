@@ -512,5 +512,13 @@ Soweit anwendbar, hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschr�
       <source>Version %1</source>
       <translation>Version %1</translation>
     </message>
+    <message>
+      <source>Ordner für den Export wählen</source>
+      <translation>Ordner für den Export wählen</translation>
+    </message>
+    <message>
+      <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
+      <translation>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</translation>
+    </message>
   </context>
 </TS>

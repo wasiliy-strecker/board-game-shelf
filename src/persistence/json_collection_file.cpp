@@ -11,6 +11,7 @@
 #include <QJsonObject>
 #include <QSet>
 #include <QTemporaryFile>
+#include <exception>
 #include <filesystem>
 #include <utility>
 #ifdef Q_OS_WIN
@@ -202,8 +203,16 @@ QByteArray encode(const GameDraftList& games) {
 }
 } // namespace
 
-JsonCollectionFile::JsonCollectionFile(QString dataDirectory)
-    : dataDirectory_(std::move(dataDirectory)) {}
+JsonCollectionFile::JsonCollectionFile(QString dataDirectory, LinkAttempt link)
+    : dataDirectory_(std::move(dataDirectory)), link_(std::move(link)) {
+  if (!link_) {
+    link_ = [](const QString& source, const QString& destination) {
+      std::error_code error;
+      std::filesystem::create_hard_link(nativePath(source), nativePath(destination), error);
+      return error;
+    };
+  }
+}
 
 ExportTarget JsonCollectionFile::inspect(const QString& path) {
   const QFileInfo file(path);
@@ -351,11 +360,40 @@ void JsonCollectionFile::write(const GameDraftList& games, const ExportTarget& t
   }
   std::error_code error;
   if (!target.exists) {
-    // Atomic publication without replacing a file created after the user's selection.
-    std::filesystem::create_hard_link(nativePath(temporary.fileName()), nativePath(target.path),
-                                      error);
+    error = link_(temporary.fileName(), target.path);
+    if (error == std::errc::file_exists) {
+      changedTarget();
+    }
     if (error) {
-      writeFailure();
+      // exFAT and some file providers cannot create hard links. NewOnly reserves
+      // the destination without replacing another file, even after a late race.
+      QFile output(target.path);
+      if (!output.open(QIODevice::WriteOnly | QIODevice::NewOnly)) {
+        writeFailure();
+      }
+      QByteArray createdIdentity;
+      try {
+        createdIdentity = identity(target.path);
+        if (output.write(bytes) != bytes.size() || !output.flush()) {
+          writeFailure();
+        }
+        output.close();
+        if (output.error() != QFileDevice::NoError) {
+          writeFailure();
+        }
+      } catch (...) {
+        const auto failure = std::current_exception();
+        output.close();
+        try {
+          if (!createdIdentity.isEmpty() && identity(target.path) == createdIdentity) {
+            QFile::remove(target.path);
+          }
+        } catch (const std::exception&) {
+          // A removed/replaced destination must not cause deletion of another file.
+          std::rethrow_exception(failure);
+        }
+        std::rethrow_exception(failure);
+      }
     }
   } else {
 #ifdef Q_OS_WIN

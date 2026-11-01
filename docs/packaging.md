@@ -101,8 +101,12 @@ QSQLITE und Cocoa-Plugin und erstellt eine DMG. Das Bundle hat die Kennung
 `de.appfabrik.brettspielregal` und ein eigenes Icon. Die Ad-hoc-Signatur dient
 lokalen Tests und ist keine vertrauenswürdige Distributionssignatur.
 
-`packaging/macos/app-store.entitlements` bereitet ausschließlich App Sandbox
-vor. Die App benötigt weder Netzwerkzugriff noch beliebige Dateizugriffe.
+`packaging/macos/app-store.entitlements` aktiviert App Sandbox sowie
+`com.apple.security.files.user-selected.read-write` für die vom Nutzer
+ausgewählten Importdateien und Exportordner. Der Mac-Export fragt zuerst nach
+einem Ordner und dann nach dem Dateinamen. Diese Ordnerfreigabe umfasst die
+temporäre Exportdatei. Der Import verwendet weiterhin die native Dateiauswahl.
+Die App benötigt keinen Netzwerkzugriff und keine pauschalen Dateifreigaben.
 Store-Identität, Team, Provisioning und Signierung aller Bundle-Bestandteile
 müssen später auf einem Mac festgelegt und geprüft werden. Keine pauschalen
 Entitlements zum Abschalten von Bibliotheksprüfungen hinzufügen.
