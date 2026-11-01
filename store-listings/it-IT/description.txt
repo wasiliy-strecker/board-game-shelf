@@ -1,4 +1,4 @@
-Tieni in ordine la tua raccolta di giochi da tavolo con BrettspielRegal. Registra il nome di ogni gioco, l’editore o produttore, la posizione e una nota su più righe. Solo il nome del gioco è obbligatorio.
+Tieni in ordine la tua raccolta di giochi da tavolo con Board Game Shelf. Registra il nome di ogni gioco, l’editore o produttore, la posizione e una nota su più righe. Solo il nome del gioco è obbligatorio.
 
 Cerca in tutti e quattro i campi di testo, modifica le voci e leggi la nota completa direttamente nella raccolta. L’app chiede conferma prima di eliminare un gioco o scartare modifiche non salvate.
 

@@ -19,8 +19,8 @@
       <translation>percorso</translation>
     </message>
     <message>
-      <source>BrettspielRegal kann nicht starten</source>
-      <translation>Impossibile avviare BrettspielRegal</translation>
+      <source>Board Game Shelf kann nicht starten</source>
+      <translation>Impossibile avviare Board Game Shelf</translation>
     </message>
     <message>
       <source>--data-dir benötigt ein absolutes, nicht leeres Verzeichnis.</source>
@@ -73,12 +73,12 @@
       <translation>Impossibile leggere la versione dello schema.</translation>
     </message>
     <message>
-      <source>Diese Datenbank benötigt eine neuere Version von BrettspielRegal. Die vorhandene Datei wird nicht verändert.</source>
-      <translation>Questo database richiede una versione più recente di BrettspielRegal. Il file esistente non verrà modificato.</translation>
+      <source>Diese Datenbank benötigt eine neuere Version von Board Game Shelf. Die vorhandene Datei wird nicht verändert.</source>
+      <translation>Questo database richiede una versione più recente di Board Game Shelf. Il file esistente non verrà modificato.</translation>
     </message>
     <message>
-      <source>Die vorhandene Datei hat kein bekanntes BrettspielRegal-Schema. Sie wird nicht überschrieben.</source>
-      <translation>Il file esistente non contiene uno schema BrettspielRegal riconosciuto. Non verrà sovrascritto.</translation>
+      <source>Die vorhandene Datei hat kein bekanntes Board Game Shelf-Schema. Sie wird nicht überschrieben.</source>
+      <translation>Il file esistente non contiene uno schema Board Game Shelf riconosciuto. Non verrà sovrascritto.</translation>
     </message>
     <message>
       <source>Die Datenbankprüfung hat einen Schaden gefunden. Sichere die Datei. Sie wird nicht ersetzt.</source>
@@ -241,22 +241,8 @@
       <translation>Attendi il completamento dell'operazione di archiviazione, poi riprova a chiudere.</translation>
     </message>
     <message>
-      <source>Über BrettspielRegal</source>
-      <translation>Informazioni su BrettspielRegal</translation>
-    </message>
-    <message>
-      <source>BrettspielRegal %1
-
-Deine Sammlung bleibt lokal.
-Datenverzeichnis: %2
-
-%3</source>
-      <translation>BrettspielRegal %1
-
-La tua raccolta rimane locale.
-Cartella dati: %2
-
-%3</translation>
+      <source>Über Board Game Shelf</source>
+      <translation>Informazioni su Board Game Shelf</translation>
     </message>
     <message>
       <source>Schließen</source>
@@ -441,6 +427,90 @@ Cartella dati: %2
     <message>
       <source>„%1“ ist bereits vorhanden. Durch die gesamte gespeicherte Sammlung ersetzen?</source>
       <translation>«%1» esiste già. Sostituirlo con l'intera raccolta salvata?</translation>
+    </message>
+    <message>
+      <source>Datenschutz</source>
+      <translation>Privacy</translation>
+    </message>
+    <message>
+      <source>Datenschutzerklärung für Board Game Shelf</source>
+      <translation>Informativa sulla privacy di Board Game Shelf</translation>
+    </message>
+    <message>
+      <source>Datenverzeichnis: %1</source>
+      <translation>Cartella dei dati: %1</translation>
+    </message>
+    <message>
+      <source>Die Informationen konnten nicht geladen werden. Bitte installiere die App erneut.</source>
+      <translation>Impossibile caricare le informazioni. Reinstalla l’app.</translation>
+    </message>
+    <message>
+      <source>Die folgenden Hinweise und Lizenztexte beschreiben die verwendeten Fremdkomponenten. Rechtliche Originaltexte werden in ihrer Originalsprache angezeigt. Weitere Laufzeithinweise befinden sich in den Lizenzordnern der installierten App.</source>
+      <translation>Le note e le licenze seguenti descrivono i componenti di terze parti utilizzati dall’app. I testi legali originali sono mostrati nella loro lingua originale. Altre note sull’ambiente di esecuzione si trovano nelle cartelle delle licenze dell’app installata.</translation>
+    </message>
+    <message>
+      <source>Entwicklung: Wasiliy Strecker · AppFabrik AI</source>
+      <translation>Sviluppo: Wasiliy Strecker · AppFabrik AI</translation>
+    </message>
+    <message>
+      <source>Lizenzen</source>
+      <translation>Licenze</translation>
+    </message>
+    <message>
+      <source>Stand: 1. November 2026</source>
+      <translation>Ultimo aggiornamento: 1 novembre 2026</translation>
+    </message>
+    <message>
+      <source>Verantwortlicher und Kontakt
+Wasiliy Strecker · AppFabrik AI
+Ludwigstrasse 23, 86152 Augsburg, Deutschland
+Datenschutz: contact@appfabrik-ai.de
+Support: support@appfabrik-ai.de
+
+Zweck und gespeicherte Daten
+Board Game Shelf verwaltet deine private Brettspielsammlung. Die App speichert Spielnamen, Verlage oder Hersteller, Aufbewahrungsorte, Notizen und interne Eintragskennungen sowie deine Spracheinstellung standardmäßig lokal im Benutzerprofil deines Computers. Die Angaben können personenbezogene Informationen enthalten, wenn du sie selbst einträgst. Die Verarbeitung dient ausschließlich den von dir angeforderten Funktionen zum Verwalten, Suchen, Exportieren und Importieren deiner Sammlung.
+
+Lokale Verarbeitung
+Die App benötigt kein Konto und keinen Server. Sie übermittelt deine Sammlung und Spracheinstellung nicht an den Entwickler oder andere Empfänger. Sie enthält keine Werbung, Telemetrie, Nutzungsanalyse oder eigene Cloud-Synchronisierung. Die Datenschutzerklärung ist Bestandteil der App und wird ohne Internetverbindung angezeigt. Board Game Shelf verschlüsselt weder seine gespeicherte Sammlung noch exportierte JSON-Dateien selbst. Der Schutz hängt auch von deinem Benutzerkonto, den Zugriffsrechten und einer gegebenenfalls aktivierten Datenträgerverschlüsselung ab.
+
+Import, Export und Sicherungskopien
+Beim Import liest die App die von dir ausgewählte JSON-Datei lokal. Ein Export enthält alle gespeicherten Brettspiele mit ihren vier Textfeldern. Er enthält weder interne Eintragskennungen noch die Spracheinstellung. Du bestimmst den Speicherort und eine mögliche Weitergabe. Bereits exportierte Dateien sind eigenständige Kopien und werden durch spätere Änderungen in der App nicht aktualisiert oder gelöscht. Wenn du einen synchronisierten Ordner, ein Netzlaufwerk oder einen Sicherungsdienst nutzt, kann dieser Dienst die Dateien außerhalb der App verarbeiten oder übertragen. Dafür gelten die Einstellungen und Datenschutzbedingungen des jeweiligen Anbieters. Board Game Shelf steuert diese Dienste nicht.
+
+Speicherdauer und Löschung
+Die App bewahrt die Sammlung auf, bis du Einträge löschst oder die gespeicherten App-Daten entfernst. Du kannst Einträge in der App ansehen, bearbeiten und löschen. Zum vollständigen Entfernen der lokalen Sammlung und Spracheinstellung schließt du die App und entfernst ihren Datenordner. Die Speicherorte sind in der mitgelieferten Anleitung beschrieben. Exportdateien und andere Sicherungskopien musst du an ihren jeweiligen Speicherorten gesondert löschen. Das Löschen eines Eintrags ist keine garantierte sichere Löschung aller früheren Dateiinhalte. Verlasse dich nicht darauf, dass eine Deinstallation alle App-Daten und externen Kopien entfernt.
+
+Kontakt und Support
+Wenn du uns freiwillig eine E-Mail sendest, verarbeiten wir deine E-Mail-Adresse, den Nachrichteninhalt und beigefügte Dateien zur Bearbeitung der Anfrage. Deine lokal gespeicherte Sammlung wird dabei nicht automatisch mitgesendet. Rechtsgrundlage ist bei vertragsbezogenen Anfragen Artikel 6 Absatz 1 Buchstabe b DSGVO, ansonsten unser berechtigtes Interesse an der Beantwortung von Anfragen nach Artikel 6 Absatz 1 Buchstabe f DSGVO. Wir bewahren die Korrespondenz nur so lange auf, wie dies für die Bearbeitung und gesetzliche Aufbewahrungspflichten erforderlich ist.
+
+Deine Rechte und weitere Anbieter
+Soweit anwendbar, hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Datenschutzaufsichtsbehörde. Nutze dafür den Datenschutzkontakt. Auf Sammlungen, die ausschließlich auf deinem Computer liegen, hat der Entwickler keinen Zugriff. Beim Bezug oder Aktualisieren über Apple App Store, Microsoft Store oder GitHub können diese Anbieter selbst Daten verarbeiten. Dafür gelten deren eigene Datenschutzbedingungen. Diese Erklärung beschreibt die Datenverarbeitung durch Board Game Shelf und wird bei entsprechenden Änderungen aktualisiert.</source>
+      <translation>Titolare e contatti
+Wasiliy Strecker · AppFabrik AI
+Ludwigstrasse 23, 86152 Augusta, Germania
+Privacy: contact@appfabrik-ai.de
+Assistenza: support@appfabrik-ai.de
+
+Finalità e dati salvati
+Board Game Shelf gestisce la tua raccolta personale di giochi da tavolo. L’app salva nomi dei giochi, editori o produttori, posizioni, note e identificativi interni delle voci, insieme alla preferenza di lingua, per impostazione predefinita localmente nel profilo utente del computer. Questi campi possono contenere dati personali se li inserisci. Il trattamento serve esclusivamente alle funzioni richieste per gestire, cercare, esportare e importare la raccolta.
+
+Trattamento locale
+L’app non richiede un account o un server. Non trasmette la raccolta né la preferenza di lingua allo sviluppatore o ad altri destinatari. Non contiene pubblicità, telemetria, analisi dell’utilizzo o sincronizzazione cloud propria. Questa informativa è inclusa nell’app e si può leggere senza connessione Internet. Board Game Shelf non cifra autonomamente la raccolta salvata né i file JSON esportati. La protezione dipende anche dall’account utente, dai permessi di accesso e dall’eventuale cifratura del disco attivata.
+
+Importazione, esportazione e backup
+Durante l’importazione, l’app legge localmente il file JSON selezionato. L’esportazione include tutti i giochi da tavolo salvati e i quattro campi di testo. Non include gli identificativi interni né la preferenza di lingua. Scegli tu dove salvare il file e se condividerlo. I file esportati sono copie indipendenti e non vengono aggiornati o eliminati quando modifichi i dati nell’app. Se utilizzi una cartella sincronizzata, un’unità di rete o un servizio di backup, tale servizio può trattare o trasferire i file al di fuori dell’app. Si applicano le sue impostazioni e condizioni sulla privacy. Board Game Shelf non controlla questi servizi.
+
+Conservazione ed eliminazione
+L’app conserva la raccolta fino a quando elimini le voci o i dati salvati dell’app. Puoi visualizzare, modificare ed eliminare le voci nell’app. Per rimuovere tutta la raccolta locale e la preferenza di lingua, chiudi l’app ed elimina la sua cartella dati. I percorsi sono descritti nelle istruzioni incluse. I file esportati e gli altri backup devono essere eliminati separatamente dai rispettivi percorsi. L’eliminazione di una voce non garantisce la cancellazione sicura di tutti i precedenti contenuti dei file. Non presumere che la disinstallazione elimini tutti i dati dell’app e le copie esterne.
+
+Contatto e assistenza
+Se ci invii volontariamente un’e-mail, trattiamo il tuo indirizzo e-mail, il messaggio e gli allegati per rispondere alla richiesta. La raccolta locale non viene allegata automaticamente. La base giuridica per le richieste relative a un contratto è l’articolo 6, paragrafo 1, lettera b del GDPR. Per le altre richieste è il nostro legittimo interesse a rispondere, ai sensi dell’articolo 6, paragrafo 1, lettera f del GDPR. Conserviamo la corrispondenza solo per il tempo necessario a gestire la richiesta e adempiere agli obblighi legali di conservazione.
+
+I tuoi diritti e altri fornitori
+Ove applicabili, hai diritto di accesso, rettifica, cancellazione, limitazione del trattamento, portabilità e opposizione, oltre al diritto di presentare un reclamo a un’autorità di protezione dei dati. Puoi utilizzare il contatto privacy riportato sopra. Lo sviluppatore non può accedere alle raccolte presenti soltanto sul tuo computer. Quando ottieni o aggiorni l’app tramite Apple App Store, Microsoft Store o GitHub, questi fornitori possono trattare dati autonomamente secondo le proprie condizioni. Questa informativa descrive il trattamento di Board Game Shelf e sarà aggiornata se tale trattamento cambia.</translation>
+    </message>
+    <message>
+      <source>Version %1</source>
+      <translation>Versione %1</translation>
     </message>
   </context>
 </TS>

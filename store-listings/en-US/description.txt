@@ -1,4 +1,4 @@
-Keep track of your board game collection with BrettspielRegal. Record each game name, publisher or manufacturer, storage location and a multiline note. Only the game name is required.
+Keep track of your board game collection with Board Game Shelf. Record each game name, publisher or manufacturer, storage location and a multiline note. Only the game name is required.
 
 Search all four text fields, edit your entries and read the full note directly in your collection. The app asks for confirmation before deleting a game or discarding unsaved changes.
 

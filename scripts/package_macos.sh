@@ -18,8 +18,8 @@ ctest --preset release
 mkdir -p "$brettspiel_stage"
 cp README.md THIRD_PARTY_NOTICES.md "$brettspiel_stage/"
 cp -R docs "$brettspiel_stage/docs"
-cp -R build/release/brettspielregal.app "$brettspiel_stage/BrettspielRegal.app"
-brettspiel_app="$brettspiel_stage/BrettspielRegal.app"
+cp -R build/release/brettspielregal.app "$brettspiel_stage/Board Game Shelf.app"
+brettspiel_app="$brettspiel_stage/Board Game Shelf.app"
 "$BRETTSPIELREGAL_QT_ROOT/bin/macdeployqt" "$brettspiel_app" -always-overwrite -appstore-compliant
 test -f "$brettspiel_app/Contents/PlugIns/sqldrivers/libqsqlite.dylib"
 test -f "$brettspiel_app/Contents/PlugIns/platforms/libqcocoa.dylib"
@@ -44,7 +44,7 @@ iconutil -c icns "$brettspiel_icons" -o "$brettspiel_app/Contents/Resources/Bret
 /usr/libexec/PlistBuddy -c "Add :CFBundleIconFile string BrettspielRegal.icns" "$brettspiel_app/Contents/Info.plist"
 # Ad-hoc signing permits local Apple-Silicon testing. It is not a distribution identity.
 codesign --force --deep --sign - "$brettspiel_app"
-hdiutil create -volname BrettspielRegal -srcfolder "$brettspiel_stage" -ov -format UDZO "$brettspiel_dmg"
+hdiutil create -volname "Board Game Shelf" -srcfolder "$brettspiel_stage" -ov -format UDZO "$brettspiel_dmg"
 shasum -a 256 "$brettspiel_dmg" > "$brettspiel_dmg.sha256"
 echo "$brettspiel_dmg"
 echo "Native GUI-Abnahme und spätere Store-Signierung bleiben erforderlich."

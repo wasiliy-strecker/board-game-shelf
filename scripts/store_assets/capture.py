@@ -135,7 +135,7 @@ class Journey:
             stdout=self.log,
             stderr=self.log,
         )
-        self.main = self.window("BrettspielRegal")
+        self.main = self.window("Board Game Shelf")
         self.command("xdotool", "windowactivate", "--sync", self.main)
         self.key("alt+F10")
         time.sleep(0.7)

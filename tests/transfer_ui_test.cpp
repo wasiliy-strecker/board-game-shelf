@@ -2,6 +2,7 @@
 #include "persistence/sqlite_game_repository.h"
 #include "ui/main_window.h"
 
+#include <QAction>
 #include <QApplication>
 #include <QFileDialog>
 #include <QHeaderView>
@@ -282,7 +283,7 @@ private slots:
       }
       close->click();
     });
-    child<QPushButton>(window, "aboutApp")->click();
+    child<QAction>(window, "showAbout")->trigger();
     QVERIFY(inspected);
     QVERIFY(!QApplication::activeModalWidget());
   }

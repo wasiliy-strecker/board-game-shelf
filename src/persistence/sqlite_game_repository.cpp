@@ -167,7 +167,7 @@ void SqliteGameRepository::initialize() {
     query.finish();
     if (version > 1) {
       throw StorageError(QCoreApplication::translate(
-          "App", "Diese Datenbank benötigt eine neuere Version von BrettspielRegal. "
+          "App", "Diese Datenbank benötigt eine neuere Version von Board Game Shelf. "
                  "Die vorhandene Datei wird nicht verändert."));
     }
     if (isNew) {
@@ -181,7 +181,7 @@ void SqliteGameRepository::initialize() {
       transaction.commit();
     } else if (version != 1) {
       throw StorageError(QCoreApplication::translate(
-          "App", "Die vorhandene Datei hat kein bekanntes BrettspielRegal-Schema. "
+          "App", "Die vorhandene Datei hat kein bekanntes Board Game Shelf-Schema. "
                  "Sie wird nicht überschrieben."));
     }
     execute(query, QStringLiteral("PRAGMA quick_check"));

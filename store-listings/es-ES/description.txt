@@ -1,4 +1,4 @@
-Organiza tu colección de juegos de mesa con BrettspielRegal. Guarda el nombre de cada juego, su editorial o fabricante, su ubicación y una nota de varias líneas. Solo el nombre del juego es obligatorio.
+Organiza tu colección de juegos de mesa con Board Game Shelf. Guarda el nombre de cada juego, su editorial o fabricante, su ubicación y una nota de varias líneas. Solo el nombre del juego es obligatorio.
 
 Busca en los cuatro campos de texto, edita tus entradas y lee la nota completa directamente en la colección. La aplicación pide confirmación antes de eliminar un juego o descartar cambios sin guardar.
 

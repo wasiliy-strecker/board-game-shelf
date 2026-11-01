@@ -1,4 +1,4 @@
-Mit BrettspielRegal behältst du deine Brettspielsammlung im Blick. Erfasse den Spielnamen, Verlag oder Hersteller, Aufbewahrungsort und eine mehrzeilige Notiz. Nur der Spielname ist erforderlich.
+Mit Board Game Shelf behältst du deine Brettspielsammlung im Blick. Erfasse den Spielnamen, Verlag oder Hersteller, Aufbewahrungsort und eine mehrzeilige Notiz. Nur der Spielname ist erforderlich.
 
 Durchsuche alle vier Textfelder, bearbeite deine Einträge und lies die vollständige Notiz direkt in der Sammlung. Vor dem Löschen oder Verwerfen ungespeicherter Änderungen fragt die App nach.
 

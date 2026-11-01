@@ -82,7 +82,7 @@ def main():
     (stage / "bin/qt.conf").write_text(
         "[Paths]\nPrefix=..\nPlugins=plugins\nLibraries=lib\n"
     )
-    launcher = stage / "BrettspielRegal.sh"
+    launcher = stage / "BoardGameShelf.sh"
     launcher.write_text(
         '#!/bin/sh\nset -eu\nbrettspiel_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\nexport LD_LIBRARY_PATH="$brettspiel_dir/lib"\nexport QT_PLUGIN_PATH="$brettspiel_dir/plugins"\nexport QT_QPA_PLATFORM_PLUGIN_PATH="$brettspiel_dir/plugins/platforms"\nexec "$brettspiel_dir/bin/brettspielregal" "$@"\n'
     )

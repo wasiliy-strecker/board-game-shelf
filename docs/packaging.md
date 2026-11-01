@@ -18,7 +18,7 @@ Noch nicht geteilte Zwischenlieferungen können zur weiteren Prüfung separat
 archiviert werden. Bereits ausgelieferte Versionen bleiben unverändert erhalten.
 
 Die LGPL-Wahl wurde ausdrücklich bestätigt. Lizenztexte und Quellenherkunft
-liegen unter `licenses`, Hinweise zusätzlich im Paket und in „Über die App“.
+liegen unter `licenses`, Hinweise zusätzlich im Paket und unter „Info“ → „Lizenzen“.
 Die Qt-Basisquelle ist lokal mit geprüftem SHA-256 verfügbar. Vor Veröffentlichung
 müssen passende Qt-Quellen und Bauhinweise zuverlässig angeboten werden.
 Bibliotheksaustausch und Untersuchung geänderter Bibliotheken dürfen nicht durch
@@ -44,7 +44,7 @@ Systemvoraussetzungen. Das ist ein Ubuntu-24.04-x64-Testpaket, kein universelles
 Linux-Paket und kein geplanter Linux-Store-Release.
 
 ```bash
-./build/releases/brettspielregal-0.1.0-linux-x64/BrettspielRegal.sh --data-dir /tmp/brettspielregal-pakettest
+./build/releases/brettspielregal-0.1.0-linux-x64/BoardGameShelf.sh --data-dir /tmp/brettspielregal-pakettest
 ```
 
 Die Paketierung prüft Bibliotheksauflösung und erstellt SHA-256-Prüfsummen.
@@ -96,7 +96,7 @@ export BRETTSPIELREGAL_QT_ROOT=/pfad/Qt/6.8.3/macos
 bash scripts/package_macos.sh
 ```
 
-Das Skript erzeugt `BrettspielRegal.app`, bündelt Qt über `macdeployqt`, prüft
+Das Skript erzeugt `Board Game Shelf.app`, bündelt Qt über `macdeployqt`, prüft
 QSQLITE und Cocoa-Plugin und erstellt eine DMG. Das Bundle hat die Kennung
 `de.appfabrik.brettspielregal` und ein eigenes Icon. Die Ad-hoc-Signatur dient
 lokalen Tests und ist keine vertrauenswürdige Distributionssignatur.

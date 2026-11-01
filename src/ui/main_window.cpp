@@ -1,15 +1,15 @@
 #include "ui/main_window.h"
+#include "ui/information_dialog.h"
 #include "ui/language_dialog.h"
 #include "ui/sort_header.h"
 #include "ui/ui_support.h"
 #include <QCoreApplication>
+#include <QMenu>
 
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDateTime>
-#include <QDialogButtonBox>
 #include <QDir>
-#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
@@ -23,7 +23,6 @@
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTableWidget>
-#include <QTextBrowser>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <algorithm>
@@ -46,7 +45,7 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
       language_(new QPushButton(QCoreApplication::translate("App", "Sprache"), this)),
       export_(new QPushButton(QCoreApplication::translate("App", "Exportieren"), this)),
       import_(new QPushButton(QCoreApplication::translate("App", "Importieren"), this)) {
-  setWindowTitle(QStringLiteral("BrettspielRegal"));
+  setWindowTitle(QStringLiteral("Board Game Shelf"));
   setObjectName(QStringLiteral("mainWindow"));
   resize(1000, 740);
   setMinimumSize(440, 420);
@@ -55,7 +54,7 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   root->setContentsMargins(24, 22, 24, 22);
   root->setSpacing(14);
   auto* header = new QHBoxLayout;
-  auto* title = new QLabel(QStringLiteral("BrettspielRegal"), central);
+  auto* title = new QLabel(QStringLiteral("Board Game Shelf"), central);
   QFont titleFont = title->font();
   titleFont.setPointSize(22);
   titleFont.setBold(true);
@@ -64,7 +63,15 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   add_->setObjectName(QStringLiteral("addGame"));
   header->addWidget(add_, 0, Qt::AlignVCenter);
   auto* about = new QPushButton(QCoreApplication::translate("App", "Info"), central);
-  about->setAccessibleName(QCoreApplication::translate("App", "Über die App"));
+  about->setAccessibleName(QCoreApplication::translate("App", "Info"));
+  auto* infoMenu = new QMenu(about);
+  about->setMenu(infoMenu);
+  auto* aboutAction = infoMenu->addAction(QCoreApplication::translate("App", "Über die App"));
+  aboutAction->setObjectName(QStringLiteral("showAbout"));
+  auto* privacyAction = infoMenu->addAction(QCoreApplication::translate("App", "Datenschutz"));
+  privacyAction->setObjectName(QStringLiteral("showPrivacy"));
+  auto* licensesAction = infoMenu->addAction(QCoreApplication::translate("App", "Lizenzen"));
+  licensesAction->setObjectName(QStringLiteral("showLicenses"));
   about->setObjectName(QStringLiteral("aboutApp"));
   root->addLayout(header);
   language_->setObjectName(QStringLiteral("changeLanguage"));
@@ -180,7 +187,15 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   setTabOrder(language_, export_);
   setTabOrder(export_, import_);
 
-  connect(about, &QPushButton::clicked, this, &MainWindow::showAbout);
+  connect(aboutAction, &QAction::triggered, this, &MainWindow::showAbout);
+  connect(privacyAction, &QAction::triggered, this, [this] {
+    InformationDialog dialog(InformationPage::Privacy, dataDirectory_, this);
+    dialog.exec();
+  });
+  connect(licensesAction, &QAction::triggered, this, [this] {
+    InformationDialog dialog(InformationPage::Licenses, dataDirectory_, this);
+    dialog.exec();
+  });
   connect(language_, &QPushButton::clicked, this, &MainWindow::showLanguage);
   connect(export_, &QPushButton::clicked, this, &MainWindow::exportCollection);
   connect(import_, &QPushButton::clicked, this, &MainWindow::importCollection);
@@ -461,35 +476,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MainWindow::showAbout() {
-  QDialog dialog(this);
-  dialog.setObjectName(QStringLiteral("aboutDialog"));
-  dialog.setWindowTitle(QCoreApplication::translate("App", "Über BrettspielRegal"));
-  dialog.resize(640, 500);
-  auto* layout = new QVBoxLayout(&dialog);
-  auto* text = new QTextBrowser(&dialog);
-  QFile notices(QStringLiteral(":/licenses/THIRD_PARTY_NOTICES.md"));
-  QString licenseText;
-  if (notices.open(QIODevice::ReadOnly)) {
-    licenseText = QString::fromUtf8(notices.readAll());
-  }
-  text->setPlainText(
-      QCoreApplication::translate(
-          "App", "BrettspielRegal %1\n\nDeine Sammlung bleibt lokal.\nDatenverzeichnis: %2\n\n%3")
-          .arg(QCoreApplication::applicationVersion(), dataDirectory_, licenseText));
-  layout->addWidget(text);
-  auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
-  auto* close = buttons->button(QDialogButtonBox::Close);
-  close->setObjectName(QStringLiteral("closeAbout"));
-  close->setText(QCoreApplication::translate("App", "Schließen"));
-  close->setIcon(QIcon());
-  close->setStyleSheet(QStringLiteral(
-      "QPushButton { background-color: #b3261e; color: #ffffff; border: 2px solid #b3261e; "
-      "border-radius: 4px; padding: 7px 18px; font-weight: bold; } "
-      "QPushButton:hover { background-color: #9b211a; border-color: #9b211a; } "
-      "QPushButton:pressed { background-color: #7d1b15; border-color: #7d1b15; } "
-      "QPushButton:focus { border-color: #f4b1ac; }"));
-  connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
-  layout->addWidget(buttons);
+  InformationDialog dialog(InformationPage::About, dataDirectory_, this);
   dialog.exec();
 }
 

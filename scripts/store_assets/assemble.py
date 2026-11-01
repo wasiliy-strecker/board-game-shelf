@@ -64,7 +64,7 @@ def main():
     for log in args.check_log:
         shutil.copy2(log, verification / log.name)
     manifest = {
-        "app": "BrettspielRegal",
+        "app": "Board Game Shelf",
         "version": version,
         "source_commit": commit,
         "languages": LANGUAGES,
@@ -81,7 +81,7 @@ def main():
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     (output / "LIESMICH.txt").write_text(
-        "BrettspielRegal – internationale Linux-Vorschau\n\nStore enthält pro Sprache vier echte Screenshots und direkt kopierbare Textfelder.\nBranding enthält das vorhandene SVG- und PNG-Branding, Windows-Kacheln und das Store-Symbol mit 300 × 300 Pixeln.\nVerification enthält Quellnachweise und Prüfberichte.\n\nDie Screenshots zeigen die echte Linux-App mit synthetischen Beispieldaten auf einem isolierten Bildschirm. Sie sind Vorschauen. Endgültige Windows-Aufnahmen, Windows-Paketierung, Signierung und native Store-Abnahme folgen separat.\nKeine Veröffentlichung und kein GitHub-Push. Die Lieferung ist ein Ordner ohne ZIP-Datei.\n",
+        "Board Game Shelf – internationale Linux-Vorschau\n\nStore enthält pro Sprache vier echte Screenshots und direkt kopierbare Textfelder.\nBranding enthält das vorhandene SVG- und PNG-Branding, Windows-Kacheln und das Store-Symbol mit 300 × 300 Pixeln.\nVerification enthält Quellnachweise und Prüfberichte.\n\nDie Screenshots zeigen die echte Linux-App mit synthetischen Beispieldaten auf einem isolierten Bildschirm. Sie sind Vorschauen. Endgültige Windows-Aufnahmen, Windows-Paketierung, Signierung und native Store-Abnahme folgen separat.\nKeine Veröffentlichung und kein GitHub-Push. Die Lieferung ist ein Ordner ohne ZIP-Datei.\n",
         encoding="utf-8",
     )
     sums = [

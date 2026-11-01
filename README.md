@@ -1,11 +1,11 @@
-# BrettspielRegal
+# Board Game Shelf
 
 Eine kleine Desktop-App für deine private Brettspielsammlung. Erfasse den
 Spielnamen, Verlag oder Hersteller, Aufbewahrungsort und eine mehrzeilige Notiz.
 Suche über alle vier Felder. Die Sammlung bleibt lokal und nach einem Neustart
 erhalten. Es gibt kein Konto und die fertige App benötigt kein Internet.
 
-![BrettspielRegal mit synthetischer Sammlung](docs/screenshots/brettspielregal.png)
+![Board Game Shelf mit synthetischer Sammlung](docs/screenshots/brettspielregal.png)
 
 Version 0.1.0 ist die erste C++-Stufe des Hobby-Portfolios und ein kleines,
 nachvollziehbares Bewerbungsprojekt. Die späteren Veröffentlichungsziele sind
@@ -165,7 +165,7 @@ und spätere Store-Schritte. [Lizenzhinweise](THIRD_PARTY_NOTICES.md) gehören d
 
 | Stufe | Eigenständige App | Neue Hauptfunktion |
 | --- | --- | --- |
-| 1 | BrettspielRegal | Einträge anlegen, bearbeiten, löschen und suchen |
+| 1 | Board Game Shelf | Einträge anlegen, bearbeiten, löschen und suchen |
 | 2 | SammlerVitrine | Ein Foto pro Eintrag |
 | 3 | ModellbauProjekt | Projektstatus |
 | 4 | HolzwerkProjekt | Checkliste |
@@ -174,3 +174,16 @@ und spätere Store-Schritte. [Lizenzhinweise](THIRD_PARTY_NOTICES.md) gehören d
 Jede spätere App übernimmt die vorherigen Grundfunktionen. Hier gibt es keine
 Fotos, Statuswerte, Checklisten, PDF-Exporte, Ausleihe, Bewertungen oder
 Online-Anbindungen. FactoryForge bleibt ein separates größeres Projekt.
+
+## Info, Datenschutz und Lizenzen
+
+„Info“ enthält „Über die App“, „Datenschutz“ und „Lizenzen“. Die App-Informationen
+zeigen Board Game Shelf, die Version, den Datenpfad und den Supportkontakt.
+Die Datenschutzerklärung beschreibt die lokale Brettspielsammlung, die
+Spracheinstellung, JSON-Import und -Export, Löschung sowie Kontaktmöglichkeiten.
+Sie ist in allen sechs Oberflächensprachen eingebettet und ohne Internet lesbar.
+Lizenzhinweise und mitgelieferte Originaltexte stehen im eigenen Lizenzfenster.
+Alle drei Fenster sind kopierbar, schreibgeschützt und über den roten
+Schließen-Button oder Escape schließbar.
+Der öffentliche Name lautet in jeder Sprache Board Game Shelf. Bestehende
+App-Kennungen, Datenverzeichnisse und Dateiformate bleiben erhalten.

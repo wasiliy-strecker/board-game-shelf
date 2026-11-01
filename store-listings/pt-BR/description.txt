@@ -1,4 +1,4 @@
-Organize sua coleção de jogos de tabuleiro com o BrettspielRegal. Registre o nome de cada jogo, a editora ou fabricante, o local de armazenamento e uma observação com várias linhas. Apenas o nome do jogo é obrigatório.
+Organize sua coleção de jogos de tabuleiro com o Board Game Shelf. Registre o nome de cada jogo, a editora ou fabricante, o local de armazenamento e uma observação com várias linhas. Apenas o nome do jogo é obrigatório.
 
 Pesquise nos quatro campos de texto, edite os registros e leia a observação completa diretamente na coleção. O aplicativo pede confirmação antes de excluir um jogo ou descartar alterações não salvas.
 

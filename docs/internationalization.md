@@ -1,6 +1,6 @@
 # Internationalisierung und Store-Vorschau
 
-BrettspielRegal unterstützt de-DE, en-US, es-ES, fr-FR, it-IT und pt-BR.
+Board Game Shelf unterstützt de-DE, en-US, es-ES, fr-FR, it-IT und pt-BR.
 Der Produktname und die App-Kennung bleiben erhalten. Die GitHub-Bezeichnung
 lautet weiterhin `board-game-shelf`. Die Sammlung hat weiterhin vier Textfelder.
 
@@ -79,7 +79,7 @@ bash scripts/check.sh release
 python3 scripts/package_linux.py --qt "$BRETTSPIELREGAL_QT_ROOT" \
   --stage-only --output-dir build/staging/international-new
 python3 scripts/store_assets/capture.py \
-  --binary build/staging/international-new/brettspielregal-0.1.0-linux-x64/BrettspielRegal.sh \
+  --binary build/staging/international-new/brettspielregal-0.1.0-linux-x64/BoardGameShelf.sh \
   --output build/international-captures-new --clean-environment
 ```
 

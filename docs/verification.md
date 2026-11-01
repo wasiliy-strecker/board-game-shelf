@@ -1,5 +1,46 @@
 # Prüfbericht
 
+## Info-Menü, Datenschutz und englischer Name, 1. November 2026
+
+Die erste C++-App heißt in allen Sprachen Board Game Shelf. Hauptfenster,
+Start- und Speicherfehler, lokale Store-Felder und sichtbare Plattformnamen
+verwenden die englische Marke. Technische Kennungen, Datenpfade, ausführbarer
+Targetname und Sammlungsformat bleiben unverändert.
+
+„Info“ enthält drei Einträge. „Über die App“ zeigt Version, Kurzbeschreibung,
+Datenverzeichnis und Support. „Datenschutz“ enthält eine vollständige Erklärung
+für die vier Spielfelder, Spracheinstellung und JSON-Transfer. „Lizenzen“ zeigt
+die bisherigen Hinweise und Originaltexte. Alle Inhalte sind offline eingebettet.
+Die Original-Lizenzdateien wurden nicht verändert. Alle Fenster unterstützen
+Kopieren, Scrollen, Escape und den roten Schließen-Button.
+
+Die Datenschutztexte übernehmen die Struktur der lokalen Bookshelf-Erklärung
+mit angepassten Spielfeldern und einem aktuellen Stand. Kontaktangaben stammen
+aus den bestehenden App-Erklärungen. Als zusätzliche Orientierung wurde die
+[Information der Europäischen Kommission](https://commission.europa.eu/law/law-topic/data-protection/information-individuals_en)
+zu transparenter Information herangezogen. Die Implementierung enthält keine
+Netzwerkschnittstelle für Sammlung, Spracheinstellung oder Info-Fenster.
+
+```bash
+bash scripts/check.sh
+```
+
+Alle acht CTest-Suiten bestanden. 116 eigene Texte sind in sechs Sprachen
+vollständig vorhanden. Formatter, Compiler-Warnungen als Fehler und clang-tidy
+sind ohne Befund. Neue GUI-Fälle prüfen das echte Info-Menü mit Pfeiltasten und
+Enter, separate Dialoginhalte, Schreibschutz, Auswahl/Scrollen, Escape und rote
+Schließen-Buttons in allen sechs Sprachen. Sammlung und Sprachdatei bleiben
+bei den Tests bytegleich. Diese Fälle bestanden zusätzlich mit xcb und Openbox
+auf einem eigenen Xvfb-Bildschirm. Ansichten wurden visuell kontrolliert.
+
+Paketierungsskripte wurden syntaktisch geprüft. Mac- und Windows-Vorlagen sind
+angepasst, native Pakete und neue Store-Lieferungen wurden nicht gebaut.
+Die verifizierte Entwicklungsversion wurde mit der bisherigen Nutzersammlung
+neu geöffnet. Ein vorhandenes Editorfenster wäre vor dem Neustart erhalten worden.
+Keine persönlichen Daten für Tests verwendet, kein Push und keine Veröffentlichung.
+
+Nachweise: `build/information-final-check.log`, `build/information-native-menu/`.
+
 ## JSON-Sammlungstransfer und roter Schließen-Button, 1. November 2026
 
 Die Hauptansicht enthält Exportieren und Importieren rechts neben Info und Sprache.

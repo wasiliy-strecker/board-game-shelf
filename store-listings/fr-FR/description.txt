@@ -1,4 +1,4 @@
-Gardez une vue d’ensemble de votre collection de jeux de société avec BrettspielRegal. Enregistrez le nom du jeu, son éditeur ou fabricant, son emplacement et une note sur plusieurs lignes. Seul le nom du jeu est obligatoire.
+Gardez une vue d’ensemble de votre collection de jeux de société avec Board Game Shelf. Enregistrez le nom du jeu, son éditeur ou fabricant, son emplacement et une note sur plusieurs lignes. Seul le nom du jeu est obligatoire.
 
 Recherchez dans les quatre champs de texte, modifiez vos entrées et lisez la note complète directement dans la collection. L’application demande confirmation avant de supprimer un jeu ou d’abandonner des modifications non enregistrées.
 

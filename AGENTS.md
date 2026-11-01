@@ -1,4 +1,4 @@
-# BrettspielRegal
+# Board Game Shelf
 
 Eigenständige C++20-Desktop-App. Ergänzend gelten die Workspace-Regeln.
 Die erste C++-Stufe bleibt eine kleine lokale Brettspielsammlung mit vier Textfeldern.
@@ -58,3 +58,12 @@ Store-Vorschauen mit `scripts/store_assets/capture.py` auf einem eigenen
 Xvfb-Bildschirm aufnehmen. Nur synthetische Daten verwenden. Die Ausgabe von
 `assemble.py` bleibt ein Ordner ohne ZIP. Linux-Vorschauen sind keine finale
 Windows-Abnahme. Details stehen in `docs/internationalization.md`.
+
+## Öffentlicher Name und Info-Menü, 1. November 2026
+
+Board Game Shelf ist der öffentliche Name in allen sechs Sprachen. Bestehende
+technische Kennungen, Datenpfade und Formate bleiben erhalten. „Info“ enthält
+Über die App, Datenschutz und Lizenzen. Datenschutztexte sind Teil der
+App-Kataloge. Alle mitgelieferten Lizenzdateien bleiben unverändert und werden
+für das Lizenzfenster als Ressourcen eingebettet. Die roten Schließen-Buttons
+in diesen drei Fenstern beibehalten.

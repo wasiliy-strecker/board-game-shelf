@@ -23,7 +23,7 @@ else()
   endif()
 endif()
 
-add_library(game_i18n src/i18n/languages.cpp)
+add_library(game_i18n src/i18n/languages.cpp src/i18n/privacy_notice.cpp)
 target_include_directories(game_i18n PUBLIC src)
 target_link_libraries(game_i18n PUBLIC Qt6::Core PRIVATE project_options)
 set(app_languages de-DE en-US es-ES fr-FR it-IT pt-BR)
@@ -44,12 +44,14 @@ target_include_directories(game_domain PUBLIC src)
 target_link_libraries(game_domain PUBLIC game_i18n PRIVATE project_options)
 add_library(game_storage src/persistence/sqlite_game_repository.cpp src/persistence/data_directory.cpp src/persistence/language_preferences.cpp src/persistence/json_collection_file.cpp)
 target_link_libraries(game_storage PUBLIC game_domain Qt6::Sql PRIVATE project_options)
-add_library(game_ui src/ui/storage_controller.cpp src/ui/game_editor.cpp src/ui/main_window.cpp src/ui/sort_header.cpp src/ui/ui_support.cpp src/ui/language_dialog.cpp)
+add_library(game_ui src/ui/storage_controller.cpp src/ui/game_editor.cpp src/ui/main_window.cpp src/ui/information_dialog.cpp src/ui/sort_header.cpp src/ui/ui_support.cpp src/ui/language_dialog.cpp)
 target_link_libraries(game_ui PUBLIC game_storage Qt6::Widgets PRIVATE project_options)
 qt_add_executable(brettspielregal WIN32 MACOSX_BUNDLE src/main.cpp)
 target_link_libraries(brettspielregal PRIVATE game_storage game_ui project_options)
 target_compile_definitions(brettspielregal PRIVATE APP_VERSION="${PROJECT_VERSION}")
-qt_add_resources(brettspielregal notices PREFIX "/licenses" FILES THIRD_PARTY_NOTICES.md)
+file(GLOB_RECURSE app_license_files CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/licenses/*")
+qt_add_resources(game_ui app_notices PREFIX "/notices" BASE "${CMAKE_CURRENT_SOURCE_DIR}"
+  FILES THIRD_PARTY_NOTICES.md ${app_license_files})
 qt_add_resources(brettspielregal branding PREFIX "/" FILES assets/branding/icon-256.png)
 if(WIN32)
   enable_language(RC)
@@ -58,13 +60,13 @@ if(WIN32)
 endif()
 set_target_properties(brettspielregal PROPERTIES
   MACOSX_BUNDLE_GUI_IDENTIFIER de.appfabrik.brettspielregal
-  MACOSX_BUNDLE_BUNDLE_NAME BrettspielRegal
+  MACOSX_BUNDLE_BUNDLE_NAME "Board Game Shelf"
   MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
   MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
   MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/Info.plist.in")
 
 if(BUILD_TESTING)
-  foreach(test_name domain repository dialogs i18n transfer transfer_ui)
+  foreach(test_name domain repository dialogs i18n transfer transfer_ui information)
     add_executable(${test_name}_tests tests/${test_name}_test.cpp)
     target_link_libraries(${test_name}_tests PRIVATE game_storage game_ui Qt6::Test project_options)
     add_test(NAME ${test_name} COMMAND ${test_name}_tests)

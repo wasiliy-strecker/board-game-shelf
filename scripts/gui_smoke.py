@@ -128,7 +128,7 @@ def main():
                 stdout=log,
                 stderr=log,
             )
-            main_window = window("^BrettspielRegal$")
+            main_window = window("^Board Game Shelf$")
             command("xdotool", "windowfocus", main_window)
             wait_for(lambda: rows() is not None)
             time.sleep(0.25)
@@ -208,7 +208,7 @@ def main():
             wait_for(lambda: rows()[0][3] == "Arbeitszimmer, Regal 3")
             assert rows()[0][0] == original[0]
             assert rows()[0][4] == original[4]
-            window("^BrettspielRegal$")
+            window("^Board Game Shelf$")
             key("ctrl+n")
             editor = window("^Spiel hinzufügen$")
             key("alt+s")
