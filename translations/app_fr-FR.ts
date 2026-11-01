@@ -338,5 +338,9 @@ Dossier de données : %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>Impossible d'enregistrer la langue. Vérifiez le dossier de données et vos droits d'accès. Le réglage précédent est conservé.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Enregistré localement sur cet ordinateur</translation>
+    </message>
   </context>
 </TS>

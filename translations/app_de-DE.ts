@@ -338,5 +338,9 @@ Datenverzeichnis: %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Lokal auf diesem Computer gespeichert</translation>
+    </message>
   </context>
 </TS>

@@ -1,5 +1,33 @@
 # Prüfbericht
 
+## Buttonanordnung und Spaltensortierung, 1. November 2026
+
+Die Hauptaktionen folgen der Anordnung von Bookshelf by Appfabrik. Hinzufügen
+steht oben rechts, Suche leeren neben dem Suchfeld und Bearbeiten sowie Löschen
+rechts unter der Tabelle. App-Info und Sprache befinden sich unten rechts.
+Die drei festen Spalten haben dauerhaft sichtbare Pfeilpaare mit hervorgehobener
+Sortierrichtung. Der native Fensterstil bleibt erhalten.
+
+`bash scripts/check.sh` prüft Formatter, strikte Compilerwarnungen, alle fünf
+CTest-Suiten und clang-tidy. 129 fachliche Qt-Testfälle plus acht Initialisierungs-
+und Abschlussaufrufe sowie der Katalogtest bestehen. Die neuen Regressionen
+prüfen alle drei Spalten in beiden Richtungen und allen sechs Sprachen.
+Unicode-Normalisierung, Groß-/Kleinschreibung, natürliche Zahlenfolge, leere
+optionale Felder und stabile IDs bei gleichen Sortierwerten sind enthalten.
+Echte Headerklicks prüfen Suche, Auswahl und Notiz, anschließendes Bearbeiten,
+Anlegen, Löschen und erneutes Laden bei aktiver Sortierung.
+
+Auf einem isolierten X11-Bildschirm wurden die neuen Layout- und Sortiertests
+zusätzlich mit echten Qt-Fenstern ausgeführt. Alle sechs Sprachen bestehen bei
+1000 × 740 und 560 × 520 Pixeln. Die englische Normalansicht und die französische
+kleine Ansicht wurden visuell geprüft. Der bestehende GUI-Smoke-Test besteht
+mit synthetischen Daten einschließlich SQLite-Sperre, Entwurfschutz, vollständigem
+CRUD-Ablauf und Neustart. Die Tastaturnavigation ersetzt darin die bisherigen
+festen Koordinaten der verschobenen Buttons.
+
+Prüfprotokolle und Aufnahmen liegen lokal in `build/action-sorting-check.log`
+und `build/action-sorting-gui/`. Keine neue Paket- oder Store-Auslieferung.
+
 ## Internationalisierter Stand, 29. Oktober 2026
 
 86 fachliche Qt-Testfälle und ein zusätzlicher Katalogtest bestehen in fünf

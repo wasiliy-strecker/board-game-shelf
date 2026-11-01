@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QDir>
 #include <QFile>
+#include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
@@ -218,6 +219,76 @@ private slots:
     QCOMPARE(ordered[1].id, 2);
     QCOMPARE(ordered[2].id, 1);
     QCOMPARE(ordered[3].id, 4);
+  }
+
+  void collectionLayoutAndSorting_data() { languages(); }
+  void collectionLayoutAndSorting() {
+    QFETCH(QString, tag);
+    Translations translations;
+    translations.install(tag);
+    QTemporaryDir directory;
+    {
+      SqliteGameRepository repository(directory.path());
+      repository.initialize();
+      repository.create({QStringLiteral("Zebra"), QStringLiteral("Étoile"),
+                         QStringLiteral("Shelf 10"), QStringLiteral("First note")});
+      repository.create({QStringLiteral("Étoile"), QStringLiteral("Zebra"),
+                         QStringLiteral("Shelf 2"), QStringLiteral("Second note")});
+    }
+    StorageController controller(
+        [&directory] { return std::make_unique<SqliteGameRepository>(directory.path()); });
+    QSignalSpy loaded(&controller, &StorageController::loaded);
+    MainWindow window(controller, directory.path(), tag);
+    window.show();
+    QVERIFY(QTest::qWaitFor([&] { return loaded.size() == 1; }));
+    auto* table = child<QTableWidget>(window, "gamesTable");
+    auto* header = table->horizontalHeader();
+    for (int column = 0; column < 3; ++column) {
+      const auto position =
+          QPoint(header->sectionViewportPosition(column) + 35, header->height() / 2);
+      if (column != 0) {
+        QTest::mouseClick(header->viewport(), Qt::LeftButton, Qt::NoModifier, position);
+      }
+      QCOMPARE(header->sortIndicatorSection(), column);
+      QCOMPARE(header->sortIndicatorOrder(), Qt::AscendingOrder);
+      const auto ascendingFirst = table->item(0, 0)->data(Qt::UserRole);
+      QTest::mouseClick(header->viewport(), Qt::LeftButton, Qt::NoModifier, position);
+      QCOMPARE(header->sortIndicatorOrder(), Qt::DescendingOrder);
+      QCOMPARE(table->item(1, 0)->data(Qt::UserRole), ascendingFirst);
+      QCOMPARE(header->visualIndex(column), column);
+    }
+    const auto bounds = [&window](QWidget* widget) {
+      return QRect(widget->mapTo(&window, QPoint(0, 0)), widget->size());
+    };
+    auto* add = child<QPushButton>(window, "addGame");
+    auto* clear = child<QPushButton>(window, "clearSearch");
+    auto* search = child<QLineEdit>(window, "searchGames");
+    auto* edit = child<QPushButton>(window, "editGame");
+    auto* remove = child<QPushButton>(window, "removeGame");
+    auto* about = child<QPushButton>(window, "aboutApp");
+    auto* language = child<QPushButton>(window, "changeLanguage");
+    auto* note = child<QPlainTextEdit>(window, "selectedNote");
+    for (const auto size : {QSize(1000, 740), QSize(560, 520)}) {
+      window.resize(size);
+      QCoreApplication::processEvents();
+      for (auto* button : {add, clear, edit, remove, about, language}) {
+        QVERIFY(button->isVisible());
+        QVERIFY2(window.rect().contains(bounds(button)), qPrintable(button->objectName()));
+      }
+      QVERIFY(bounds(add).bottom() < bounds(search).top());
+      QVERIFY(bounds(clear).left() > bounds(search).right());
+      QCOMPARE(bounds(clear).center().y(), bounds(search).center().y());
+      QVERIFY(bounds(edit).top() > bounds(table).bottom());
+      QVERIFY(bounds(remove).left() > bounds(edit).right());
+      QVERIFY(bounds(edit).bottom() < bounds(note).top());
+      QVERIFY(bounds(about).top() > bounds(note).bottom());
+      QVERIFY(bounds(language).left() > bounds(about).right());
+      const auto screenshotDirectory = qEnvironmentVariable("BRETTSPIELREGAL_LAYOUT_SCREENSHOTS");
+      if (!screenshotDirectory.isEmpty()) {
+        QVERIFY(window.grab().save(
+            QDir(screenshotDirectory).filePath(tag + QString::number(size.width()) + ".png")));
+      }
+    }
   }
 
   void smallDialogsKeepActionsReachable_data() { languages(); }

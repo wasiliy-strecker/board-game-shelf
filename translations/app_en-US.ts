@@ -338,5 +338,9 @@ Data directory: %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>The language could not be saved. Check the data directory and your access permissions. The previous setting is preserved.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Stored locally on this computer</translation>
+    </message>
   </context>
 </TS>

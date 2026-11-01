@@ -23,7 +23,8 @@ QString searchKey(const QString& text) {
       .normalized(QString::NormalizationForm_C);
 }
 
-GameList searchGames(const GameList& games, const QString& query) {
+GameList searchGames(const GameList& games, const QString& query, GameSortField field,
+                     Qt::SortOrder order) {
   const auto needle = searchKey(query.trimmed());
   GameList matches;
   for (const auto& game : games) {
@@ -36,12 +37,26 @@ GameList searchGames(const GameList& games, const QString& query) {
   QCollator collator{QLocale()};
   collator.setCaseSensitivity(Qt::CaseInsensitive);
   collator.setNumericMode(true);
+  const auto value = [field](const BoardGame& game) -> const QString& {
+    switch (field) {
+    case GameSortField::Publisher:
+      return game.fields.publisher;
+    case GameSortField::Location:
+      return game.fields.location;
+    case GameSortField::Name:
+      return game.fields.name;
+    }
+    return game.fields.name;
+  };
   std::sort(matches.begin(), matches.end(),
-            [&collator](const BoardGame& left, const BoardGame& right) {
+            [&collator, &value, order](const BoardGame& left, const BoardGame& right) {
               const int comparison =
-                  collator.compare(left.fields.name.normalized(QString::NormalizationForm_C),
-                                   right.fields.name.normalized(QString::NormalizationForm_C));
-              return comparison == 0 ? left.id < right.id : comparison < 0;
+                  collator.compare(value(left).normalized(QString::NormalizationForm_C),
+                                   value(right).normalized(QString::NormalizationForm_C));
+              if (comparison == 0) {
+                return left.id < right.id;
+              }
+              return order == Qt::AscendingOrder ? comparison < 0 : comparison > 0;
             });
   return matches;
 }

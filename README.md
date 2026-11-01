@@ -64,6 +64,19 @@ erforderlich. Doppelklick oder Enter in der Tabelle öffnet die Bearbeitung.
 Gleichnamige Spiele bleiben eigenständige Einträge. Löschen verlangt eine
 Bestätigung. Die Notiz des ausgewählten Spiels ist vollständig scrollbar.
 
+„Spiel hinzufügen“ steht oben rechts und „Suche leeren“ direkt neben der Suche.
+Unter der Tabelle stehen links die Anzahl und rechts „Bearbeiten“ und „Löschen“.
+App-Info und Sprachwahl befinden sich unten rechts.
+
+Ein Klick auf Spielname, Verlag / Hersteller oder Aufbewahrungsort sortiert
+die Tabelle nach dieser Spalte. Weitere Klicks wechseln zwischen aufsteigender
+und absteigender Reihenfolge. Beide Pfeile bleiben sichtbar, die aktive Richtung
+ist hervorgehoben. Die Spalten bleiben an ihrem Platz. Umlaute und Zahlen werden
+gemäß der App-Sprache einsortiert. Suche, Speichern, Löschen und erneutes Laden
+behalten die aktive Sortierung. Die Auswahl folgt der ID des Spiels, auch wenn
+sich seine Zeile verschiebt. Nach einem App-Neustart gilt wieder Spielname
+aufsteigend.
+
 | Taste | Aktion |
 | --- | --- |
 | Strg+N / Cmd+N | Spiel hinzufügen |

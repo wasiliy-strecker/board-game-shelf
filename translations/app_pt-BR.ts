@@ -338,5 +338,9 @@ Pasta de dados: %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>Não foi possível salvar o idioma. Verifique a pasta de dados e suas permissões de acesso. A configuração anterior é preservada.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Salvo localmente neste computador</translation>
+    </message>
   </context>
 </TS>

@@ -338,5 +338,9 @@ Cartella dati: %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>Impossibile salvare la lingua. Controlla la cartella dati e i permessi di accesso. L'impostazione precedente viene conservata.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Salvato localmente su questo computer</translation>
+    </message>
   </context>
 </TS>

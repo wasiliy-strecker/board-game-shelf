@@ -23,6 +23,8 @@ struct BoardGame {
 
 using GameList = QVector<BoardGame>;
 
+enum class GameSortField : quint8 { Name, Publisher, Location };
+
 class ValidationError final : public std::runtime_error {
 public:
   explicit ValidationError(const QString& message) : std::runtime_error(message.toStdString()) {}
@@ -30,7 +32,9 @@ public:
 
 GameDraft validateDraft(GameDraft draft);
 QString searchKey(const QString& text);
-GameList searchGames(const GameList& games, const QString& query);
+GameList searchGames(const GameList& games, const QString& query,
+                     GameSortField field = GameSortField::Name,
+                     Qt::SortOrder order = Qt::AscendingOrder);
 
 } // namespace shelf
 

@@ -1,5 +1,6 @@
 #include "ui/main_window.h"
 #include "ui/language_dialog.h"
+#include "ui/sort_header.h"
 #include "ui/ui_support.h"
 #include <QCoreApplication>
 
@@ -51,14 +52,12 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   titleFont.setBold(true);
   title->setFont(titleFont);
   header->addWidget(title, 1);
+  add_->setObjectName(QStringLiteral("addGame"));
+  header->addWidget(add_, 0, Qt::AlignVCenter);
   auto* about = new QPushButton(QCoreApplication::translate("App", "Über die App"), central);
+  about->setObjectName(QStringLiteral("aboutApp"));
   root->addLayout(header);
-  auto* settings = new QHBoxLayout;
-  settings->addStretch();
   language_->setObjectName(QStringLiteral("changeLanguage"));
-  settings->addWidget(language_);
-  settings->addWidget(about);
-  root->addLayout(settings);
   auto* subtitle = new QLabel(
       QCoreApplication::translate("App", "Deine Spiele. Dein Platz für alles, was dazugehört."),
       central);
@@ -69,13 +68,13 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   search_->setPlaceholderText(
       QCoreApplication::translate("App", "Name, Verlag, Aufbewahrungsort oder Notiz suchen …"));
   search_->setClearButtonEnabled(true);
-  root->addWidget(search_);
   auto* clear = new QPushButton(QCoreApplication::translate("App", "Suche leeren"), central);
   clear->setObjectName(QStringLiteral("clearSearch"));
-  auto* searchInfo = new QHBoxLayout;
-  searchInfo->addWidget(count_, 1);
-  searchInfo->addWidget(clear);
-  root->addLayout(searchInfo);
+  auto* searchRow = new QHBoxLayout;
+  searchRow->addWidget(search_, 1);
+  searchRow->addWidget(clear);
+  search_->setMinimumHeight(36);
+  root->addLayout(searchRow);
 
   auto* splitter = new QSplitter(Qt::Vertical, central);
   auto* collection = new QWidget(splitter);
@@ -88,6 +87,8 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   table_->setObjectName(QStringLiteral("gamesTable"));
   table_->setAccessibleName(QCoreApplication::translate("App", "Brettspielsammlung"));
   table_->setColumnCount(3);
+  auto* sortHeader = new SortHeader(table_);
+  table_->setHorizontalHeader(sortHeader);
   table_->setHorizontalHeaderLabels({QCoreApplication::translate("App", "Spielname"),
                                      QCoreApplication::translate("App", "Verlag / Hersteller"),
                                      QCoreApplication::translate("App", "Aufbewahrungsort")});
@@ -102,6 +103,15 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   table_->horizontalHeader()->setMinimumSectionSize(105);
   table_->installEventFilter(this);
   collectionLayout->addWidget(table_, 1);
+  auto* actions = new QHBoxLayout;
+  count_->setObjectName(QStringLiteral("gameCount"));
+  edit_->setObjectName(QStringLiteral("editGame"));
+  remove_->setObjectName(QStringLiteral("removeGame"));
+  actions->setContentsMargins(0, 10, 0, 6);
+  actions->addWidget(count_, 1);
+  actions->addWidget(edit_);
+  actions->addWidget(remove_);
+  collectionLayout->addLayout(actions);
   auto* detail = new QWidget(splitter);
   auto* detailLayout = new QVBoxLayout(detail);
   detailLayout->setContentsMargins(0, 0, 0, 0);
@@ -115,11 +125,13 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   note_->setAccessibleName(QCoreApplication::translate("App", "Vollständige Notiz"));
   note_->setReadOnly(true);
   note_->setTabChangesFocus(true);
+  note_->setMinimumHeight(72);
   detailLayout->addWidget(note_);
   splitter->addWidget(collection);
   splitter->addWidget(detail);
-  splitter->setStretchFactor(0, 3);
-  splitter->setStretchFactor(1, 2);
+  splitter->setStretchFactor(0, 4);
+  splitter->setStretchFactor(1, 1);
+  splitter->setSizes({420, 110});
   splitter->setChildrenCollapsible(false);
   root->addWidget(splitter, 1);
   feedback_->setObjectName(QStringLiteral("mainFeedback"));
@@ -128,19 +140,29 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
   feedback_->setTextInteractionFlags(Qt::TextSelectableByMouse);
   root->addWidget(feedback_);
 
-  auto* actions = new QHBoxLayout;
-  add_->setObjectName(QStringLiteral("addGame"));
-  edit_->setObjectName(QStringLiteral("editGame"));
-  remove_->setObjectName(QStringLiteral("removeGame"));
+  auto* footer = new QHBoxLayout;
+  auto* localStorage = new QLabel(
+      QCoreApplication::translate("App", "Lokal auf diesem Computer gespeichert"), central);
+  localStorage->setWordWrap(true);
+  footer->addWidget(localStorage, 1);
+  footer->addWidget(about);
+  footer->addWidget(language_);
+  root->addLayout(footer);
+  for (auto* button : {add_, edit_, remove_, clear, about, language_}) {
+    button->setMinimumHeight(36);
+  }
   reload_->setObjectName(QStringLiteral("reloadGames"));
-  actions->addWidget(add_);
-  actions->addWidget(edit_);
-  actions->addWidget(remove_);
-  actions->addStretch();
-  root->addLayout(actions);
   root->addWidget(reload_, 0, Qt::AlignRight);
   reload_->hide();
   setCentralWidget(central);
+  setTabOrder(add_, search_);
+  setTabOrder(search_, clear);
+  setTabOrder(clear, table_);
+  setTabOrder(table_, edit_);
+  setTabOrder(edit_, remove_);
+  setTabOrder(remove_, note_);
+  setTabOrder(note_, about);
+  setTabOrder(about, language_);
 
   connect(about, &QPushButton::clicked, this, &MainWindow::showAbout);
   connect(language_, &QPushButton::clicked, this, &MainWindow::showLanguage);
@@ -158,6 +180,10 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
     refresh(selected ? selected->id : 0);
   });
   clear->setEnabled(false);
+  connect(sortHeader, &QHeaderView::sortIndicatorChanged, this, [this] {
+    const auto selected = selectedGame();
+    refresh(selected ? selected->id : 0);
+  });
   connect(table_, &QTableWidget::itemSelectionChanged, this, &MainWindow::updateSelection);
   connect(table_, &QTableWidget::cellDoubleClicked, this, [this] { openEditor(true); });
   connect(add_, &QPushButton::clicked, this, [this] { openEditor(false); });
@@ -243,7 +269,10 @@ std::optional<BoardGame> MainWindow::selectedGame() const {
 
 void MainWindow::refresh(std::optional<qint64> preferredId, int fallbackRow) {
   const QSignalBlocker block(table_);
-  visibleGames_ = searchGames(games_, search_->text());
+  const auto* header = table_->horizontalHeader();
+  visibleGames_ = searchGames(games_, search_->text(),
+                              static_cast<GameSortField>(header->sortIndicatorSection()),
+                              header->sortIndicatorOrder());
   table_->setRowCount(static_cast<int>(visibleGames_.size()));
   int selection = visibleGames_.isEmpty()
                       ? -1
@@ -276,6 +305,7 @@ void MainWindow::refresh(std::optional<qint64> preferredId, int fallbackRow) {
                       ? QCoreApplication::translate(
                             "App", "Keine Spiele gefunden. Ändere oder leere die Suche.")
                       : QString());
+  state_->setVisible(!state_->text().isEmpty());
   count_->setText(
       ready_ ? QCoreApplication::translate("App", "Spiele: %1 / %2")
                    .arg(QLocale().toString(visibleGames_.size()), QLocale().toString(games_.size()))

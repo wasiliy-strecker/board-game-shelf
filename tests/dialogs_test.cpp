@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <QDialogButtonBox>
+#include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -15,6 +16,7 @@
 #include <QTemporaryDir>
 #include <QTimer>
 #include <QtTest>
+#include <algorithm>
 #include <atomic>
 #include <memory>
 
@@ -454,6 +456,101 @@ private slots:
     if (!screenshot.isEmpty()) {
       QVERIFY(editor.grab().save(screenshot));
     }
+  }
+  void headerSortingPreservesIdentityAndSurvivesChanges() {
+    QTemporaryDir directory;
+    BoardGame alpha;
+    BoardGame beta;
+    BoardGame gamma;
+    {
+      SqliteGameRepository repository(directory.path());
+      repository.initialize();
+      alpha = repository.create({QStringLiteral("Alpha"), QStringLiteral("Zulu"),
+                                 QStringLiteral("Middle"), QStringLiteral("Alpha note")});
+      beta = repository.create({QStringLiteral("Beta"), QStringLiteral("Alpha"),
+                                QStringLiteral("Zulu"), QStringLiteral("Beta note")});
+      gamma = repository.create({QStringLiteral("Gamma"), QStringLiteral("Middle"),
+                                 QStringLiteral("Aardvark"), QStringLiteral("Gamma note")});
+    }
+    auto controls = std::make_shared<Controls>();
+    StorageController controller(factory(directory.path(), controls));
+    QSignalSpy loaded(&controller, &StorageController::loaded);
+    MainWindow window(controller, directory.path());
+    window.show();
+    QVERIFY(QTest::qWaitFor([&] { return loaded.size() == 1; }));
+    auto* table = child<QTableWidget>(window, "gamesTable");
+    auto* header = table->horizontalHeader();
+    auto* note = child<QPlainTextEdit>(window, "selectedNote");
+    const auto ids = [table] {
+      QList<qint64> result;
+      for (int row = 0; row < table->rowCount(); ++row) {
+        result.append(table->item(row, 0)->data(Qt::UserRole).toLongLong());
+      }
+      return result;
+    };
+    const auto clickHeader = [header](int column) {
+      QTest::mouseClick(header->viewport(), Qt::LeftButton, Qt::NoModifier,
+                        QPoint(header->sectionViewportPosition(column) + 40, header->height() / 2));
+    };
+    const QList<QList<qint64>> ascending{{alpha.id, beta.id, gamma.id},
+                                         {beta.id, gamma.id, alpha.id},
+                                         {gamma.id, alpha.id, beta.id}};
+    table->selectRow(1);
+    for (int column = 0; column < 3; ++column) {
+      if (column != 0) {
+        clickHeader(column);
+      }
+      QCOMPARE(header->sortIndicatorOrder(), Qt::AscendingOrder);
+      QCOMPARE(ids(), ascending[column]);
+      clickHeader(column);
+      auto descending = ascending[column];
+      std::reverse(descending.begin(), descending.end());
+      QCOMPARE(header->sortIndicatorOrder(), Qt::DescendingOrder);
+      QCOMPARE(ids(), descending);
+      QCOMPARE(table->item(table->currentRow(), 0)->data(Qt::UserRole).toLongLong(), beta.id);
+      QCOMPARE(note->toPlainText(), beta.fields.note);
+      clickHeader(column);
+      QCOMPARE(header->sortIndicatorOrder(), Qt::AscendingOrder);
+      QCOMPARE(ids(), ascending[column]);
+      QCOMPARE(header->visualIndex(column), column);
+    }
+    clickHeader(1);
+    clickHeader(1);
+    QCOMPARE(header->sortIndicatorSection(), 1);
+    QCOMPARE(header->sortIndicatorOrder(), Qt::DescendingOrder);
+    auto* search = child<QLineEdit>(window, "searchGames");
+    search->setText(QStringLiteral("Alpha"));
+    QCOMPARE(ids(), (QList<qint64>{alpha.id, beta.id}));
+    search->clear();
+    QCOMPARE(ids(), (QList<qint64>{alpha.id, gamma.id, beta.id}));
+    // The editor must still open Beta after its row has moved several times.
+    child<QPushButton>(window, "editGame")->click();
+    auto* editor = window.findChild<GameEditor*>();
+    QVERIFY(editor);
+    QCOMPARE(editor->draft(), beta.fields);
+    child<QLineEdit>(*editor, "gamePublisher")->setText(QStringLiteral("Zzz"));
+    editor->save();
+    QVERIFY(QTest::qWaitFor([&] { return !controller.isBusy(); }));
+    QCOMPARE(ids(), (QList<qint64>{beta.id, alpha.id, gamma.id}));
+    QCOMPARE(note->toPlainText(), beta.fields.note);
+    QSignalSpy saved(&controller, &StorageController::saved);
+    QVERIFY(controller.save(0, {QStringLiteral("Delta"), QStringLiteral("Yak"), {}, {}}));
+    QVERIFY(QTest::qWaitFor([&] { return saved.size() == 1; }));
+    const auto delta = qvariant_cast<BoardGame>(saved.first().first());
+    QCOMPARE(ids(), (QList<qint64>{beta.id, alpha.id, delta.id, gamma.id}));
+    QVERIFY(controller.load());
+    QVERIFY(QTest::qWaitFor([&] { return loaded.size() == 2; }));
+    QCOMPARE(ids(), (QList<qint64>{beta.id, alpha.id, delta.id, gamma.id}));
+    QCOMPARE(table->item(table->currentRow(), 0)->data(Qt::UserRole).toLongLong(), delta.id);
+    bool checked = false;
+    answerConfirmation(QStringLiteral("deleteConfirmation"), QStringLiteral("confirmDelete"),
+                       QStringLiteral("cancelDelete"), &checked);
+    child<QPushButton>(window, "removeGame")->click();
+    QVERIFY(checked);
+    QVERIFY(QTest::qWaitFor([&] { return table->rowCount() == 3; }));
+    QCOMPARE(ids(), (QList<qint64>{beta.id, alpha.id, gamma.id}));
+    QCOMPARE(header->sortIndicatorSection(), 1);
+    QCOMPARE(header->sortIndicatorOrder(), Qt::DescendingOrder);
   }
 };
 

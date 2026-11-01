@@ -338,5 +338,9 @@ Directorio de datos: %2
       <source>Die Sprache konnte nicht gespeichert werden. Prüfe das Datenverzeichnis und deine Zugriffsrechte. Die bisherige Einstellung bleibt erhalten.</source>
       <translation>No se ha podido guardar el idioma. Comprueba el directorio de datos y tus permisos de acceso. Se conserva la configuración anterior.</translation>
     </message>
+    <message>
+      <source>Lokal auf diesem Computer gespeichert</source>
+      <translation>Guardado localmente en este equipo</translation>
+    </message>
   </context>
 </TS>
