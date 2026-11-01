@@ -3,6 +3,7 @@
 #include "persistence/language_preferences.h"
 #include "persistence/sqlite_game_repository.h"
 #include "ui/main_window.h"
+#include "ui/native_edit_menus.h"
 #include <QCoreApplication>
 
 #include <QApplication>
@@ -39,6 +40,9 @@ int main(int argc, char* argv[]) {
         shelf::resolveDataDirectory(parser.value(dataOption), parser.isSet(dataOption));
     const auto preference = shelf::readLanguagePreference(directory);
     translations.install(preference.value);
+#ifdef Q_OS_MACOS
+    shelf::NativeEditMenus nativeEditMenus;
+#endif
     shelf::StorageController controller(
         [directory] { return std::make_unique<shelf::SqliteGameRepository>(directory); });
     shelf::MainWindow window(controller, directory, preference.value);

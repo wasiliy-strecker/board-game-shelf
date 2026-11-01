@@ -106,7 +106,7 @@ def main():
             )
             time.sleep(0.15)
 
-        def destructive(identifier, discard=False):
+        def destructive(identifier):
             geometry = dict(
                 line.split("=", 1)
                 for line in command(
@@ -115,7 +115,8 @@ def main():
             )
             click(
                 identifier,
-                int(geometry["WIDTH"]) - (198 if discard else 140),
+                # Both confirmations put their destructive action on the right.
+                int(geometry["WIDTH"]) - 55,
                 int(geometry["HEIGHT"]) - 24,
             )
 
@@ -188,7 +189,8 @@ def main():
             window("^Spiel bearbeiten$")
             key("Escape")
             confirmation = window("Änderungen verwerfen")
-            destructive(confirmation, discard=True)
+            destructive(confirmation)
+            window("^Board Game Shelf$")
             assert rows()[0] == original
             key("ctrl+f", "Tab", "Return")
             editor = window("^Spiel bearbeiten$")
