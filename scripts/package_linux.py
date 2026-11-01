@@ -87,6 +87,14 @@ def main():
         '#!/bin/sh\nset -eu\nbrettspiel_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\nexport LD_LIBRARY_PATH="$brettspiel_dir/lib"\nexport QT_PLUGIN_PATH="$brettspiel_dir/plugins"\nexport QT_QPA_PLATFORM_PLUGIN_PATH="$brettspiel_dir/plugins/platforms"\nexec "$brettspiel_dir/bin/brettspielregal" "$@"\n'
     )
     launcher.chmod(0o755)
+    shutil.copy2(root / "scripts/install_desktop.py", stage / "install_desktop.py")
+    icons = stage / "share/icons"
+    icons.mkdir(parents=True)
+    for filename in [
+        *(f"icon-{size}.png" for size in (16, 32, 48, 64, 128, 256, 512, 1024)),
+        "icon.svg",
+    ]:
+        shutil.copy2(root / "assets/branding" / filename, icons / filename)
     environment = dict(os.environ, LD_LIBRARY_PATH=str(stage / "lib"))
     inspected = [
         stage / "bin/brettspielregal",
