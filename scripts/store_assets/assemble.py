@@ -56,6 +56,8 @@ def main():
         shutil.copytree(args.capture / language / "screenshots", store / "screenshots")
         shutil.copytree(ROOT / "store-listings" / language, store / "text")
     shutil.copytree(ROOT / "assets/branding", output / "Branding")
+    subprocess.run(["python3", str(ROOT / "scripts/export_privacy.py"),
+                    str(output / "Privacy")], cwd=ROOT, check=True)
     verification = output / "Verification"
     verification.mkdir()
     shutil.copy2(args.capture / "report.json", verification)

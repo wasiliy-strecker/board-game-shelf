@@ -63,10 +63,11 @@ Windows-Abnahme. Details stehen in `docs/internationalization.md`.
 
 Board Game Shelf ist der öffentliche Name in allen sechs Sprachen. Bestehende
 technische Kennungen, Datenpfade und Formate bleiben erhalten. „Info“ enthält
-Über die App, Datenschutz und Lizenzen. Datenschutztexte sind Teil der
-App-Kataloge. Alle mitgelieferten Lizenzdateien bleiben unverändert und werden
-für das Lizenzfenster als Ressourcen eingebettet. Die roten Schließen-Buttons
-in diesen drei Fenstern beibehalten.
+Über die App, Datenschutz und Lizenzen. Die Datenschutz-URL führt zur eigenen
+englischen `PRIVACY.md` auf GitHub. Alle mitgelieferten Lizenzdateien bleiben
+unverändert und werden für das Lizenzfenster als Ressourcen eingebettet.
+Die roten Schließen-Buttons in den Fenstern für App-Informationen und Lizenzen
+beibehalten.
 
 ## Mac-Dateizugriff und portable Exporte, 1. November 2026
 
@@ -82,3 +83,19 @@ Der Nutzer hat für Board Game Shelf ausdrücklich die unterstützte Systemsprac
 beim Erststart bestätigt, mit Englisch als Fallback. Das ist eine app-spezifische
 Ausnahme von der allgemeinen Englisch-Vorgabe. Bestehende Sprachwahlen erhalten.
 Die Java-Apps behalten ihre bisherige Englisch-Vorgabe.
+
+## Kanonische Datenschutzerklärung, 3. November 2026
+
+Auf ausdrücklichen Nutzerauftrag wird ausschließlich die englische `PRIVACY.md`
+im eigenen Repository als vollständige Erklärung gepflegt. Sie übernimmt die
+bisherigen englischen App-Texte mit aktualisierten Hinweisen zum Browseraufruf.
+Die feste Adresse für diese App und alle Store-Sprachen lautet:
+
+https://github.com/wasiliy-strecker/board-game-shelf/blob/main/PRIVACY.md
+
+„Info“ → „Datenschutz“ öffnet diese Adresse im externen Standardbrowser.
+Keine vollständigen Datenschutztexte zusätzlich in Sprachkatalogen, Dialogen
+oder GitHub Pages pflegen. Menütexte und Startfehler bleiben lokalisiert.
+Der Python-Export kopiert ausschließlich die Originaldatei und ihre URL in
+einen neuen Lieferordner. Alte Lieferungen sind historische Nachweise.
+Diese Entscheidung ersetzt die älteren Vorgaben zum Offline-Datenschutzdialog.

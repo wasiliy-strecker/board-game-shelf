@@ -433,10 +433,6 @@
       <translation>Privacidad</translation>
     </message>
     <message>
-      <source>Datenschutzerklärung für Board Game Shelf</source>
-      <translation>Política de privacidad de Board Game Shelf</translation>
-    </message>
-    <message>
       <source>Datenverzeichnis: %1</source>
       <translation>Carpeta de datos: %1</translation>
     </message>
@@ -457,58 +453,6 @@
       <translation>Licencias</translation>
     </message>
     <message>
-      <source>Stand: 1. November 2026</source>
-      <translation>Última actualización: 1 de noviembre de 2026</translation>
-    </message>
-    <message>
-      <source>Verantwortlicher und Kontakt
-Wasiliy Strecker · AppFabrik AI
-Ludwigstrasse 23, 86152 Augsburg, Deutschland
-Datenschutz: contact@appfabrik-ai.de
-Support: support@appfabrik-ai.de
-
-Zweck und gespeicherte Daten
-Board Game Shelf verwaltet deine private Brettspielsammlung. Die App speichert Spielnamen, Verlage oder Hersteller, Aufbewahrungsorte, Notizen und interne Eintragskennungen sowie deine Spracheinstellung standardmäßig lokal im Benutzerprofil deines Computers. Die Angaben können personenbezogene Informationen enthalten, wenn du sie selbst einträgst. Die Verarbeitung dient ausschließlich den von dir angeforderten Funktionen zum Verwalten, Suchen, Exportieren und Importieren deiner Sammlung.
-
-Lokale Verarbeitung
-Die App benötigt kein Konto und keinen Server. Sie übermittelt deine Sammlung und Spracheinstellung nicht an den Entwickler oder andere Empfänger. Sie enthält keine Werbung, Telemetrie, Nutzungsanalyse oder eigene Cloud-Synchronisierung. Die Datenschutzerklärung ist Bestandteil der App und wird ohne Internetverbindung angezeigt. Board Game Shelf verschlüsselt weder seine gespeicherte Sammlung noch exportierte JSON-Dateien selbst. Der Schutz hängt auch von deinem Benutzerkonto, den Zugriffsrechten und einer gegebenenfalls aktivierten Datenträgerverschlüsselung ab.
-
-Import, Export und Sicherungskopien
-Beim Import liest die App die von dir ausgewählte JSON-Datei lokal. Ein Export enthält alle gespeicherten Brettspiele mit ihren vier Textfeldern. Er enthält weder interne Eintragskennungen noch die Spracheinstellung. Du bestimmst den Speicherort und eine mögliche Weitergabe. Bereits exportierte Dateien sind eigenständige Kopien und werden durch spätere Änderungen in der App nicht aktualisiert oder gelöscht. Wenn du einen synchronisierten Ordner, ein Netzlaufwerk oder einen Sicherungsdienst nutzt, kann dieser Dienst die Dateien außerhalb der App verarbeiten oder übertragen. Dafür gelten die Einstellungen und Datenschutzbedingungen des jeweiligen Anbieters. Board Game Shelf steuert diese Dienste nicht.
-
-Speicherdauer und Löschung
-Die App bewahrt die Sammlung auf, bis du Einträge löschst oder die gespeicherten App-Daten entfernst. Du kannst Einträge in der App ansehen, bearbeiten und löschen. Zum vollständigen Entfernen der lokalen Sammlung und Spracheinstellung schließt du die App und entfernst ihren Datenordner. Die Speicherorte sind in der mitgelieferten Anleitung beschrieben. Exportdateien und andere Sicherungskopien musst du an ihren jeweiligen Speicherorten gesondert löschen. Das Löschen eines Eintrags ist keine garantierte sichere Löschung aller früheren Dateiinhalte. Verlasse dich nicht darauf, dass eine Deinstallation alle App-Daten und externen Kopien entfernt.
-
-Kontakt und Support
-Wenn du uns freiwillig eine E-Mail sendest, verarbeiten wir deine E-Mail-Adresse, den Nachrichteninhalt und beigefügte Dateien zur Bearbeitung der Anfrage. Deine lokal gespeicherte Sammlung wird dabei nicht automatisch mitgesendet. Rechtsgrundlage ist bei vertragsbezogenen Anfragen Artikel 6 Absatz 1 Buchstabe b DSGVO, ansonsten unser berechtigtes Interesse an der Beantwortung von Anfragen nach Artikel 6 Absatz 1 Buchstabe f DSGVO. Wir bewahren die Korrespondenz nur so lange auf, wie dies für die Bearbeitung und gesetzliche Aufbewahrungspflichten erforderlich ist.
-
-Deine Rechte und weitere Anbieter
-Soweit anwendbar, hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Datenschutzaufsichtsbehörde. Nutze dafür den Datenschutzkontakt. Auf Sammlungen, die ausschließlich auf deinem Computer liegen, hat der Entwickler keinen Zugriff. Beim Bezug oder Aktualisieren über Apple App Store, Microsoft Store oder GitHub können diese Anbieter selbst Daten verarbeiten. Dafür gelten deren eigene Datenschutzbedingungen. Diese Erklärung beschreibt die Datenverarbeitung durch Board Game Shelf und wird bei entsprechenden Änderungen aktualisiert.</source>
-      <translation>Responsable y contacto
-Wasiliy Strecker · AppFabrik AI
-Ludwigstrasse 23, 86152 Augsburgo, Alemania
-Privacidad: contact@appfabrik-ai.de
-Soporte: support@appfabrik-ai.de
-
-Finalidad y datos guardados
-Board Game Shelf organiza tu colección personal de juegos de mesa. La aplicación guarda nombres de juegos, editoriales o fabricantes, ubicaciones, notas e identificadores internos de los registros, junto con tu preferencia de idioma, de forma local, de manera predeterminada, en el perfil de usuario de tu ordenador. Estos campos pueden contener datos personales si los introduces. El tratamiento sirve únicamente para las funciones que solicitas al gestionar, buscar, exportar e importar tu colección.
-
-Tratamiento local
-La aplicación no necesita una cuenta ni un servidor. No transmite tu colección ni la preferencia de idioma al desarrollador ni a otros destinatarios. No incluye publicidad, telemetría, análisis de uso ni sincronización propia en la nube. Esta política forma parte de la aplicación y puede leerse sin conexión a Internet. Board Game Shelf no cifra por sí mismo la colección guardada ni los archivos JSON exportados. Su protección también depende de tu cuenta de usuario, los permisos de acceso y el cifrado de disco que hayas activado.
-
-Importación, exportación y copias de seguridad
-Al importar, la aplicación lee localmente el archivo JSON que seleccionas. La exportación incluye todos los juegos de mesa guardados y los cuatro campos de texto. No incluye los identificadores internos ni la preferencia de idioma. Tú eliges dónde guardarla y si la compartes. Los archivos exportados son copias independientes y no se actualizan ni se eliminan cuando cambias datos en la aplicación. Si utilizas una carpeta sincronizada, una unidad de red o un servicio de copias de seguridad, ese servicio puede tratar o transferir los archivos fuera de la aplicación. Se aplican sus ajustes y condiciones de privacidad. Board Game Shelf no controla estos servicios.
-
-Conservación y eliminación
-La aplicación conserva tu colección hasta que elimines entradas o los datos guardados de la aplicación. Puedes consultar, editar y eliminar entradas en la aplicación. Para eliminar toda la colección local y la preferencia de idioma, cierra la aplicación y elimina su carpeta de datos. Las ubicaciones se describen en las instrucciones incluidas. Los archivos exportados y otras copias deben eliminarse por separado de sus respectivas ubicaciones. Eliminar una entrada no garantiza el borrado seguro de todos los contenidos anteriores de los archivos. No debes asumir que desinstalar la aplicación elimina todos sus datos y las copias externas.
-
-Contacto y soporte
-Si nos envías voluntariamente un correo, tratamos tu dirección de correo electrónico, el mensaje y sus adjuntos para atender la consulta. Tu colección local no se adjunta automáticamente. La base jurídica para consultas relacionadas con un contrato es el artículo 6.1.b del RGPD. Para otras consultas es nuestro interés legítimo en responder, conforme al artículo 6.1.f del RGPD. Conservamos la correspondencia solo durante el tiempo necesario para atender la consulta y cumplir las obligaciones legales de conservación.
-
-Tus derechos y otros proveedores
-Cuando corresponda, tienes derecho de acceso, rectificación, supresión, limitación del tratamiento, portabilidad y oposición, así como a presentar una reclamación ante una autoridad de protección de datos. Puedes utilizar el contacto de privacidad indicado arriba. El desarrollador no tiene acceso a las colecciones que solo están en tu ordenador. Al obtener o actualizar la aplicación mediante Apple App Store, Microsoft Store o GitHub, estos proveedores pueden tratar datos de forma independiente según sus propias condiciones. Esta política describe el tratamiento de Board Game Shelf y se actualizará cuando cambie dicho tratamiento.</translation>
-    </message>
-    <message>
       <source>Version %1</source>
       <translation>Versión %1</translation>
     </message>
@@ -519,6 +463,10 @@ Cuando corresponda, tienes derecho de acceso, rectificación, supresión, limita
     <message>
       <source>Dateiname ohne Ordnerpfad. Die Endung .json wird bei Bedarf ergänzt.</source>
       <translation>Nombre del archivo sin ruta de carpeta. Se añade la extensión .json si es necesario.</translation>
+    </message>
+    <message>
+      <source>Die Datenschutzerklärung konnte nicht im Browser geöffnet werden. Kopiere diese Adresse und öffne sie in deinem Browser. Die Erklärung ist auf Englisch.</source>
+      <translation>No se pudo abrir la política de privacidad en el navegador. Copia esta dirección y ábrela en tu navegador. La política está en inglés.</translation>
     </message>
   </context>
 </TS>

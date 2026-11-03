@@ -216,9 +216,32 @@ Online-Anbindungen. FactoryForge bleibt ein separates größeres Projekt.
 zeigen Board Game Shelf, die Version, den Datenpfad und den Supportkontakt.
 Die Datenschutzerklärung beschreibt die lokale Brettspielsammlung, die
 Spracheinstellung, JSON-Import und -Export, Löschung sowie Kontaktmöglichkeiten.
-Sie ist in allen sechs Oberflächensprachen eingebettet und ohne Internet lesbar.
+Sie wird als englische `PRIVACY.md` im eigenen GitHub-Repository gepflegt und im Browser geöffnet.
 Lizenzhinweise und mitgelieferte Originaltexte stehen im eigenen Lizenzfenster.
-Alle drei Fenster sind kopierbar, schreibgeschützt und über den roten
+Die Fenster für App-Informationen und Lizenzen sind kopierbar, schreibgeschützt und über den roten
 Schließen-Button oder Escape schließbar.
 Der öffentliche Name lautet in jeder Sprache Board Game Shelf. Bestehende
 App-Kennungen, Datenverzeichnisse und Dateiformate bleiben erhalten.
+
+## Datenschutz
+
+Die vollständige [englische Datenschutzerklärung](https://github.com/wasiliy-strecker/board-game-shelf/blob/main/PRIVACY.md) liegt als
+[`PRIVACY.md`](PRIVACY.md) im eigenen GitHub-Repository. „Info“ → „Datenschutz“
+öffnet genau diese Adresse im Standardbrowser, unabhängig von der App-Sprache.
+Zum Lesen der Webseite ist eine Internetverbindung erforderlich. Die lokale
+Sammlung wird dabei nicht übertragen. Falls der Browser nicht gestartet werden
+kann, zeigt die App die Adresse zum Kopieren an.
+
+Diese eine Datei ist die gepflegte vollständige Erklärung für App und Store.
+Alle Store-Sprachen verwenden dieselbe URL. Die Menüs und Fehlermeldungen
+bleiben in den sechs vorhandenen Oberflächensprachen verfügbar.
+
+Für eine neue Übergabe den vorhandenen Elternordner und einen noch nicht
+existierenden Ausgabeordner verwenden:
+
+```bash
+python3 scripts/export_privacy.py build/privacy-handoff
+```
+
+Der Helfer kopiert `PRIVACY.md` und `privacy-url.txt` ohne App-Build oder Zugriff
+auf Nutzerdaten. Vorhandene Lieferungen werden nicht überschrieben.
