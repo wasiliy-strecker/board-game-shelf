@@ -38,9 +38,10 @@ erhalten. Es gibt kein Konto und die fertige App benötigt kein Internet.
 
 ![Board Game Shelf mit synthetischer Sammlung](docs/screenshots/brettspielregal.png)
 
-Version 0.1.0 ist die erste C++-Stufe des Hobby-Portfolios und ein kleines,
+Version 1.0 ist die erste C++-Stufe des Hobby-Portfolios und ein kleines,
 nachvollziehbares Bewerbungsprojekt. Die späteren Veröffentlichungsziele sind
-**zuerst Microsoft Store und danach Mac App Store**. Noch keine Veröffentlichung.
+Microsoft Store und Mac App Store. Auf aktuellen Nutzerauftrag wird der Mac
+App Store zuerst vorbereitet. Noch keine Veröffentlichung.
 
 Die Oberfläche unterstützt Deutsch, Englisch, Spanisch, Französisch, Italienisch
 und brasilianisches Portugiesisch. „Sprache“ speichert eine Auswahl für den nächsten
@@ -124,8 +125,8 @@ Der Schließen-Button im Infofenster ist rot.
 
 „Weiterbearbeiten“ ist bei ungespeicherten Änderungen die sichere Vorauswahl.
 Ein Speicherfehler lässt alle Eingaben offen. Während eines Zugriffs sind
-Doppelaktionen gesperrt. Nach einem erfolgreichen Speichern außerhalb der
-aktuellen Suche erklärt ein Hinweis, warum der Eintrag gerade nicht sichtbar ist.
+Doppelaktionen gesperrt. Nach einer erfolgreichen Neuanlage wird die Suche
+geleert und das neue Spiel ausgewählt. Bearbeitung und Abbruch behalten die Suche.
 
 ## Sammlung exportieren und importieren
 

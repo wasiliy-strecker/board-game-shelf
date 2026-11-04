@@ -1,0 +1,9 @@
+{
+  "displayName": "Board Game Shelf",
+  "storeName": "Board Game Shelf by Appfabrik",
+  "bundleId": "de.appfabrik.brettspielregal",
+  "version": "1.0",
+  "build": "1",
+  "minimumMacOS": "12.0",
+  "architectures": ["arm64", "x86_64"]
+}

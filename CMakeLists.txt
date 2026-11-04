@@ -1,14 +1,16 @@
 cmake_minimum_required(VERSION 3.25)
-project(BrettspielRegal VERSION 0.1.0 LANGUAGES CXX)
+project(BrettspielRegal VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(BRETTSPIELREGAL_SANITIZERS "Enable address and undefined behavior checks" OFF)
+option(BRETTSPIELREGAL_STORE_CAPTURE "Build the separate synthetic Store capture tool" OFF)
+set(BRETTSPIELREGAL_BUILD_NUMBER "1" CACHE STRING "Apple build number")
 include(CTest)
 find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Core Gui Widgets Sql LinguistTools)
-if(BUILD_TESTING)
+if(BUILD_TESTING OR BRETTSPIELREGAL_STORE_CAPTURE)
   find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Test)
 endif()
 
@@ -61,7 +63,7 @@ endif()
 set_target_properties(brettspielregal PROPERTIES
   MACOSX_BUNDLE_GUI_IDENTIFIER de.appfabrik.brettspielregal
   MACOSX_BUNDLE_BUNDLE_NAME "Board Game Shelf"
-  MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+  MACOSX_BUNDLE_BUNDLE_VERSION ${BRETTSPIELREGAL_BUILD_NUMBER}
   MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
   MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/Info.plist.in")
 
@@ -76,6 +78,12 @@ if(BUILD_TESTING)
   add_test(NAME privacy_delivery COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_export_privacy.py")
   add_test(NAME catalogs COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_translations.py")
   add_test(NAME macos_localizations COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_macos_localizations.py")
+  add_test(NAME macos_release COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_macos_release.py")
+endif()
+
+if(BRETTSPIELREGAL_STORE_CAPTURE)
+  add_executable(mac_store_capture scripts/store_assets/mac_capture.cpp)
+  target_link_libraries(mac_store_capture PRIVATE game_ui Qt6::Test project_options)
 endif()
 
 install(TARGETS brettspielregal BUNDLE DESTINATION . RUNTIME DESTINATION bin)

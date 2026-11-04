@@ -1,5 +1,10 @@
 # Paketierung und spätere Store-Auslieferung
 
+Aktueller Auftrag vom 4. November 2026: zuerst Mac App Store, Version 1.0.
+Der neue vollständige Universal- und Signierungsweg steht in
+[mac-app-store-release.md](mac-app-store-release.md). Das unten beschriebene
+`package_macos.sh` bleibt der getrennte lokale DMG-Weg.
+
 Ziel ist zuerst der Microsoft Store, später der Mac App Store. Die lokalen
 Pakete sind Testlieferungen. Ein Paketformat allein belegt weder Lizenzkonformität
 noch bestandene Store-Zertifizierung.

@@ -99,3 +99,19 @@ oder GitHub Pages pflegen. Menütexte und Startfehler bleiben lokalisiert.
 Der Python-Export kopiert ausschließlich die Originaldatei und ihre URL in
 einen neuen Lieferordner. Alte Lieferungen sind historische Nachweise.
 Diese Entscheidung ersetzt die älteren Vorgaben zum Offline-Datenschutzdialog.
+
+## Mac-Store-Vorbereitung, 4. November 2026
+
+Der Nutzer beauftragt jetzt zuerst den Mac App Store. Store-Name
+„Board Game Shelf by Appfabrik“, App-ID `6830758224`, Bundle-ID weiterhin
+`de.appfabrik.brettspielregal`, Version 1.0, Build 1. Die installierte App heißt
+weiter Board Game Shelf. Der Nutzer verlangt vor der Einreichung einen eigenen
+Funktionstest und dessen Bestätigung. Keine Abnahme vorwegnehmen.
+
+Vor Änderungen einen Sicherungscommit, nach erfolgreichen Prüfungen einen
+Abschlusscommit erstellen; bei sauberem Baum darf der Sicherungscommit leer sein.
+Private Profile und `*.local.json` ignorieren. Der eigenständige Universal-
+Releaseweg steht in `docs/mac-app-store-release.md`. Qt-Quellen, Original-Lizenzen
+und Bibliotheksaustauschhinweise mitliefern. Tatsächliche Sandbox-, Architektur-
+und Austauschprüfungen dokumentieren. Auf diesem Mac steht Apple Clang Static
+Analyzer als dokumentierter Ersatz bereit, wenn clang-tidy nicht installiert ist.

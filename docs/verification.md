@@ -1,5 +1,14 @@
 # Prüfbericht
 
+## Mac-Store-Release 1.0, 4. November 2026
+
+Der aktuelle Ablauf steht in [mac-app-store-release.md](mac-app-store-release.md).
+`macos_release` ergänzt gezielte Prüfungen für Quellendigest, Symlink-Inventar,
+unvollständige Abnahme und Schutz vorhandener Dateien beim Qt-Austausch.
+Native Architektur-, Sandbox-, Nutzer- und Austauschabnahme werden im lokalen
+Releasebericht und im Workspace-Changelog mit ihren Grenzen festgehalten.
+Ältere Linux-Berichte unten sind keine Freigabe des neuen Mac-Pakets.
+
 ## Mac-Menüs und Systemdialogsprachen, 1. November 2026
 
 Die App registriert auf macOS ein natives Bearbeiten-Menü mit Ausschneiden,

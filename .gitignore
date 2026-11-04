@@ -9,3 +9,8 @@ CMakeUserPresets.json
 .DS_Store
 __pycache__/
 *.pyc
+packaging/macos/*.local.json
+*.p8
+*.p12
+*.provisionprofile
+*.mobileprovision

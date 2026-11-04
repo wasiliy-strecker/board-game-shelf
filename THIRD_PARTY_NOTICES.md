@@ -16,9 +16,13 @@ Quellcode der eingesetzten Qt-Basis:
 https://download.qt.io/archive/qt/6.8/6.8.3/submodules/qtbase-everywhere-src-6.8.3.tar.xz
 
 Die Dateien im Ordner licenses enthalten die Lizenztexte und Hinweise zu
-mitgelieferten Fremdkomponenten. Zur Veröffentlichung müssen der zu den
-ausgelieferten Bibliotheken gehörende Quellcode und die nötigen Bauhinweise
-verfügbar gemacht werden. Das lokale Testpaket ist noch keine Store-Freigabe.
+mitgelieferten Fremdkomponenten. Das Mac-Store-Paket enthält die vollständigen
+unveränderten Qt-Basis- und Übersetzungsquellen unter
+`Contents/Resources/QtSources`, jeweils mit Herkunft und SHA-256-Prüfsumme.
+`Contents/Resources/qt-library-replacement.md` beschreibt Bau und lokalen
+Bibliotheksaustausch; der Helfer `replace_macos_qt.py` liegt daneben.
+Die mitgelieferten SPDX-Dateien dokumentieren die Komponenten des konkreten SDK.
+Diese Unterlagen sind keine pauschale Zusicherung einer Store-Zertifizierung.
 
 Die Rechte zum Ändern, Ersetzen und erneuten Einbinden der LGPL-Bibliotheken
 sowie zur Untersuchung solcher Änderungen werden nicht eingeschränkt.
