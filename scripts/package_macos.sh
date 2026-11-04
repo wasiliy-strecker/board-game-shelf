@@ -42,8 +42,11 @@ for brettspiel_size in 16 32 128 256 512; do
 done
 iconutil -c icns "$brettspiel_icons" -o "$brettspiel_app/Contents/Resources/BrettspielRegal.icns"
 /usr/libexec/PlistBuddy -c "Add :CFBundleIconFile string BrettspielRegal.icns" "$brettspiel_app/Contents/Info.plist"
+# Normalize the staging copy before signing; reject invalid nested bundle IDs.
+python3 scripts/macos_bundle.py prepare --app "$brettspiel_app"
 # Ad-hoc signing permits local Apple-Silicon testing. It is not a distribution identity.
 codesign --force --deep --sign - "$brettspiel_app"
+python3 scripts/macos_bundle.py inspect --app "$brettspiel_app"
 hdiutil create -volname "Board Game Shelf" -srcfolder "$brettspiel_stage" -ov -format UDZO "$brettspiel_dmg"
 shasum -a 256 "$brettspiel_dmg" > "$brettspiel_dmg.sha256"
 echo "$brettspiel_dmg"
