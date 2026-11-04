@@ -289,6 +289,7 @@ MainWindow::MainWindow(StorageController& controller, QString dataDirectory,
                               [&game](const BoardGame& row) { return row.id == game.id; });
     if (found == games_.end()) {
       games_.append(game);
+      search_->clear();
     } else {
       *found = game;
     }
